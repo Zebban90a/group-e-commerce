@@ -8,7 +8,6 @@ const AddressSchema = mongoose.Schema({
 
 const ContactInfoSchema = mongoose.Schema({
   tel: Number,
-  email: String,
   address: {
     type: AddressSchema,
     required: true,
@@ -26,6 +25,11 @@ const RoleSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
   fullName: {
     type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
     required: true,
   },
   contactInfo: ContactInfoSchema,
