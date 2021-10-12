@@ -1,8 +1,10 @@
 const Product = require("../models/ProductModel");
 
 exports.getProducts = async (req, res) => {
+  const query = req.query;
+
   try {
-    const product = await Product.find();
+    const product = await Product.find(query);
     res.status(200).json({
       status: "success",
       data: {
