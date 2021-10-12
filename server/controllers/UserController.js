@@ -1,17 +1,23 @@
 const User = require("../models/UserModel");
 exports.createUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
-    res.status(201).json({
-      status: "success",
-      data: {
-        user: newUser,
-      },
-    });
+    const userExists = await User.exists({ email: req.body.email });
+    if (userExists) {
+      throw Error('hej')
+    }
+    else {
+      const newUser = await User.create(req.body);
+      res.status(201).json({
+        status: "success",
+        data: {
+          user: newUser,
+        },
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: "Invalid data sent!",
+      message: err.message,
     });
   }
 };
