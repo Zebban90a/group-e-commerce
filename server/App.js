@@ -19,5 +19,5 @@ app.get("/api/customers", (req, res) => {
   ];
   res.json(customers);
 });
-
+console.log(new Date())
 module.exports = app;
