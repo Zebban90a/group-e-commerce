@@ -1,14 +1,19 @@
 const express = require("express");
 const {
   createOrder,
-  updateOrder, //Admin Only
-  findOrder,
-  deleteOrder //Admin Only
+  updateOrderStatus, //Admin Only
+  findAllOrders
 } = require("../controllers/OrderController");
 
 const router = express.Router();
 
-router.route("/").post(createOrder);
-// router.route("/:id").get(findOrder).patch(updateOrder).delete(deleteOrder);
+router
+  .route("/")
+  .get(findAllOrders)
+  .post(createOrder);
+
+router
+  .route("/:id")
+  .patch(updateOrderStatus);
 
 module.exports = router;
