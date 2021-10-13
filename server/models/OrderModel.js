@@ -16,7 +16,8 @@ const OrderAddressSchema = mongoose.Schema({
   houseNumber: {
     type: Number,
     required: true
-  }
+  },
+  _id: false
 });
 
 const OrderContactInfoSchema = mongoose.Schema({
@@ -28,10 +29,7 @@ const OrderContactInfoSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  address: {
-    type: AddressSchema,
-    required: true
-  }
+  _id: false
 });
 
 const OrderSchema = mongoose.Schema({
@@ -47,7 +45,8 @@ const OrderSchema = mongoose.Schema({
       required: true
     },
     quantity: Number,
-    productPrice: Number
+    productPrice: Number,
+    _id: false
   }],
   orderTotal: {
     type: Number,
