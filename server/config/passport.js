@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy({
         return done(false, existingUser);
       }
       else {
-        const fullName = Object.values(profile.name).toString().replace(',', ' ');
+        const fullName = Object.values(profile.name).join(' ');
         
         const newUser = await User.create({
           'fullName': fullName,
