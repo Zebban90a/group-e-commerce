@@ -10,6 +10,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import AdminProductsPage from './pages/AdminProductsPage';
 import AdminPage from './pages/AdminPage';
+import AdminProductEditPage from './pages/AdminProductEditPage';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         //todo general 404 page for nonadmins (and non logged in)
         <Route path='/admin/orders' component={AdminOrdersPage} />
         <Route path='/admin/products' component={AdminProductsPage} />
+        <Route path='/admin/products/:id' component={AdminProductEditPage} />
         <Route path='/admin' component={AdminPage} />
 
         <Route path='/' component={HomePage} />
