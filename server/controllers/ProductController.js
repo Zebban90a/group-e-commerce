@@ -3,13 +3,13 @@ const multer = require('multer');
 
 exports.getProducts = async (req, res) => {
   const query = req.query;
-
+  console.log('hej')
   try {
-    const product = await Product.find(query);
+    const products = await Product.find(query);
     res.status(200).json({
       status: "success",
       data: {
-        product,
+        products,
       },
     });
   } catch (err) {
@@ -22,13 +22,14 @@ exports.getProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
 
-
+  console.log(req.body)
+  
   try {
     const productExists = await Product.exists({ title: req.body.title });
     if (productExists) {
-      throw Error("hej");
+      throw Error("productExists");
     } else {
-      const newProduct = await Product.create(req.body, {images: upload});
+      const newProduct = await Product.create(req.body);
       res.status(201).json({
         status: "success",
         data: {
@@ -41,6 +42,7 @@ exports.createProduct = async (req, res) => {
       status: "fail",
       message: err.message,
     });
+    console.log(err)
   }
 };
 

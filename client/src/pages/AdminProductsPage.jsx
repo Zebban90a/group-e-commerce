@@ -10,7 +10,7 @@ export default function AdminProductsPage() {
   async function submitHandler(e) {
     e.preventDefault();
     console.log(formData)
-    //await axios.post('http://localhost:5000/api/products', formData)
+    await axios.post('http://localhost:5000/api/products', formData)
   }
 
   function onChangeHandler(e) {
@@ -26,64 +26,14 @@ export default function AdminProductsPage() {
   }
 
   async function getProducts() {
-    //const { data } = await axios.get('http://localhost:5000/products')
-    const data = [
-      {
-        "_id": "61658cc1bd37fef18bdaa40a"
-      ,
-      "title": "first product again",
-      "description": "Lorem productum",
-      "price": 3000,
-      "category": "Comedy",
-      "created_at": {
-          "$date": "2021-10-12T13:18:45.459Z"
-      },
-      "images": ["https://picsum.photos/id/237/200/300"],
-      "quantity": 0,
-      "manufacturer": "Flen",
-      "weight": 25,
-      "__v": 0
-      }, 
-      {
-        "_id": "61658a1c2e620ab1b18dd34a"
-      ,
-      "title": "samsung random tv",
-      "description": "some description",
-      "price": "400",
-      "category": "TV",
-      "created_at": {
-          "$date": "2021-10-12T13:17:09.000Z"
-      },
-      "images": ["some url"],
-      "quantity": "10",
-      "manufacturer": "samsung",
-      "weight": "3000"
-      },
-      {
-        "_id":  "61658a1c2e620ab1b18dd345"
-      ,
-      "title": "samsung random tv2",
-      "description": "some description",
-      "price": "400",
-      "category": "TV",
-      "created_at": {
-          "$date": "2021-10-12T13:17:09.000Z"
-      },
-      "images": ["some url"],
-      "quantity": "10",
-      "manufacturer": "samsung",
-      "weight": "3000"
-      }
-      
-    ]
-    setProducts(data)
+    const { data } = await axios.get('http://localhost:5000/api/products')
+    const products = data.data.products;
+    setProducts(products)
   }
 
   useEffect(() => {
     getProducts()
   }, [])
-
-
 
   return (
     <div>
@@ -97,7 +47,7 @@ export default function AdminProductsPage() {
         <input
           type="text"
           name="title"
-          value={formData.title}
+          value={formData.title || ""}
           onChange={onChangeHandler}
           required
         /> <br />
@@ -105,7 +55,7 @@ export default function AdminProductsPage() {
         <input
           type="text"
           name="description"
-          value={formData.description}
+          value={formData.description || ""}
           onChange={onChangeHandler}
           required
         /> 
@@ -114,7 +64,7 @@ export default function AdminProductsPage() {
         <input
           type="number"
           name="price"
-          value={formData.price}
+          value={formData.price || ""}
           onChange={onChangeHandler}
           required
         />
@@ -123,7 +73,7 @@ export default function AdminProductsPage() {
         <input
           type="text"
           name="category"
-          value={formData.category}
+          value={formData.category || ""}
           onChange={onChangeHandler}
           required
         />
@@ -132,7 +82,7 @@ export default function AdminProductsPage() {
         <input
           type="number"
           name="quantity"
-          value={formData.quantity}
+          value={formData.quantity || ""}
           onChange={onChangeHandler}
           required
         />
@@ -141,7 +91,7 @@ export default function AdminProductsPage() {
         <input
           type="text"
           name="manufacturer"
-          value={formData.manufacturer}
+          value={formData.manufacturer || ""}
           onChange={onChangeHandler}
           required
         />
@@ -150,7 +100,7 @@ export default function AdminProductsPage() {
         <input
           type="number"
           name="weight"
-          value={formData.weight}
+          value={formData.weight || ""}
           onChange={onChangeHandler}
           required
         />
@@ -159,7 +109,7 @@ export default function AdminProductsPage() {
         <input
           type="file"
           name="images"
-          value={formData.images}
+          value={formData.images || ""}
           onChange={onChangeHandler}
           required
         />
@@ -169,13 +119,13 @@ export default function AdminProductsPage() {
         <button type="submit">Submit</button>
       </form>
       {products.map(product =>{
-      const id = product._id
-      return (
-        <li key={id}>
-          <Link to={`/Admin/products/${id}`}>{product.title}</Link> 
-          <button onClick={() => deleteProduct(id)}>DELETE</button>
-        </li>
-      )}
+        const id = product._id
+        return (
+          <li key={id}>
+            <Link to={`/Admin/products/${id}`}>{product.title}</Link> 
+            <button onClick={() => deleteProduct(id)}>DELETE</button>
+          </li>
+        )}
       )}
     </div>
   );

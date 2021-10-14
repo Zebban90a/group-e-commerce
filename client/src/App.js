@@ -24,7 +24,7 @@ export default function App() {
         <Route path='/login' component={LoginPage} />
         <Route path='/user' component={UserPage} />
   
-        //todo general 404 page for nonadmins (and non logged in)
+        {/* todo general 404 page for nonadmins (and non logged in) */}
         <Route path='/admin/orders' component={AdminOrdersPage} />
         <Route path='/admin/products' component={AdminProductsPage} />
         <Route path='/admin/products/:id' component={AdminProductEditPage} />
