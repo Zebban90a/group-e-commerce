@@ -1,4 +1,5 @@
 const Product = require("../models/ProductModel");
+const multer = require('multer');
 
 exports.getProducts = async (req, res) => {
   const query = req.query;

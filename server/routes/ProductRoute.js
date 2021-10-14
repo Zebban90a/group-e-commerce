@@ -6,11 +6,13 @@ const {
   getProducts,
   getSingleProduct,
 } = require("../controllers/ProductController");
-//const {isLoggedIn} = require("../middleware/authtentication")
+const {isAdmin} = require("../middleware/authtentication")
+
+
 
 const router = express.Router();
 
-router.route("/").get(getProducts).post(createProduct);
+router.route("/").get(isAdmin, getProducts).post(createProduct);
 
 router
   .route("/:id")

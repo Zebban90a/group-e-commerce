@@ -30,6 +30,6 @@ app.use('/auth', AuthRoute);
 
 app.get('*', (req, res) => {
   res.status(404).send('Nothing here..')
-});
+}); 
 
 module.exports = app;
