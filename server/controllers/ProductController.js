@@ -1,6 +1,5 @@
 const Product = require("../models/ProductModel");
-const multer = require('multer');
-const path = require('path')
+
 
 exports.getProducts = async (req, res) => {
   const query = req.query;
@@ -21,16 +20,31 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.createProduct = async (req, res) => {
-  console.log(req.images)
-  console.log(req.body)
-  
+exports.createProduct =  async function(req, res) {
+  console.log(req.file.path)
+  const title = req.body.title
+  const description = req.body.description
+  const price = req.body.price
+  const category = req.body.category
+  const quantity = req.body.quantity
+  const manufacturer = req.body.manufacturer
+  const weight = req.body.weight
+  const imagePath = req.file.path
   try {
     const productExists = await Product.exists({ title: req.body.title });
     if (productExists) {
       throw Error("productExists");
     } else {
-      const newProduct = await Product.create(req.body);
+      const newProduct = await Product.create({
+        title: title, 
+        description: description,
+        price: price,
+        category: category,
+        quantity: quantity,
+        manufacturer: manufacturer,
+        weight: weight,
+        images: imagePath
+      });
       res.status(201).json({
         status: "success",
         data: {
@@ -103,38 +117,3 @@ exports.getSingleProduct = async (req, res) => {
     });
   }
 };
-const uploadPath = 'public/uploads/';   
-const storageEngine = multer.diskStorage({
-      destination: (req, file, callback) => {
-        callback(null, uploadPath);
-      },
-      filename: (req, file, callback) => {
-        callback(null, Date.now() + path.extname(file.originalname));}});
-//Multer engine
-/*const storageEngine = multer.diskStorage ({
-  destination: '../public/uploads/',
-  filename: function (req, file, callback) {
-    callback (
-      null,
-      file.fieldname + '-' + Date.now () + path.extname (file.originalname)
-    );
-  },
-});*/
-
-
-// file filter for multer
-const fileFilter = (req, file, callback) => {
-  let pattern = /jpg|png|svg/; // reqex
-
-  if (pattern.test (path.extname (file.originalname))) {
-    callback (null, true);
-  } else {
-    callback ('Error: not a valid file');
-  }
-}; 
-
-// initialize multer
-exports.uploadImages = multer ({
-  storage: storageEngine,
-  fileFilter  
-});

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const multer = require('multer')
 require("dotenv").config();
 
 // Middleware
@@ -30,6 +31,6 @@ app.use('/auth', AuthRoute);
 
 app.get('*', (req, res) => {
   res.status(404).send('Nothing here..')
-}); 
+})
 
 module.exports = app;
