@@ -8,8 +8,12 @@ exports.isLoggedIn = (req, res, next) => {
 
 exports.isAdmin = (req, res, next) => {
     console.log('isadmin')
-    if(req.user || req.user) {
+    console.log(req.user)
+    const user = req.user[0];
+    if(user && user.roles && user.roles.isAdmin) { //TODO make so that all users get a roles object
         next()
     }
-    else {res.redirect('http://localhost:3000/login') }
-} 
+    else {
+        res.status(404).end()
+    }
+}
