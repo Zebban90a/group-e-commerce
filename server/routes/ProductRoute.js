@@ -6,6 +6,7 @@ const {
   getProducts,
   getSingleProduct,
 } = require("../controllers/ProductController");
+//const {isLoggedIn} = require("../middleware/authtentication")
 
 const router = express.Router();
 

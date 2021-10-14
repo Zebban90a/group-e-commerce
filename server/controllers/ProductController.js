@@ -20,12 +20,14 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
+
+
   try {
     const productExists = await Product.exists({ title: req.body.title });
     if (productExists) {
       throw Error("hej");
     } else {
-      const newProduct = await Product.create(req.body);
+      const newProduct = await Product.create(req.body, {images: upload});
       res.status(201).json({
         status: "success",
         data: {
@@ -97,3 +99,32 @@ exports.getSingleProduct = async (req, res) => {
     });
   }
 };
+
+//Multer engine
+const storageEngine = multer.diskStorage ({
+  destination: './public/uploads/',
+  filename: function (req, file, callback) {
+    callback (
+      null,
+      file.fieldname + '-' + Date.now () + path.extname (file.originalname)
+    );
+  },
+});
+
+
+// file filter for multer
+const fileFilter = (req, file, callback) => {
+  let pattern = /jpg|png|svg/; // reqex
+
+  if (pattern.test (path.extname (file.originalname))) {
+    callback (null, true);
+  } else {
+    callback ('Error: not a valid file');
+  }
+};
+
+// initialize multer
+const upload = multer ({
+  storage: storageEngine,
+  fileFilter  
+});
