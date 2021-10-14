@@ -1,5 +1,6 @@
 const Product = require("../models/ProductModel");
 const multer = require('multer');
+const path = require('path')
 
 exports.getProducts = async (req, res) => {
   const query = req.query;
@@ -21,7 +22,7 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
-
+  console.log(req.images)
   console.log(req.body)
   
   try {
@@ -102,17 +103,23 @@ exports.getSingleProduct = async (req, res) => {
     });
   }
 };
-
+const uploadPath = 'public/uploads/';   
+const storageEngine = multer.diskStorage({
+      destination: (req, file, callback) => {
+        callback(null, uploadPath);
+      },
+      filename: (req, file, callback) => {
+        callback(null, Date.now() + path.extname(file.originalname));}});
 //Multer engine
-const storageEngine = multer.diskStorage ({
-  destination: './public/uploads/',
+/*const storageEngine = multer.diskStorage ({
+  destination: '../public/uploads/',
   filename: function (req, file, callback) {
     callback (
       null,
       file.fieldname + '-' + Date.now () + path.extname (file.originalname)
     );
   },
-});
+});*/
 
 
 // file filter for multer
@@ -124,10 +131,10 @@ const fileFilter = (req, file, callback) => {
   } else {
     callback ('Error: not a valid file');
   }
-};
+}; 
 
 // initialize multer
-const upload = multer ({
+exports.uploadImages = multer ({
   storage: storageEngine,
   fileFilter  
 });
