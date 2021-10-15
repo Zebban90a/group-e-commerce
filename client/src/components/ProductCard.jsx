@@ -33,7 +33,9 @@ const Card = styled.div`
     background-color: pink;
   }
 `
+//TODO add in-stock indicator with the quantity variable
 //TODO make the title underline appear when hovering over card like on netonnet
+//TODO make price/addToCart/inStock stay on the same height
 
 export default function ProductCard(props) {
   const { _id, title, price, images, quantity} = props.product;
