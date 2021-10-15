@@ -8,11 +8,12 @@ const CardGrid = styled.div`
     max-width: 1350px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
     
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
       grid-template-columns: repeat(3, 1fr);
     };
-    @media (max-width: 750px) {
+    @media (max-width: 900px) {
       grid-template-columns: repeat(2, 1fr);
     };
     @media (max-width: 500px) {
