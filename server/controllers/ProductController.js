@@ -3,7 +3,6 @@ const Product = require("../models/ProductModel");
 
 exports.getProducts = async (req, res) => {
   const query = req.query;
-  console.log('hej')
   try {
     const products = await Product.find(query);
     res.status(200).json({
@@ -20,23 +19,28 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.createProduct =  async function(req, res) {
-  console.log(req.file.path)
-  const title = req.body.title
-  const description = req.body.description
-  const price = req.body.price
-  const category = req.body.category
-  const quantity = req.body.quantity
-  const manufacturer = req.body.manufacturer
-  const weight = req.body.weight
-  const imagePath = req.file.path
+exports.createProduct = async function (req, res) {
+  //console.log("req.files", req);
+  console.log(req.body.image);
+  //  console.log(req.files.images);
+
+  const title = req.body.title;
+  const description = req.body.description;
+  const price = req.body.price;
+  const category = req.body.category;
+  const quantity = req.body.quantity;
+  const manufacturer = req.body.manufacturer;
+  const weight = req.body.weight;
+  const imagePath = req.files.path;
   try {
-    const productExists = await Product.exists({ title: req.body.title });
+    const productExists = await Product.exists({
+      title: req.body.title
+    });
     if (productExists) {
       throw Error("productExists");
     } else {
       const newProduct = await Product.create({
-        title: title, 
+        title: title,
         description: description,
         price: price,
         category: category,
