@@ -1,9 +1,18 @@
 import React from 'react'
+import styled from 'styled-components';
 
-export default function ProductCard() {
+const Card = styled.div`
+  border: 1px solid black;
+  height: 300px;
+`
+
+export default function ProductCard(props) {
+  const title = props.product.title;
+
+
   return (
-    <div>
-      KORT HÄR
-    </div>
+    <Card>
+      <span>{title}</span>
+    </Card>
   )
 }
