@@ -10,7 +10,19 @@ const Card = styled.div`
   padding: 15px;
   border: 1px solid black;
   height: 400px;
-  
+
+  a {
+    text-decoration: none;
+  }
+  a:hover {
+    .title{
+      text-decoration: underline;
+    }
+  }
+  .details-link{
+    
+  }
+
   .display-img {
     object-fit: cover;
     height: 65%;
@@ -36,12 +48,13 @@ const Card = styled.div`
     align-items: center;
     img {
       width: 28px;
-      padding-bottom: 1px;
+      padding-bottom: 3px;
       margin-right: 5px;
     }
   }
   .addToCart {
     background-color: #01da01;
+    height: 40px;
   }
 `
 
@@ -53,7 +66,7 @@ export default function ProductCard(props) {
 
   return (
     <Card>
-      <Link to={'./products/'+_id}>
+      <Link to={'./products/'+_id} className="details-link">
         <img
           className="display-img"
           src={images[0] || noImage}
@@ -67,9 +80,7 @@ export default function ProductCard(props) {
         <div>{quantity} available</div>
       </div>
       <Link to={'./products/1'}>
-        <div className="addToCart">
-          <span>Add to cart</span>
-        </div>
+        <button className="addToCart">Add to cart</button>
       </Link>
     </Card>
   )
