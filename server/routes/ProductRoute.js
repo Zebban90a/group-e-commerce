@@ -26,7 +26,7 @@ const imageUpload = multer({
      }
    cb(undefined, true)
 }
-}) 
+}).single('image')
 
 const {
   createProduct,
@@ -36,11 +36,11 @@ const {
   getSingleProduct,
 } = require("../controllers/ProductController");
 const {isAdmin} = require("../middleware/authtentication")
-
+const util = require('util')
 
 const router = express.Router();
 // TODO add isAdmin and isLogged in later, and test
-router.route("/").get(getProducts).post(imageUpload.single('images'), createProduct)//createProduct);
+router.route("/").get(getProducts).post(imageUpload, createProduct)//createProduct);
 
 router
   .route("/:id")
