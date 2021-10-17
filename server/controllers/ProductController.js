@@ -20,36 +20,19 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async function (req, res) {
-  //console.log("req.files", req);
-  console.log(JSON.parse(req.body.input))
-  console.log(req.file)
-  //  console.log(req.files.images);
-
-  /*const title = req.body.title;
-  const description = req.body.description;
-  const price = req.body.price;
-  const category = req.body.category;
-  const quantity = req.body.quantity;
-  const manufacturer = req.body.manufacturer;
-  const weight = req.body.weight;
-  const imagePath = req.files.path; */
- /* try {
+  const imagePath= req.file.path
+  const formInputData = JSON.parse(req.body.input)
+  
+  try {
     const productExists = await Product.exists({
-      title: req.body.title
+      title: formInputData.title
     });
     if (productExists) {
       throw Error("productExists");
     } else {
-      const newProduct = await Product.create({
-        title: title,
-        description: description,
-        price: price,
-        category: category,
-        quantity: quantity,
-        manufacturer: manufacturer,
-        weight: weight,
-        images: imagePath
-      });
+      let deployedData = formInputData;
+      deployedData.images= imagePath
+      const newProduct = await Product.create(deployedData);
       res.status(201).json({
         status: "success",
         data: {
@@ -63,7 +46,7 @@ exports.createProduct = async function (req, res) {
       message: err.message,
     });
     console.log(err)
-  } */
+  } 
 };
 
 exports.updateProduct = async (req, res) => {
