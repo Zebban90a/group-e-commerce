@@ -13,20 +13,18 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  a {
-    text-decoration: none;
-  }
-  a:hover {
-    .title{
-      text-decoration: underline;
-    }
-  }
-  .details-link{
+  
+  .product-link{
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-decoration: none;
+  }
+  .product-link:hover {
+    .title{
+      text-decoration: underline;
+    }
   }
   .display-img {
     object-fit: cover;
@@ -68,15 +66,19 @@ const Card = styled.div`
 export default function ProductCard(props) {
   const { _id, title, price, images, quantity} = props.product;
 
+  function addToCart(e) {
+    //TODO make it add to cart
+  }
   return (
     <Card>
-      <Link to={'./products/'+_id} className="details-link">
+      <Link to={'./products/'+_id} className="product-link">
         <div>
           <img
             className="display-img"
             src={images[0] || noImage}
             onError={(e)=>{e.target.src=noImage}}
-            alt="no-img-available"/>
+            alt={images[0] ? 'product image' : 'no available product image'}
+          />
           <span className="title">{title}</span>
         </div>
         <div>
@@ -85,12 +87,14 @@ export default function ProductCard(props) {
       </Link>
       <div>
         <div className="availability">
-          <img className="checkmark" src={quantity? checkmark : crossmark}/>
+          <img 
+            className="checkmark" 
+            src={quantity? checkmark : crossmark} 
+            alt={quantity? 'checkmark' : 'crossmark'}
+          />
           <div>{quantity} available</div>
         </div>
-        <Link to={'./products/1'}> {/* //TODO make it add to cart */}
-          <button className="addToCart">Add to cart</button>
-        </Link>
+        <button className="addToCart" onClick={addToCart}>Add to cart</button>
       </div>
     </Card>
   )
