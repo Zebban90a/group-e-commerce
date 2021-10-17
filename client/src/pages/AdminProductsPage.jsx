@@ -4,48 +4,40 @@ import { Link } from 'react-router-dom';
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
-
-  const [formData, setFormData] = useState({});
-  const [image, setImage] = useState(null);
+  const [formInput, setFormInput] = useState('');
+  const [formImage, setFormImage] = useState('');
 
   async function submitHandler(e) {
+    
     e.preventDefault();
-    const dataArray = new FormData()
-    dataArray.append('data', formData);
-    dataArray.append('image', image);
+    const formData = new FormData();    //formdata object
 
+    formData.append('input', JSON.stringify(formInput));
+    formData.append('image', formImage.file); 
+    console.log(formData)
     const config = {
       headers: {
         "Content-Type": "multipart/form-data"
       }
     }
-    await axios.post('http://localhost:5000/api/products', dataArray, config)
-      .then((response) => {
-        console.log(response);
-        // successfully uploaded response
-      })
-      .catch((error) => {
-        // error response
-        console.log(error);
-      });
+    await axios.post('http://localhost:5000/api/products', formData, config)
   }
 
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
-    setFormData({
-      ...formData,
+    setFormInput({
+      ...formInput,
       [inputName]: inputValue
     });
   }
 
+
   function imageHandler(e) {
-    const fileName = e.target.name;
-    const files = e.target.files[0];
-    setImage(
-      { [fileName]: files }
-    );
-  }
+    
+    setFormImage({file: e.target.files[0]})
+   
+  } 
 
   let deleteProduct = (id) => {
     axios.delete(`http://localhost:5000/products/${id}`);
@@ -80,8 +72,8 @@ export default function AdminProductsPage() {
         <input onChange={onChangeHandler} type="text" name="manufacturer" />
         <label htmlFor="weight">weight: </label>
         <input onChange={onChangeHandler} type="number" name="weight" />
-        <label htmlFor="images">Bild: </label>
-        <input onChange={imageHandler} type="file" name="images" />
+        <label htmlFor="images">image: </label>
+        <input type="file" name="image" onChange= {imageHandler}   />
         <input type="submit" />
       </form>
 
