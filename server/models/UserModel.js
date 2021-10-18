@@ -14,14 +14,6 @@ const ContactInfoSchema = mongoose.Schema({
   },
 });
 
-const RoleSchema = new mongoose.Schema({
-  isAdmin: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-});
-
 const UserSchema = new mongoose.Schema({
   fullName: {
     type: String,
@@ -38,7 +30,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   contactInfo: ContactInfoSchema,
-  roles: RoleSchema,
+  roles: {
+    type: Array,
+    default: 'user',
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
