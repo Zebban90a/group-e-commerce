@@ -94,7 +94,7 @@ export default function ProductCard(props) {
           />
           <div>{quantity} available</div>
         </div>
-        <button className="addToCart" onClick={addToCart}>Add to cart</button>
+        <button className="addToCart" onClick={addToCart} disabled={quantity? false : true}>Add to cart</button>
       </div>
     </Card>
   )
