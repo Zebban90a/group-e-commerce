@@ -30,7 +30,7 @@ exports.createProduct = async function (req, res) {
     if (productExists) {
       throw Error("productExists");
     } else {
-      let deployedData = formInputData;
+      let deployedData = formInputData; //TODO Is there a cleaner way?
       deployedData.images= imagePath
       const newProduct = await Product.create(deployedData);
       res.status(201).json({
