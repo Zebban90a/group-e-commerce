@@ -1,17 +1,17 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import CheckoutPage from "./pages/CheckoutPage";
-import UserPage from "./pages/UserPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProductListPage from "./pages/ProductListPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
-import AdminOrdersPage from "./pages/AdminOrdersPage";
-import AdminProductsPage from "./pages/AdminProductsPage";
-import AdminPage from "./pages/AdminPage";
-import AdminProductEditPage from "./pages/AdminProductEditPage";
-import NavBar from "./components/NavBar";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CheckoutPage from './pages/CheckoutPage';
+import UserPage from './pages/UserPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import ProductListPage from './pages/ProductListPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import AdminOrdersPage from './pages/AdminOrdersPage';
+import AdminProductsPage from './pages/AdminProductsPage';
+import AdminPage from './pages/AdminPage';
+import AdminProductEditPage from './pages/AdminProductEditPage';
+import NavBar from './components/NavBar';
 
 export default function App() {
   return (
