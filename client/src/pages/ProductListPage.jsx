@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProductCard from '../components/ProductCard';
 import styled from 'styled-components';
+import ProductCard from '../components/ProductCard';
 
 const CardGrid = styled.div`
     width: 100%;
@@ -19,31 +19,29 @@ const CardGrid = styled.div`
     @media (max-width: 500px) {
       grid-template-columns: repeat(1, 1fr);
     };
-`
+`;
 
 export default function ProductListPage() {
   const [products, setProducts] = useState(null);
 
   async function getProducts() {
-    const { data } = await axios.get('http://localhost:5000/api/products')
+    const { data } = await axios.get('http://localhost:5000/api/products');
     console.log(data.data.products);
-    setProducts(data.data.products)
+    setProducts(data.data.products);
   }
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
 
   return (
     <div>
       <h1>Product list</h1>
       <CardGrid>
         {
-          products ?
-            products.map(product => {
-              return <ProductCard product={product} key={product._id}/>
-            })
-            :(<p>Loading...</p>)
+          products
+            ? products.map((product) => <ProductCard product={product} key={product._id} />)
+            : (<p>Loading...</p>)
         }
       </CardGrid>
     </div>

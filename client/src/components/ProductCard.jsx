@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -61,41 +61,57 @@ const Card = styled.div`
     background-color: #01da01;
     height: 40px;
   }
-`
+`;
 
-export default function ProductCard(props) {
-  const { _id, title, price, images, quantity} = props.product;
+export default function ProductCard({ product }) {
+  const {
+    _id, title, price, images, quantity,
+  } = product;
 
   function addToCart(e) {
-    //TODO make it add to cart
+    // TODO make it add to cart
   }
   return (
     <Card>
-      <Link to={'./products/'+_id} className="product-link">
+      <Link to={`./products/${_id}`} className="product-link">
         <div>
           <img
             className="display-img"
             src={images[0] || noImage}
-            onError={(e)=>{e.target.src=noImage}}
+            onError={(e) => { e.target.src = noImage; }}
             alt={images[0] ? 'product image' : 'no available product image'}
           />
           <span className="title">{title}</span>
         </div>
         <div>
-          <span className="price">${price}</span>
+          <span className="price">
+            $
+            {price}
+          </span>
         </div>
       </Link>
       <div>
         <div className="availability">
-          <img 
-            className="checkmark" 
-            src={quantity? checkmark : crossmark} 
-            alt={quantity? 'checkmark' : 'crossmark'}
+          <img
+            className="checkmark"
+            src={quantity ? checkmark : crossmark}
+            alt={quantity ? 'checkmark' : 'crossmark'}
           />
-          <div>{quantity} available</div>
+          <div>
+            {quantity}
+            {' '}
+            available
+          </div>
         </div>
-        <button className="addToCart" onClick={addToCart} disabled={quantity? false : true}>Add to cart</button>
+        <button
+          className="addToCart"
+          onClick={addToCart}
+          disabled={!quantity}
+          type="button"
+        >
+          Add to cart
+        </button>
       </div>
     </Card>
-  )
+  );
 }
