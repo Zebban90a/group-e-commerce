@@ -8,11 +8,16 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint . --fix"
   },
   "author": "BE3_assignment_2_Group4",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
     "nodemon": "^1.14.6"
   },
   "dependencies": {

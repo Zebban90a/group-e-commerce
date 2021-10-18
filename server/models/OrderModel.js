@@ -3,68 +3,67 @@ const mongoose = require('mongoose');
 const OrderAddressSchema = mongoose.Schema({
   zip: {
     type: Number,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   street: {
     type: String,
-    required: true
+    required: true,
   },
   houseNumber: {
     type: Number,
-    required: true
+    required: true,
   },
-  _id: false
+  _id: false,
 });
 
 const OrderContactInfoSchema = mongoose.Schema({
   tel: {
     type: Number,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
-  _id: false
+  _id: false,
 });
 
 const OrderSchema = mongoose.Schema({
   purchaser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   products: [{
     productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
-      required: true
+      required: true,
     },
     quantity: Number,
     productPrice: Number,
-    _id: false
+    _id: false,
   }],
   orderTotal: {
     type: Number,
-    required: true
+    required: true,
   },
   freight: {
     type: Number,
-    required: true
+    required: true,
   },
   status: {
     type: Number,
     default: 0,
     min: 0,
-    max: 3
+    max: 3,
   },
   address: OrderAddressSchema,
-  contact: OrderContactInfoSchema
+  contact: OrderContactInfoSchema,
 });
-
 
 module.exports = mongoose.model('Order', OrderSchema);

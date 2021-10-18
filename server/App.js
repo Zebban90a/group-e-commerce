@@ -1,8 +1,8 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
 const cors = require('cors');
-const multer = require('multer')
-require("dotenv").config();
+
+const app = express();
 
 // Middleware
 const UserRoute = require('./routes/UserRoute');
@@ -22,14 +22,14 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/images', express.static('images')); 
+app.use('/images', express.static('images'));
 
 app.use('/api/users', UserRoute);
 app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);
 app.use('/auth', AuthRoute);
 
-/*app.get('*', (req, res) => {
+/* app.get('*', (req, res) => {
   res.status(404).send('Nothing here..')
 }) */
 

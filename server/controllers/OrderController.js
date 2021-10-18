@@ -1,4 +1,4 @@
-const Order = require("../models/OrderModel");
+const Order = require('../models/OrderModel');
 
 exports.createOrder = async (req, res) => {
   /*
@@ -32,88 +32,88 @@ exports.createOrder = async (req, res) => {
   try {
     const newOrder = await Order.create(req.body);
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: {
-        order: newOrder
-      }
+        order: newOrder,
+      },
     });
   } catch (err) {
     res.status(500).json({
-      status: "fail",
+      status: 'fail',
       message: 'Oops! Something went wrong.',
     });
   }
 };
 
-exports.findAllOrders = async (req, res, next) => {
+exports.findAllOrders = async (req, res) => {
   const user = req.user || { // TODO remove test json
-    "_id": "616584cf8b04b9069807c7af",
-    "fullName": "Kakan Moses",
-    "email": "kwekan2@hotmail.com",
-    "contactInfo": {
-      "tel": 1234,
-      "address": {
-        "city": "Stockholm",
-        "street": "studentbacken",
-        "houseNumber": "32",
-        "_id": {
-          "$oid": "616584cf8b04b9069807c7b1"
-        }
+    _id: '616584cf8b04b9069807c7af',
+    fullName: 'Kakan Moses',
+    email: 'kwekan2@hotmail.com',
+    contactInfo: {
+      tel: 1234,
+      address: {
+        city: 'Stockholm',
+        street: 'studentbacken',
+        houseNumber: '32',
+        _id: {
+          $oid: '616584cf8b04b9069807c7b1',
+        },
       },
-      "_id": {
-        "$oid": "616584cf8b04b9069807c7b0"
-      }
+      _id: {
+        $oid: '616584cf8b04b9069807c7b0',
+      },
     },
-    "__v": 0,
-    "roles": {
-      "isAdmin": true
-    }
-  }
+    __v: 0,
+    roles: {
+      isAdmin: true,
+    },
+  };
 
   try {
-    const isAdmin = user.roles.isAdmin;
+    const { isAdmin } = user.roles;
     let orders;
     if (isAdmin) {
       orders = await Order.find({});
     } else {
       orders = await Order.find({
-        purchaser: user._id
+        purchaser: user._id,
       });
     }
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: {
-        orders
-      }
+        orders,
+      },
     });
   } catch (err) {
     res.status(500).json({
-      status: "fail",
-      message: 'Oops! Something went wrong.'
+      status: 'fail',
+      message: 'Oops! Something went wrong.',
     });
   }
-}
+};
 
-exports.updateOrderStatus = async (req, res, next) => {
-  const id = req.params.id;
+exports.updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
   const newStatus = req.body.status;
   try {
     const updatedOrder = await Order.findByIdAndUpdate(id, {
-      status: newStatus
+      status: newStatus,
     }, {
       new: true,
       runValidators: true,
     });
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: {
-        updatedOrder
-      }
+        updatedOrder,
+      },
     });
   } catch (err) {
     res.status(500).json({
-      status: "fail",
-      message: 'Oops! Something went wrong.'
+      status: 'fail',
+      message: 'Oops! Something went wrong.',
     });
   }
 };
