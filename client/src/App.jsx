@@ -17,9 +17,6 @@ export default function App() {
   return (
     <div>
       <NavBar />
-      {/* <a href="http://localhost:5000/logout">
-        <button>Logout mathafacka</button>
-      </a> */}
       <Switch>
         <Route path="/products/:id" component={ProductDetailPage} />
         <Route path="/products" component={ProductListPage} />

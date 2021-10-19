@@ -18,7 +18,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-exports.createProduct = async function (req, res) {
+exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
 

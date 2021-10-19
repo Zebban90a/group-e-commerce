@@ -13,7 +13,6 @@ export default function AdminProductsPage() {
 
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
-    console.log(formData);
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
