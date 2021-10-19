@@ -34,7 +34,7 @@ const {
   getProducts,
   getSingleProduct,
 } = require('../controllers/ProductController');
-const { isAdmin } = require('../middleware/authtentication');
+const { isAdmin } = require('../middleware/authentication');
 
 const router = express.Router();
 // TODO add isAdmin and isLogged in later, and test
