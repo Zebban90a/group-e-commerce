@@ -19,7 +19,10 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    await axios.post('http://localhost:5000/api/products', formData, config);
+    const res = await axios.post('http://localhost:5000/api/products', formData, config);
+    if (res && res.status === 201) {
+      getProducts();
+    }
   }
 
   function onChangeHandler(e) {
@@ -49,7 +52,7 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     getProducts();
-  }, [productList]);
+  }, []);
 
   return (
     <div>

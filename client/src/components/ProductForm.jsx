@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function ProductForm(props) {
-  const {submitHandler, onChangeHandler, imageHandler, formInput} = props;
+  const { submitHandler, onChangeHandler, imageHandler, formInput } = props;
   const data = formInput || {};
 
   return (
@@ -13,8 +13,8 @@ export default function ProductForm(props) {
       <label htmlFor="price">price: </label>
       <input onChange={onChangeHandler} type="number" name="price" id="price" value={data.price || 0} required />
       <label htmlFor="category">category: </label>
-      <select onChange={onChangeHandler} id="category" name="category" required defaultValue="-- select an option --" selected="-- select an option --">
-        <option disabled selected value="-- select an option --">-- select an option --  </option>
+      <select onChange={onChangeHandler} id="category" name="category" required defaultValue="">
+        <option disabled value="">Select an option</option>
         <option value="Samsung">Samsung</option>
         <option value="Apple">Apple</option>
       </select>
@@ -34,8 +34,8 @@ export default function ProductForm(props) {
       />
       <label htmlFor="images">image: </label>
       {/* {data && <image src={data.image} />} */}
-      <input type="file" name="image" onChange={imageHandler} id="images" required/>
+      <input type="file" name="image" onChange={imageHandler} id="images" required />
       <button type="submit">Submit</button>
     </form>
-  )
+  );
 }
