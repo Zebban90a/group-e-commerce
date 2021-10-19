@@ -11,7 +11,7 @@ export default function AdminProductsPage() {
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
-
+   
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
     const config = {
@@ -29,6 +29,7 @@ export default function AdminProductsPage() {
       ...formInput,
       [inputName]: inputValue,
     });
+    console.log(formInput);
   }
 
   function imageHandler(e) {
@@ -48,7 +49,7 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [productList]);
 
   return (
     <div>

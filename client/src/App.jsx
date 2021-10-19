@@ -18,21 +18,20 @@ export default function App() {
     <div>
       <NavBar />
       <Switch>
-        <Route path="/products/:id" component={ProductDetailPage} />
-        <Route path="/products" component={ProductListPage} />
 
         <Route path="/checkout" component={CheckoutPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/user" component={UserPage} />
-
         {/* todo general 404 page for nonadmins (and non logged in) */}
+
         <Route path="/admin/orders" component={AdminOrdersPage} />
         <Route path="/admin/products" component={AdminProductsPage} />
         <Route path="/admin/products/:id" component={AdminProductEditPage} />
         <Route path="/admin" component={AdminPage} />
 
-        <Route path="/" component={HomePage} />
+        <Route path="/products/:id" component={ProductDetailPage} />
+        <Route path="/" component={ProductListPage} />
       </Switch>
     </div>
   );
