@@ -83,10 +83,10 @@ export default function AdminProductsPage() {
       </form> */}
 
       <ProductForm
-       submitHandler={submitHandler} 
-       onChangeHandler={onChangeHandler}
-       imageHandler={imageHandler}
-       formInput={formInput}
+        submitHandler={submitHandler} 
+        onChangeHandler={onChangeHandler}
+        imageHandler={imageHandler}
+        formInput={formInput}
       />
 
       {productList.map((product) => {
