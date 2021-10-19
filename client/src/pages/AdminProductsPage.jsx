@@ -82,6 +82,7 @@ export default function AdminProductsPage() {
        submitHandler={submitHandler} 
        onChangeHandler={onChangeHandler}
        imageHandler={imageHandler}
+       formInput={formInput}
       />
 
       {productList.map((product) => {

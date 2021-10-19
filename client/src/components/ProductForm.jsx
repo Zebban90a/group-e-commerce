@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default function ProductForm(props) {
-  const {submitHandler, onChangeHandler, imageHandler} = props;
-  const data = props.data || {};
+  const { submitHandler, onChangeHandler, imageHandler, formInput } = props;
+  const data = formInput || {};
 
   return (
     <form onSubmit={submitHandler} encType="multipart/form-data">
@@ -15,7 +15,7 @@ export default function ProductForm(props) {
       <label htmlFor="category">category: </label>
       <input onChange={onChangeHandler} type="text" name="category" id="category" value={data.category || ''} />
       <label htmlFor="quantity">quantity: </label>
-      <input onChange={onChangeHandler} type="text" name="quantity" id="quantity" value={data.quantity || ''} />
+      <input onChange={onChangeHandler} type="number" name="quantity" id="quantity" value={data.quantity || ''} />
       <label htmlFor="manufacturer">manufacturer: </label>
       <input onChange={onChangeHandler} type="text" name="manufacturer" id="manufacturer" value={data.manufacturer || ''} />
       <label htmlFor="weight">weight: </label>
