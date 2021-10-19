@@ -19,7 +19,7 @@ export default function AdminProductEditPage() {
     getProduct();
   }, []);
 
-  /* async function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
 
@@ -30,11 +30,8 @@ export default function AdminProductEditPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const res = await axios.post('http://localhost:5000/api/products', formData, config);
-    if (res && res.status === 201) {
-      getProducts();
-    }
-  } */
+    await axios.patch(`http://localhost:5000/api/products/${id}`, formData, config);
+  }
 
   function onChangeHandler(e) {
     const inputName = e.target.name;
@@ -51,7 +48,7 @@ export default function AdminProductEditPage() {
   return (
     <div>
       <ProductForm
-        /* submitHandler={submitHandler} */
+        submitHandler={submitHandler}
         onChangeHandler={onChangeHandler}
         imageHandler={imageHandler}
         data={productData}

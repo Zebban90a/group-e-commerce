@@ -43,7 +43,7 @@ router.route('/').get(getProducts).post(imageUpload, createProduct);// createPro
 router
   .route('/:id')
   .get(getSingleProduct)
-  .patch(updateProduct)
+  .patch(imageUpload, updateProduct)
   .delete(deleteProduct);
 
 module.exports = router;

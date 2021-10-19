@@ -20,7 +20,6 @@ exports.getProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
-  console.log(imagePath)
   const formInputData = JSON.parse(req.body.input);
 
   try {
@@ -51,10 +50,12 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
-  console.log(data);
+  const imagePath = req.file.path;
+  const formInputData = JSON.parse(req.body.input);
   try {
-    const product = await Product.findByIdAndUpdate(id, data, {
+    const deployedData = formInputData; // TODO Is there a cleaner way?
+    deployedData.images = imagePath;
+    const product = await Product.findByIdAndUpdate(id, deployedData, {
       new: true,
       runValidators: true,
     });
