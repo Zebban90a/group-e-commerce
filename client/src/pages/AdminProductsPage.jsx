@@ -5,7 +5,7 @@ import ProductForm from '../components/ProductForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
-  const requiredFieldTypes = {
+  const requiredInputTypes = {
     title: 'string',
     description: 'string',
     price: 'number',
@@ -15,18 +15,35 @@ export default function AdminProductsPage() {
     weight: 'number',
   };
 
-/*   console.log(requiredFieldTypes.title === typeof 123);
-  console.log(requiredFieldTypes.price === typeof "ges"); */
-
-  const checkFields = (requiredFieldTypes, formInput) => {
-    try {
-      
-    } catch (error) {
-      
-    }
+  const test = {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    category: 'string',
+    quantity: 'number',
+    manufacturer: 'string',
+    weight: 'number',
   }
+  /*   console.log(requiredFieldTypes.title === typeof formInput.title);
+    console.log(requiredFieldTypes.price === typeof "ges"); */
 
-  console.log(requiredFields);
+  const formIsValid = (requiredInputTypes, formInput) => {
+
+    const required = Object.entries(requiredInputTypes);
+    const input = Object.entries(formInput);
+    console.log('reqqqq:', required);
+    console.log('inpppp:', input);
+    /* try {
+      Object.entries(requiredInputTypes).map(key => {
+        console.log(requiredInputTypes[key]);
+        console.log([key]);
+      });
+    } catch (error) {
+
+    } */
+  }
+  formIsValid(requiredInputTypes, test);
+
 
   const [formInput, setFormInput] = useState('');
   const [formImage, setFormImage] = useState('');
