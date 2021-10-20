@@ -1,5 +1,6 @@
 exports.isLoggedIn = (req, res, next) => {
-  console.log('isloggedin');
+  console.log('authentication.js row 2/ isloggedin / req.user below');
+  console.log(req.user)
   if (req.user) {
     next();
   } else {
