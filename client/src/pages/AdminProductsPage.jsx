@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ProductForm from '../components/ProductForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
@@ -10,7 +11,7 @@ export default function AdminProductsPage() {
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
-
+   
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
     const config = {
@@ -18,7 +19,12 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    await axios.post('http://localhost:5000/api/products', formData, config);
+    const resPost = await axios.post('http://localhost:5000/api/products', formData, config);
+
+    if (resPost.status === 201) {
+      const newDoc = resPost.data.data.newProduct;
+      setProductList([...productList,newDoc])
+    }
   }
 
   function onChangeHandler(e) {
@@ -28,15 +34,24 @@ export default function AdminProductsPage() {
       ...formInput,
       [inputName]: inputValue,
     });
+    console.log(formInput);
   }
 
   function imageHandler(e) {
     setFormImage({ file: e.target.files[0] });
   }
 
-  const deleteProduct = (id) => {
-    axios.delete(`http://localhost:5000/products/${id}`);
-    window.location.reload();
+  const deleteProduct = async (id) => {
+    const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
+    if (resDel.status === 200) {
+      const indexToDelete = productList.map(item => item._id).indexOf(id);
+      
+      if (indexToDelete !== -1) { //REVIEW do we need this?
+        const temp = productList;
+        temp.splice(indexToDelete, 1);
+        setProductList([...temp]);
+      }
+    }
   };
 
   const getProducts = async () => {
@@ -52,7 +67,7 @@ export default function AdminProductsPage() {
   return (
     <div>
       <h1>admin products</h1>
-      <form onSubmit={submitHandler} encType="multipart/form-data">
+      {/* <form onSubmit={submitHandler} encType="multipart/form-data">
         <label htmlFor="title">title: </label>
         <input onChange={onChangeHandler} type="text" name="title" id="title" />
         <label htmlFor="description">description: </label>
@@ -75,7 +90,14 @@ export default function AdminProductsPage() {
         <label htmlFor="images">image: </label>
         <input type="file" name="image" onChange={imageHandler} id="images" />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
+
+      <ProductForm
+       submitHandler={submitHandler} 
+       onChangeHandler={onChangeHandler}
+       imageHandler={imageHandler}
+       formInput={formInput}
+      />
 
       {productList.map((product) => {
         const id = product._id;
