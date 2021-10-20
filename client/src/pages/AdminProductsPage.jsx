@@ -19,9 +19,11 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const res = await axios.post('http://localhost:5000/api/products', formData, config);
-    if (res && res.status === 201) {
-      getProducts();
+    const resPost = await axios.post('http://localhost:5000/api/products', formData, config);
+
+    if (resPost.status === 201) {
+      const newDoc = resPost.data.data.newProduct;
+      setProductList([...productList,newDoc])
     }
   }
 
@@ -39,9 +41,18 @@ export default function AdminProductsPage() {
     setFormImage({ file: e.target.files[0] });
   }
 
-  const deleteProduct = (id) => {
-    axios.delete(`http://localhost:5000/products/${id}`);
-    window.location.reload();
+  const deleteProduct = async (id) => {
+    const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
+    // window.location.reload();
+    if (resDel.status === 200) {
+      const indexToDelete = productList.map(item => item._id).indexOf(id);
+      
+      if (indexToDelete !== -1) { //REVIEW do we need this?
+        const temp = productList;
+        temp.splice(indexToDelete, 1);
+        setProductList([...temp]);
+      }
+    }
   };
 
   const getProducts = async () => {
