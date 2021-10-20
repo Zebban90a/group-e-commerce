@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ProductForm from '../components/ProductForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
@@ -10,7 +11,7 @@ export default function AdminProductsPage() {
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
-
+   
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
     const config = {
@@ -33,6 +34,7 @@ export default function AdminProductsPage() {
       ...formInput,
       [inputName]: inputValue,
     });
+    console.log(formInput);
   }
 
   function imageHandler(e) {
@@ -66,7 +68,7 @@ export default function AdminProductsPage() {
   return (
     <div>
       <h1>admin products</h1>
-      <form onSubmit={submitHandler} encType="multipart/form-data">
+      {/* <form onSubmit={submitHandler} encType="multipart/form-data">
         <label htmlFor="title">title: </label>
         <input onChange={onChangeHandler} type="text" name="title" id="title" />
         <label htmlFor="description">description: </label>
@@ -89,7 +91,14 @@ export default function AdminProductsPage() {
         <label htmlFor="images">image: </label>
         <input type="file" name="image" onChange={imageHandler} id="images" />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
+
+      <ProductForm
+       submitHandler={submitHandler} 
+       onChangeHandler={onChangeHandler}
+       imageHandler={imageHandler}
+       formInput={formInput}
+      />
 
       {productList.map((product) => {
         const id = product._id;
