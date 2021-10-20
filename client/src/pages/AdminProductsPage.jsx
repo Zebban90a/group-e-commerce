@@ -18,7 +18,12 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    await axios.post('http://localhost:5000/api/products', formData, config);
+    const res = await axios.post('http://localhost:5000/api/products', formData, config);
+    
+    if (res.status === 201) {
+      const newDoc = res.data.data.newProduct;
+      setProductList([...productList,newDoc])
+    }
   }
 
   function onChangeHandler(e) {
