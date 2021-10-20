@@ -43,7 +43,6 @@ export default function AdminProductsPage() {
 
   const deleteProduct = async (id) => {
     const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
-    // window.location.reload();
     if (resDel.status === 200) {
       const indexToDelete = productList.map(item => item._id).indexOf(id);
       

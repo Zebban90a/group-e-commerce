@@ -74,8 +74,6 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   const { id } = req.params;
-  console.log('hej')
-  console.log(id)
   try {
     await Product.findByIdAndDelete(id);
     res.status(200).json({
