@@ -11,7 +11,7 @@ export default function AdminProductsPage() {
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
-   
+
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
     const config = {
@@ -23,7 +23,7 @@ export default function AdminProductsPage() {
 
     if (resPost.status === 201) {
       const newDoc = resPost.data.data.newProduct;
-      setProductList([...productList,newDoc])
+      setProductList([...productList, newDoc]);
     }
   }
 
@@ -44,9 +44,9 @@ export default function AdminProductsPage() {
   const deleteProduct = async (id) => {
     const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
     if (resDel.status === 200) {
-      const indexToDelete = productList.map(item => item._id).indexOf(id);
-      
-      if (indexToDelete !== -1) { //REVIEW do we need this?
+      const indexToDelete = productList.map((item) => item._id).indexOf(id);
+
+      if (indexToDelete !== -1) { // REVIEW do we need this?
         const temp = productList;
         temp.splice(indexToDelete, 1);
         setProductList([...temp]);
@@ -93,10 +93,10 @@ export default function AdminProductsPage() {
       </form> */}
 
       <ProductForm
-       submitHandler={submitHandler} 
-       onChangeHandler={onChangeHandler}
-       imageHandler={imageHandler}
-       formInput={formInput}
+        submitHandler={submitHandler}
+        onChangeHandler={onChangeHandler}
+        imageHandler={imageHandler}
+        formInput={formInput}
       />
 
       {productList.map((product) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
@@ -68,8 +69,25 @@ export default function ProductCard({ product }) {
     _id, title, price, images, quantity,
   } = product;
 
-  function addToCart(e) {
-    // TODO make it add to cart
+  async function addToCart(e) {
+    e.preventDefault();
+    const payload = {
+      id: _id,
+      
+    };
+    axios({
+      url: 'http://localhost:5000/api/orders/addtocart',
+      method: 'POST',
+      data: payload,
+    });
+  //   const { data } = await axios.patch('http://localhost:5000/api/orders/addtocart/${id}');
+  //   setProducts(data.data.products);
+  // }
+
+    // useEffect(() => {
+    //   getProducts();
+    // }, []);
+    console.log(title);
   }
   return (
     <Card>

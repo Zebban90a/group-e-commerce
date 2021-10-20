@@ -117,3 +117,8 @@ exports.updateOrderStatus = async (req, res) => {
     });
   }
 };
+
+exports.addToCart = async (req,res) => {
+  console.log(req.body.id);
+  console.log(res.locals.user);
+};
