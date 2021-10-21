@@ -6,24 +6,21 @@ exports.addToCart = async (req, res) => {
   console.log(`User:${req.body.userId}`);
   console.log(`Product:${req.body.productId}`);
 
-//   try {
-    const user = await User.findOne({ userId });
-
-   // const itemIndex = user.cart.findIndex((p) => p.productId == productId);
-
-    //   if (itemIndex > -1) {
-    //     //product exists in the cart, update the quantity
-    //     let productItem = user.cart[itemIndex];
-    //     productItem.quantity =+ 1;
-    //     cart.products[itemIndex] = productItem;
-    //   } else {
-    // product does not exists in cart, add new item
-    user.cart.push({ productId });
-    // }
-//     const savedUser = await user.save();
-//     return res.status(201).send(savedUser);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).send('Something went wrong');
-//   }
+    
+    try {
+      const user = await User.findByIdAndUpdate(userId, productId, {
+        new: true,
+        runValidators: true,
+      });
+      user.cart.push(productId);
+      res.status(200).json({
+        status: 'success',
+        
+      });
+    } catch (err) {
+      res.status(404).json({
+        status: 'fail',
+        message: err,
+      });
+    }
 };

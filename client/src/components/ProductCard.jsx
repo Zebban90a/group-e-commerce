@@ -71,23 +71,19 @@ export default function ProductCard({ product }) {
 
   async function addToCart(e) {
     e.preventDefault();
+    const mockUserId = '616fdfbc1576abbb9e174e03';
     const payload = {
-      id: _id,
+      productId: _id,
+      userId: mockUserId,
       
     };
     axios({
-      url: 'http://localhost:5000/api/orders/addtocart',
+      url: 'http://localhost:5000/api/addtocart',
       method: 'POST',
       data: payload,
     });
-  //   const { data } = await axios.patch('http://localhost:5000/api/orders/addtocart/${id}');
-  //   setProducts(data.data.products);
-  // }
-
-    // useEffect(() => {
-    //   getProducts();
-    // }, []);
-    console.log(title);
+  
+ console.log(title);
   }
   return (
     <Card>
