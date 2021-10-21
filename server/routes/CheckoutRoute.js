@@ -5,7 +5,7 @@ const {GetCart} = require('../controllers/CheckoutController');
 const router = express.Router();
 
 router
-.route('/')
+.route('/:id')
 .get(GetCart);
 
 module.exports = router;
