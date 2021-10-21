@@ -3,6 +3,8 @@ const User = require('../models/UserModel');
 exports.addToCart = async (req, res) => {
   const UserId = req.body.userId;
   const ProductId = req.body.productId;
+  const ProductPrice = req.body.productPrice;
+  const ProductTitle = req.body.productTitle;
 
   try {
     const users = await User.findOneAndUpdate(
@@ -11,7 +13,10 @@ exports.addToCart = async (req, res) => {
       },
       {
         $push: {
-          cart: ProductId,
+          cart: { Id: ProductId,
+          Title: ProductTitle,
+          Price: ProductPrice
+        },
         },
       },
     );

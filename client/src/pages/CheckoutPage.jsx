@@ -3,10 +3,9 @@ import axios from 'axios';
 
 export default function CheckoutPage() {
   const mockUserId = '616fdfbc1576abbb9e174e03';
+  const [cart, setCart] = useState({});
 
-  fetch(`http://localhost:5000/api/checkout/${mockUserId}`)
-    .then((response) => response.json())
-    .then((user) => console.log(user));
+  
   
   // async function getProducts() {
     
@@ -20,12 +19,16 @@ export default function CheckoutPage() {
   //   // console.log(data);
   // }
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/checkout/${mockUserId}`)
+    .then((response) => response.json())
+    .then((user) => setCart(user));
+    console.log(cart);
+  }, []);
   return (
     <div>
       <h1>Checkout page</h1>
+
     </div>
   );
 }

@@ -73,6 +73,8 @@ export default function ProductCard({ product }) {
     e.preventDefault();
     const mockUserId = '616fdfbc1576abbb9e174e03';
     const payload = {
+      productTitle: title,
+      productPrice: price,
       productId: _id,
       userId: mockUserId,
 
