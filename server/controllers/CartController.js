@@ -1,27 +1,22 @@
 const User = require('../models/UserModel');
 
-exports.addToCart = async (req, res) => {
-  const {userId} = req.body.userId;
-  const {productId} = req.body.productId;
-  console.log(`User:${userId}`);
-  console.log(`Product:${productId}`);
+exports.addToCart = async (req, _res) => {
+  const UserId = req.body.userId;
+  const ProductId = req.body.productId;
 
-//   try {
-//     const user = await User.findByIdAndUpdate(userId, productId, {
-//       new: true,
-//       runValidators: true,
-//     });
-//     const updateCart = user.cart.push(productId);
-//     res.status(200).json({
-//       status: 'success',
-
-//       updateCart,
-
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: 'fail',
-//       message: err,
-//     });
-//   }
+  try {
+    const users = await User.findOneAndUpdate(
+      {
+        _id: UserId,
+      },
+      {
+        $push: {
+          cart: ProductId,
+        },
+      },
+    );
+    users.save();
+  } catch {
+    console.log('error');
+  }
 };
