@@ -2,10 +2,12 @@ exports.isLoggedIn = (req, res, next) => {
   console.log('authentication.js row 2/ isloggedin / req.user below');
   console.log(req.user)
    if (req.user) {
+    console.log('next')
     next();
   } else {
-    res.redirect('/login');
-    
+    res.status(404)
+    res.end();
+    //res.redirect('http://localhost:3000/login');
   }
 };
 

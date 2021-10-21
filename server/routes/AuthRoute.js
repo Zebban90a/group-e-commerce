@@ -20,4 +20,12 @@ router.get('/google/callback', // NOTE changed for auth troubleshoot
     failureRedirect: 'auth/google/failure',
   }));
 
-  module.exports = router;
+/* app.get('/login', (req, res) => {
+  console.log('login')
+}) */
+router.get('/logout', (req, res) => {
+  req.session.destroy(null);
+  res.redirect('http://localhost:3000/login')
+})
+
+module.exports = router;

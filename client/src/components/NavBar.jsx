@@ -61,7 +61,7 @@ export default function NavBar() {
           </StyledButton>
         </Link>
       ))}
-          <a href="http://localhost:5000/logout">
+          <a href="http://localhost:5000/auth/logout">
       <StyledButton>
             <span type="button" className="nav-link ml-2">
               logout new
