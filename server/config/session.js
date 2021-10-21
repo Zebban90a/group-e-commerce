@@ -4,7 +4,7 @@ require('dotenv').config();
 module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 
   // NOTE for auth troubleshoot, src https://stackoverflow.com/a/23119369/7739243
   //,secure: false // didn't help at the time, commented for duplicate below

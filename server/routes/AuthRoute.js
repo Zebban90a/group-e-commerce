@@ -22,16 +22,7 @@ router.get( '/google/failure', (req, res) => {
 router.get('/google/callback', // NOTE changed for auth troubleshoot
   passport.authenticate('google', {
     successRedirect: 'http://localhost:3000/products',
-    failureRedirect: 'http://localhost:3000' 
+    failureRedirect: 'http://localhost:3000/login',
   }));
 
-  /* OLD VERSION (see section above)
-  router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }),
-  (req, res) => {
-    res.redirect('http://localhost:3000/products');
-  });
-  
-  */
-
-module.exports = router;
+  module.exports = router;

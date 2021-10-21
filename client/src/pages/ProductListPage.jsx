@@ -25,7 +25,7 @@ export default function ProductListPage() {
   const [products, setProducts] = useState(null);
 
   async function getProducts() {
-    const { data } = await axios.get('http://localhost:5000/api/products');
+    const { data } = await axios.get('/api/products');
     setProducts(data.data.products);
   }
 
