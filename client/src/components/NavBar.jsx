@@ -16,10 +16,10 @@ const StyledButton = styled.button`
 
 export default function NavBar() {
   const linkArray = [
-    {
+    /* {
       path: '/products',
       name: 'Products',
-    },
+    }, */
     {
       path: '/admin',
       name: 'Admin',
