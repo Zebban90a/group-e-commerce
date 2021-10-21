@@ -5,6 +5,7 @@ const {
 
 const router = express.Router();
 router
-  .route('/addtocart')
+  .route('/')
   .post(addToCart);
+
 module.exports = router;

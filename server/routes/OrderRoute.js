@@ -15,3 +15,5 @@ router
 router
   .route('/:id')
   .patch(updateOrderStatus);
+
+  module.exports = router;
