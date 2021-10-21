@@ -1,6 +1,6 @@
 const User = require('../models/UserModel');
 
-exports.addToCart = async (req, _res) => {
+exports.addToCart = async (req, res) => {
   const UserId = req.body.userId;
   const ProductId = req.body.productId;
 
@@ -15,6 +15,7 @@ exports.addToCart = async (req, _res) => {
         },
       },
     );
+    res.end();
     console.log(users);
   } catch {
     console.log('error');
