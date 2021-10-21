@@ -51,6 +51,10 @@ export default function NavBar() {
     {
       path: '/products?category=apple',
       name: 'Apple',
+    },
+    {
+      path: '/products?category=samsung',
+      name: 'Samsung',
     }
   ];
 

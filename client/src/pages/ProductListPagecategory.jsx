@@ -22,17 +22,26 @@ const CardGrid = styled.div`
     };
 `;
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+
+
 export default function ProductListPagecategory() {
-  
-  const [products, setProducts] = useState(null);
-  let path = 'cat'
+  const [products, setProducts] = useState(null); 
+  const query = useQuery();
+  const category = query.get("category")
+
   async function getProducts() {
-    console.log(query.get('category'))
-    const { data } = await axios.get(`http://localhost:5000/api/products${query.get("category")}`);
+    const path = `http://localhost:5000/api/products${category ? '?category='+category : ''}`
+    
+    const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
 
   useEffect(() => {
+    console.log('useeffect');
     getProducts();
   }, []);
 
