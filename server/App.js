@@ -10,6 +10,7 @@ const OrderRoute = require('./routes/OrderRoute');
 const ProductRoute = require('./routes/ProductRoute');
 const AuthRoute = require('./routes/AuthRoute');
 const CartRoute = require('./routes/CartRoute');
+const CheckoutRoute = require('./routes/CheckoutRoute');
 
 // Config
 const passport = require('./config/passport');
@@ -29,6 +30,7 @@ app.use('/api/users', UserRoute);
 app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/addtocart', CartRoute);
+app.use('/api/checkout', CheckoutRoute);
 app.use('/auth', AuthRoute);
 
 /* app.get('*', (req, res) => {
