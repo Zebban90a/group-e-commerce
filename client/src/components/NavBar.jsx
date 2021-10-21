@@ -44,10 +44,10 @@ export default function NavBar() {
       path: '/login',
       name: 'Login',
     },
-    {
+    /* {
       path: '/logout',
       name: 'Logout',
-    },
+    }, */
   ];
 
   return (
@@ -61,7 +61,13 @@ export default function NavBar() {
           </StyledButton>
         </Link>
       ))}
-
+          <a href="http://localhost:5000/logout">
+      <StyledButton>
+            <span type="button" className="nav-link ml-2">
+              logout new
+            </span>
+          </StyledButton>
+            </a>
     </StyledNav>
   );
 }

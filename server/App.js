@@ -30,6 +30,11 @@ app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);
 app.use('/auth', AuthRoute);
 
+app.get('/logout', (req, res) => {
+  req.session.destroy(null);
+  res.redirect('http://localhost:3000/login')
+})
+
 /* app.get('*', (req, res) => {
   res.status(404).send('Nothing here..')
 }) */
