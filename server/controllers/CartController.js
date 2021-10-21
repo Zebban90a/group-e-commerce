@@ -18,3 +18,5 @@ exports.addToCart = async (req, _res) => {
     users.save();
   } catch {
     console.log('error');
+  }
+};
