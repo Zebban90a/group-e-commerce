@@ -75,16 +75,17 @@ export default function ProductCard({ product }) {
     const payload = {
       productId: _id,
       userId: mockUserId,
-      
+
     };
     axios({
       url: 'http://localhost:5000/api/addtocart',
       method: 'POST',
       data: payload,
     });
-  
- console.log(title);
+
+    console.log(title);
   }
+
   return (
     <Card>
       <Link to={`./products/${_id}`} className="product-link">

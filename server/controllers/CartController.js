@@ -15,7 +15,7 @@ exports.addToCart = async (req, _res) => {
         },
       },
     );
-    users.save();
+    console.log(users);
   } catch {
     console.log('error');
   }
