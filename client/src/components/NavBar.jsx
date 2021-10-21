@@ -48,6 +48,10 @@ export default function NavBar() {
       path: '/logout',
       name: 'Logout',
     },
+    {
+      path: '/products?category=apple',
+      name: 'Apple',
+    }
   ];
 
   return (

@@ -12,6 +12,7 @@ import AdminProductsPage from './pages/AdminProductsPage';
 import AdminPage from './pages/AdminPage';
 import AdminProductEditPage from './pages/AdminProductEditPage';
 import NavBar from './components/NavBar';
+import ProductListPagecategory from './pages/ProductListPagecategory';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/admin" component={AdminPage} />
 
         <Route path="/products/:id" component={ProductDetailPage} />
+        <Route path="/products" component={ProductListPagecategory} />
         <Route path="/" component={ProductListPage} />
       </Switch>
     </div>

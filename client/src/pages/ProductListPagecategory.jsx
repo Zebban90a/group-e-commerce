@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom'
 import axios from 'axios';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
@@ -21,12 +22,13 @@ const CardGrid = styled.div`
     };
 `;
 
-export default function ProductListPage() {
-  console.log('standardsidan');
+export default function ProductListPagecategory() {
+  
   const [products, setProducts] = useState(null);
-
+  let path = 'cat'
   async function getProducts() {
-    const { data } = await axios.get('http://localhost:5000/api/products');
+    console.log(query.get('category'))
+    const { data } = await axios.get(`http://localhost:5000/api/products${query.get("category")}`);
     setProducts(data.data.products);
   }
 
