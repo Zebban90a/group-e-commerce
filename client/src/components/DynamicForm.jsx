@@ -1,91 +1,41 @@
 import React from 'react';
 
-export default function ProductForm(props) {
+export default function DynamicForm(props) {
   const {
-    submitHandler, onChangeHandler, imageHandler, data,
+    submitHandler, onChangeHandler, imageHandler, data, requirements
   } = props;
-  
+  console.log(requirements);
   /* 
   hide arrows input type number https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
   */
-
-  const productForm = {
-    title: {
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    description: {
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    price: {
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    category: {
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    quantity: {
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    manufacturer: {
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    weight: {
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    }
-  }
-
-  const {
-    title,
-    description,
-    price,
-    category,
-    quantity,
-    manufacturer,
-    weight
-  } = data || {};
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  function renderLabel(key) {
-    <label htmlFor={key}>{capitalizeFirstLetter(key)}: </label>
+  function renderLabel(name, key) {
+    return (
+      <label htmlFor={name} key={key}>
+        {capitalizeFirstLetter(name)}: 
+      </label>
+    )
   }
 
-  function renderInput(key, value, type, required) { //TODO make required param
+  function renderInput(name, value, type, required, key) {
     return (
       <input
         type={type}
-        name={key}
-        id={key}
+        name={name}
+        id={name}
         value={value || ''}
         onChange={onChangeHandler}
         required={required}
+        key={key}
       />
     )
   }
 
-  function renderTextArea(key, value, type, required) { //TODO make required param
+  function renderTextArea(name, value, type, required, key) {
     return (
       <textarea
         onChange={onChangeHandler}
@@ -93,20 +43,23 @@ export default function ProductForm(props) {
         rows="4"
         cols="50"
         type={type}
-        name={key}
-        id={key}
+        name={name}
+        id={name}
         required={required}
+        key={key}
       />
     )
   }
 
-  function renderSelect(key, value, required) { //TODO make options param
+  function renderSelect(name, value, required, key) { //TODO make options param
     return (
       <select
-        name={key}
-        id={key}
+        name={name}
+        id={name}
         value={value || ''}
         required={required}
+        onChange={onChangeHandler}
+        key={key}
       >
         <option disabled value="">Select an option</option>
         <option value="Samsung">Samsung</option>
@@ -115,39 +68,50 @@ export default function ProductForm(props) {
     )
   }
 
-  function renderImageBrowser() {
+  function renderImageBrowser(key, required) {
     return (
-      <>
-        //* {data && <image src={data.image} />} //TODO make preview for existing or selected image
-        <input
-          type="file"
-          name="image"
-          onChange={imageHandler}
-          id="images"
-          required
-        />
-      </>
+      <input
+        type="file"
+        name="image"
+        onChange={imageHandler}
+        id="images"
+        required={required}
+        key={key}
+      />
     )
   }
 
-  function renderField(key, required, type) {
-    switch (key) {
-      case description:
-        return renderTextArea(key, required, type);
-      case image:
-        return renderImageBrowser();
-      case category:
-        return renderSelect();
+  function renderField(name, required, type, key, value = null) {
+    switch (name) {
+      case 'description':
+        return renderTextArea(name, value, type, required, key);
+      case 'image':
+        return renderImageBrowser(key, required);
+      case 'category':
+        return renderSelect(name, value, required, key);
       default:
-        return renderInput(key, required, type);
+        return renderInput(name, value, type, required, key);
     }
   }
 
   return (
     <form onSubmit={submitHandler} encType="multipart/form-data">
-      (
-        
-      )
+      {
+        requirements.map((item, index) => {
+          const { name, prompt, regexRule, required, type } = item;
+          const value = data ? data[name] : null;
+          const labelKey = 'label'+index;
+          const fieldKey = 'input'+index;
+
+          return (
+            <React.Fragment key={'fragment'+index}>
+              {renderLabel(name, labelKey)}
+              {renderField(name, required, type, fieldKey, value)}
+              <br />
+            </React.Fragment>
+          )
+        })
+      }
       <button type="submit">Submit</button>
     </form>
   );

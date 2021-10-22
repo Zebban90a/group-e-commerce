@@ -1,13 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import ProductForm from '../components/ProductForm';
+import DynamicForm from '../components/DynamicForm';
 
 export default function AdminProductEditPage() {
   const { id } = useParams();
   const [formInput, setFormInput] = useState('');
   const [productData, setProductData] = useState({});
   const [formImage, setFormImage] = useState('');
+
+  const requirements = [
+    {
+      name: 'title',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'description',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'price',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    {
+      name: 'category',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'quantity',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    {
+      name: 'manufacturer',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'weight',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    }
+  ];
 
   async function getProduct() {
     const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
@@ -45,13 +97,16 @@ export default function AdminProductEditPage() {
   function imageHandler(e) {
     setFormImage({ file: e.target.files[0] });
   }
+  console.log('hej');
+  console.log(requirements);
   return (
     <div>
-      <ProductForm
+      <DynamicForm
         submitHandler={submitHandler}
         onChangeHandler={onChangeHandler}
         imageHandler={imageHandler}
         data={productData}
+        requirements={requirements}
       />
     </div>
   );

@@ -1,12 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import ProductForm from '../components/ProductForm';
+import DynamicForm from '../components/DynamicForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
   const [formInput, setFormInput] = useState('');
   const [formImage, setFormImage] = useState('');
+
+  const requirements = [
+    {
+      name: 'title',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'description',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'price',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    {
+      name: 'category',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'quantity',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    {
+      name: 'manufacturer',
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    {
+      name: 'weight',
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    }
+  ];
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -81,11 +133,12 @@ export default function AdminProductsPage() {
         <button type="submit">Submit</button>
       </form> */}
 
-      <ProductForm
+      <DynamicForm
         submitHandler={submitHandler}
         onChangeHandler={onChangeHandler}
         imageHandler={imageHandler}
         formInput={formInput}
+        requirements={requirements}
       />
 
       {productList.map((product) => {
