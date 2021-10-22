@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 export default function DynamicForm(props) {
-  const {
-    submitHandler, onChangeHandler, imageHandler, formInput, requirements
-  } = props;
-  console.log('data below');
-  console.log(formInput);
+  const { submitHandler, imageHandler, requirements } = props;
+  const { formData, setFormData } = useContext(UserContext)
+  
+  function onChangeHandler(e) {
+    const inputName = e.target.name;
+    const inputValue = e.target.value;
+    setFormData({...formData,[inputName]: inputValue,});
+  }
+
+  console.log('formData');
+  console.log(formData);
   /* 
   hide arrows input type number https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
   */
@@ -100,12 +107,13 @@ export default function DynamicForm(props) {
       {
         requirements.map((item, index) => {
           const { name, prompt, regexRule, required, type } = item;
-          const value = formInput ? formInput[name] : null;
+          const value = formData[name];
           const labelKey = 'label'+index;
           const fieldKey = 'input'+index;
+          const fragmentKey = 'fragment'+index;
 
           return (
-            <React.Fragment key={'fragment'+index}>
+            <React.Fragment key={fragmentKey}>
               {renderLabel(name, labelKey)}
               {renderField(name, required, type, fieldKey, value)}
               <br />

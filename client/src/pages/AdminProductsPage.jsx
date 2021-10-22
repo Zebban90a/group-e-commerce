@@ -84,7 +84,6 @@ export default function AdminProductsPage() {
       ...formInput,
       [inputName]: inputValue,
     });
-    console.log('formInput');
   }
 
   function imageHandler(e) {

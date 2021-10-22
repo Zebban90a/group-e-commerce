@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
+import { UserContext } from '../contexts/UserContext';
 
 export default function AdminProductEditPage() {
   const { id } = useParams();
-  const [formInput, setFormInput] = useState('');
+  const [formData, setFormData] = useState({});
   const [productData, setProductData] = useState({});
   const [formImage, setFormImage] = useState('');
 
@@ -62,9 +63,20 @@ export default function AdminProductEditPage() {
   ];
 
   async function getProduct() {
-    const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+    const path = `http://localhost:5000/api/products/${id}`;
+    const { data } = await axios.get(path);
     const { product } = data.data;
     setProductData(product);
+    
+    setFormData({
+      category: product.category,
+      description: product.description,
+      manufacturer: product.manufacturer,
+      price: product.price,
+      quantity: product.quantity,
+      title: product.title,
+      weight: product.weight,
+    })
   }
 
   useEffect(() => {
@@ -73,41 +85,31 @@ export default function AdminProductEditPage() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    const formData = new FormData(); // formdata object
+    const path = `http://localhost:5000/api/products/${id}`;
+    const formDataDeployment = new FormData();
 
-    formData.append('input', JSON.stringify(formInput));
-    formData.append('image', formImage.file);
+    formDataDeployment.append('input', JSON.stringify(formData));
+    formDataDeployment.append('image', formImage.file);
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     };
-    await axios.patch(`http://localhost:5000/api/products/${id}`, formData, config);
-  }
-
-  function onChangeHandler(e) {
-    const inputName = e.target.name;
-    const inputValue = e.target.value;
-    setFormInput({
-      ...formInput,
-      [inputName]: inputValue,
-    });
+    await axios.patch(path, formDataDeployment, config);
   }
 
   function imageHandler(e) {
     setFormImage({ file: e.target.files[0] });
   }
-  console.log('hej');
-  console.log(requirements);
   return (
     <div>
-      <DynamicForm
-        submitHandler={submitHandler}
-        onChangeHandler={onChangeHandler}
-        imageHandler={imageHandler}
-        data={productData}
-        requirements={requirements}
-      />
+      <UserContext.Provider value={{formData, setFormData}}>
+        <DynamicForm
+          submitHandler={submitHandler}
+          imageHandler={imageHandler}
+          requirements={requirements}
+        />
+      </UserContext.Provider>
     </div>
   );
 }
