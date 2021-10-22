@@ -16,10 +16,10 @@ const StyledButton = styled.button`
 
 export default function NavBar() {
   const linkArray = [
-    {
+    /* {
       path: '/products',
       name: 'Products',
-    },
+    }, */
     {
       path: '/admin',
       name: 'Admin',
@@ -44,10 +44,19 @@ export default function NavBar() {
       path: '/login',
       name: 'Login',
     },
-    {
+    /* {
       path: '/logout',
       name: 'Logout',
+
+    }, */
+    {
+      path: '/products?category=apple',
+      name: 'Apple',
     },
+    {
+      path: '/products?category=samsung',
+      name: 'Samsung',
+    }
   ];
 
   return (
@@ -61,7 +70,13 @@ export default function NavBar() {
           </StyledButton>
         </Link>
       ))}
-
+          <a href="http://localhost:5000/auth/logout">
+      <StyledButton>
+            <span type="button" className="nav-link ml-2">
+              logout new
+            </span>
+          </StyledButton>
+            </a>
     </StyledNav>
   );
 }

@@ -9,19 +9,23 @@ router.get('/google',
       ['email', 'profile'],
   }));
 
-/* router.get( '/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/',
-        failureRedirect: '/google/failure'
-}));
-
 router.get( '/google/failure', (req, res) => {
-    res.send('du har failat');
-}); */
-router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000' }),
-  (req, res) => {
-    res.redirect('http://localhost:3000/products');
-  });
+  console.log('hej')
+    res.redirect('http://localhost:3000/login');
+});
+
+router.get('/google/callback', // NOTE changed for auth troubleshoot
+  passport.authenticate('google', {
+    successRedirect: 'http://localhost:3000/products',
+    failureRedirect: 'auth/google/failure',
+  }));
+
+/* app.get('/login', (req, res) => {
+  console.log('login')
+}) */
+router.get('/logout', (req, res) => {
+  req.session.destroy(null);
+  res.redirect('http://localhost:3000/login')
+})
 
 module.exports = router;

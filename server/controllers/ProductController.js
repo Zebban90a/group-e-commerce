@@ -1,9 +1,16 @@
 const Product = require('../models/ProductModel');
 
 exports.getProducts = async (req, res) => {
-  const { query } = req;
   try {
-    const products = await Product.find(query);
+    let products = '';
+    const { category } = req.query
+    
+    if (category) {
+      products = await Product.find({ 'category': category });
+    } else {
+      products = await Product.find({});
+    }
+    
     res.status(200).json({
       status: 'success',
       data: {
@@ -20,7 +27,7 @@ exports.getProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
-  console.log(imagePath)
+  console.log(imagePath);
   const formInputData = JSON.parse(req.body.input);
 
   try {

@@ -5,13 +5,53 @@ import ProductForm from '../components/ProductForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
+  const requiredInputTypes = {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    category: 'string',
+    quantity: 'number',
+    manufacturer: 'string',
+    weight: 'number',
+  };
+
+  const test = {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    category: 'string',
+    quantity: 'number',
+    manufacturer: 'string',
+    weight: 'number',
+  }
+  /*   console.log(requiredFieldTypes.title === typeof formInput.title);
+    console.log(requiredFieldTypes.price === typeof "ges"); */
+
+  const formIsValid = (requiredInputTypes, formInput) => {
+
+    const required = Object.entries(requiredInputTypes);
+    const input = Object.entries(formInput);
+    console.log('reqqqq:', required);
+    console.log('inpppp:', input);
+    /* try {
+      Object.entries(requiredInputTypes).map(key => {
+        console.log(requiredInputTypes[key]);
+        console.log([key]);
+      });
+    } catch (error) {
+
+    } */
+  }
+  formIsValid(requiredInputTypes, test);
+
+
   const [formInput, setFormInput] = useState('');
   const [formImage, setFormImage] = useState('');
 
   async function submitHandler(e) {
     e.preventDefault();
     const formData = new FormData(); // formdata object
-   
+
     formData.append('input', JSON.stringify(formInput));
     formData.append('image', formImage.file);
     const config = {
@@ -23,7 +63,7 @@ export default function AdminProductsPage() {
 
     if (resPost.status === 201) {
       const newDoc = resPost.data.data.newProduct;
-      setProductList([...productList,newDoc])
+      setProductList([...productList, newDoc]);
     }
   }
 
@@ -44,9 +84,9 @@ export default function AdminProductsPage() {
   const deleteProduct = async (id) => {
     const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
     if (resDel.status === 200) {
-      const indexToDelete = productList.map(item => item._id).indexOf(id);
-      
-      if (indexToDelete !== -1) { //REVIEW do we need this?
+      const indexToDelete = productList.map((item) => item._id).indexOf(id);
+
+      if (indexToDelete !== -1) { // REVIEW do we need this?
         const temp = productList;
         temp.splice(indexToDelete, 1);
         setProductList([...temp]);
@@ -93,10 +133,10 @@ export default function AdminProductsPage() {
       </form> */}
 
       <ProductForm
-       submitHandler={submitHandler} 
-       onChangeHandler={onChangeHandler}
-       imageHandler={imageHandler}
-       formInput={formInput}
+        submitHandler={submitHandler}
+        onChangeHandler={onChangeHandler}
+        imageHandler={imageHandler}
+        formInput={formInput}
       />
 
       {productList.map((product) => {
