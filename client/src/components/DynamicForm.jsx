@@ -36,7 +36,11 @@ export default function DynamicForm(props) {
         name={name}
         id={name}
         value={value || ''}
-        onChange={onChangeHandler}
+        onChange={
+          type === 'file'
+          ? imageHandler
+          : onChangeHandler
+        }
         required={required}
         key={key}
       />
@@ -77,10 +81,11 @@ export default function DynamicForm(props) {
   }
 
   function renderImageBrowser(key, required) {
+    console.log('image');
     return (
       <input
         type="file"
-        name="image"
+        name="images"
         onChange={imageHandler}
         id="images"
         required={required}
@@ -93,8 +98,6 @@ export default function DynamicForm(props) {
     switch (name) {
       case 'description':
         return renderTextArea(name, value, type, required, key);
-      case 'image':
-        return renderImageBrowser(key, required);
       case 'category':
         return renderSelect(name, value, required, key);
       default:
@@ -111,7 +114,7 @@ export default function DynamicForm(props) {
           const labelKey = 'label'+index;
           const fieldKey = 'input'+index;
           const fragmentKey = 'fragment'+index;
-
+          
           return (
             <React.Fragment key={fragmentKey}>
               {renderLabel(name, labelKey)}
