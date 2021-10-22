@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom'
 import axios from 'axios';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
@@ -21,17 +22,28 @@ const CardGrid = styled.div`
     };
 `;
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+
+
 export default function ProductListPage() {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState(null); 
+  const query = useQuery();
+  const category = query.get("category")
 
   async function getProducts() {
-    const { data } = await axios.get('http://localhost:5000/api/products');
+    const path = `http://localhost:5000/api/products${category ? '?category='+category : ''}`
+    
+    const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
 
   useEffect(() => {
+    console.log('useeffect');
     getProducts();
-  }, []);
+  }, [category]);
 
   return (
     <div>

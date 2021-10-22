@@ -1,10 +1,16 @@
 const Product = require('../models/ProductModel');
 
 exports.getProducts = async (req, res) => {
-  console.log()
-  const { category } = req.params
   try {
-    const products = await Product.find({ category });
+    let products = '';
+    const { category } = req.query
+    
+    if (category) {
+      products = await Product.find({ 'category': category });
+    } else {
+      products = await Product.find({});
+    }
+    
     res.status(200).json({
       status: 'success',
       data: {
