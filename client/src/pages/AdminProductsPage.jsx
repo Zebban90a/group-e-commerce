@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
+import { UserContext } from '../contexts/UserContext';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
-  const [formInput, setFormInput] = useState('');
+  const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
 
   const requirements = [
@@ -57,33 +58,32 @@ export default function AdminProductsPage() {
       regexRule: null,
       type: 'number',
       prompt: null
+    },
+    {
+      name: 'images',
+      required: true,
+      regexRule: null,
+      type: 'file',
+      prompt: null
     }
   ];
 
   async function submitHandler(e) {
     e.preventDefault();
-    const formData = new FormData(); // formdata object
+    const deployForm = new FormData(); // formdata object
 
-    formData.append('input', JSON.stringify(formInput));
-    formData.append('image', formImage.file);
+    deployForm.append('input', JSON.stringify(deployForm));
+    deployForm.append('image', formImage.file);
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-      },
+      }
     };
-    const res = await axios.post('http://localhost:5000/api/products', formData, config);
+    const path = 'http://localhost:5000/api/products';
+    const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
     }
-  }
-
-  function onChangeHandler(e) {
-    const inputName = e.target.name;
-    const inputValue = e.target.value;
-    setFormInput({
-      ...formInput,
-      [inputName]: inputValue,
-    });
   }
 
   function imageHandler(e) {
@@ -108,38 +108,14 @@ export default function AdminProductsPage() {
   return (
     <div>
       <h1>admin products</h1>
-      {/* <form onSubmit={submitHandler} encType="multipart/form-data">
-        <label htmlFor="title">title: </label>
-        <input onChange={onChangeHandler} type="text" name="title" id="title" />
-        <label htmlFor="description">description: </label>
-        <input onChange={onChangeHandler} type="text" name="description" id="description" />
-        <label htmlFor="price">price: </label>
-        <input onChange={onChangeHandler} type="number" name="price" id="price" />
-        <label htmlFor="category">category: </label>
-        <input onChange={onChangeHandler} type="text" name="category" id="category" />
-        <label htmlFor="quantity">quantity: </label>
-        <input onChange={onChangeHandler} type="text" name="quantity" id="quantity" />
-        <label htmlFor="manufacturer">manufacturer: </label>
-        <input onChange={onChangeHandler} type="text" name="manufacturer" id="manufacturer" />
-        <label htmlFor="weight">weight: </label>
-        <input
-          onChange={onChangeHandler}
-          type="number"
-          name="weight"
-          id="weight"
+      
+      <UserContext.Provider value={{formData, setFormData}}>
+        <DynamicForm
+          submitHandler={submitHandler}
+          imageHandler={imageHandler}
+          requirements={requirements}
         />
-        <label htmlFor="images">image: </label>
-        <input type="file" name="image" onChange={imageHandler} id="images" />
-        <button type="submit">Submit</button>
-      </form> */}
-
-      <DynamicForm
-        submitHandler={submitHandler}
-        onChangeHandler={onChangeHandler}
-        imageHandler={imageHandler}
-        formInput={formInput}
-        requirements={requirements}
-      />
+      </UserContext.Provider>
 
       {productList.map((product) => {
         const id = product._id;

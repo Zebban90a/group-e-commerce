@@ -9,10 +9,9 @@ export default function DynamicForm(props) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
     setFormData({...formData,[inputName]: inputValue,});
+    console.log(formData);
   }
 
-  console.log('formData');
-  console.log(formData);
   /* 
   hide arrows input type number https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
   */
@@ -35,7 +34,11 @@ export default function DynamicForm(props) {
         type={type}
         name={name}
         id={name}
-        value={value || ''}
+        value={
+          type === 'file'
+          ? undefined
+          : value || ''
+        }
         onChange={
           type === 'file'
           ? imageHandler
@@ -77,20 +80,6 @@ export default function DynamicForm(props) {
         <option value="Samsung">Samsung</option>
         <option value="Apple">Apple</option>
       </select>
-    )
-  }
-
-  function renderImageBrowser(key, required) {
-    console.log('image');
-    return (
-      <input
-        type="file"
-        name="images"
-        onChange={imageHandler}
-        id="images"
-        required={required}
-        key={key}
-      />
     )
   }
 

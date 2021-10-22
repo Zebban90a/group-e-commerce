@@ -82,7 +82,7 @@ export default function AdminProductEditPage() {
       price: product.price,
       quantity: product.quantity,
       title: product.title,
-      weight: product.weight,
+      weight: product.weight
     })
   }
 
