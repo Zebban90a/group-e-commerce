@@ -117,3 +117,8 @@ exports.updateOrderStatus = async (req, res) => {
     });
   }
 };
+
+exports.addToCart = async (req, res) => {
+  console.log(`User:${req.body.userId}`);
+  console.log(`Product:${req.body.productId}`);
+};
