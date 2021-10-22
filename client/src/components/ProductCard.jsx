@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
@@ -68,9 +69,25 @@ export default function ProductCard({ product }) {
     _id, title, price, images, quantity,
   } = product;
 
-  function addToCart(e) {
-    // TODO make it add to cart
+  async function addToCart(e) {
+    e.preventDefault();
+    const mockUserId = '616fdfbc1576abbb9e174e03';
+    const payload = {
+      productTitle: title,
+      productPrice: price,
+      productId: _id,
+      userId: mockUserId,
+
+    };
+    axios({
+      url: 'http://localhost:5000/api/addtocart',
+      method: 'POST',
+      data: payload,
+    });
+
+    console.log(title);
   }
+
   return (
     <Card>
       <Link to={`./products/${_id}`} className="product-link">

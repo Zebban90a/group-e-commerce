@@ -16,10 +16,10 @@ const StyledButton = styled.button`
 
 export default function NavBar() {
   const linkArray = [
-    {
+    /* {
       path: '/products',
       name: 'Products',
-    },
+    }, */
     {
       path: '/admin',
       name: 'Admin',
@@ -47,7 +47,16 @@ export default function NavBar() {
     /* {
       path: '/logout',
       name: 'Logout',
+
     }, */
+    {
+      path: '/products?category=apple',
+      name: 'Apple',
+    },
+    {
+      path: '/products?category=samsung',
+      name: 'Samsung',
+    }
   ];
 
   return (

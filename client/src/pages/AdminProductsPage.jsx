@@ -63,7 +63,7 @@ export default function AdminProductsPage() {
 
     if (resPost.status === 201) {
       const newDoc = resPost.data.data.newProduct;
-      setProductList([...productList, newDoc])
+      setProductList([...productList, newDoc]);
     }
   }
 
@@ -84,9 +84,9 @@ export default function AdminProductsPage() {
   const deleteProduct = async (id) => {
     const resDel = await axios.delete(`http://localhost:5000/api/products/${id}`);
     if (resDel.status === 200) {
-      const indexToDelete = productList.map(item => item._id).indexOf(id);
+      const indexToDelete = productList.map((item) => item._id).indexOf(id);
 
-      if (indexToDelete !== -1) { //REVIEW do we need this?
+      if (indexToDelete !== -1) { // REVIEW do we need this?
         const temp = productList;
         temp.splice(indexToDelete, 1);
         setProductList([...temp]);
