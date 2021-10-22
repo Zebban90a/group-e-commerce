@@ -19,9 +19,10 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
+  console.log('---------req.body below---------')
+  console.log(req.body)
   const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
-
   try {
     const productExists = await Product.exists({
       title: formInputData.title,
@@ -52,6 +53,7 @@ exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
+  
   try {
     const deployedData = formInputData; // TODO Is there a cleaner way?
     deployedData.images = imagePath;

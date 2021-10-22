@@ -70,9 +70,8 @@ export default function AdminProductsPage() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    const deployForm = new FormData(); // formdata object
-
-    deployForm.append('input', JSON.stringify(deployForm));
+    const deployForm = new FormData();
+    deployForm.append('input', JSON.stringify(formData));
     deployForm.append('image', formImage.file);
     const config = {
       headers: {
@@ -108,7 +107,7 @@ export default function AdminProductsPage() {
   return (
     <div>
       <h1>admin products</h1>
-      
+
       <UserContext.Provider value={{formData, setFormData}}>
         <DynamicForm
           submitHandler={submitHandler}

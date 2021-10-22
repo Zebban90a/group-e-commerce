@@ -9,7 +9,6 @@ export default function DynamicForm(props) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
     setFormData({...formData,[inputName]: inputValue,});
-    console.log(formData);
   }
 
   /* 

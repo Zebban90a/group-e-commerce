@@ -7,7 +7,6 @@ import { UserContext } from '../contexts/UserContext';
 export default function AdminProductEditPage() {
   const { id } = useParams();
   const [formData, setFormData] = useState({});
-  const [productData, setProductData] = useState({});
   const [formImage, setFormImage] = useState('');
 
   const requirements = [
@@ -73,7 +72,6 @@ export default function AdminProductEditPage() {
     const path = `http://localhost:5000/api/products/${id}`;
     const { data } = await axios.get(path);
     const { product } = data.data;
-    setProductData(product);
     
     setFormData({
       category: product.category,
@@ -91,7 +89,6 @@ export default function AdminProductEditPage() {
   }, []);
 
   async function submitHandler(e) {
-    console.log('hej');
     e.preventDefault();
     const path = `http://localhost:5000/api/products/${id}`;
     const formDataDeployment = new FormData();
