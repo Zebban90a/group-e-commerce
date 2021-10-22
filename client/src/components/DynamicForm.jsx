@@ -72,24 +72,24 @@ export default function ProductForm(props) {
     <label htmlFor={key}>{capitalizeFirstLetter(key)}: </label>
   }
 
-  function renderInput(key, type, required) { //TODO make required param
+  function renderInput(key, value, type, required) { //TODO make required param
     return (
       <input
         type={type}
         name={key}
         id={key}
-        value={key || ''}
+        value={value || ''}
         onChange={onChangeHandler}
         required={required}
       />
     )
   }
 
-  function renderTextArea(key, type, required) { //TODO make required param
+  function renderTextArea(key, value, type, required) { //TODO make required param
     return (
       <textarea
         onChange={onChangeHandler}
-        value={key || ''}
+        value={value || ''}
         rows="4"
         cols="50"
         type={type}
@@ -100,12 +100,12 @@ export default function ProductForm(props) {
     )
   }
 
-  function renderSelect(key, required) { //TODO make options param
+  function renderSelect(key, value, required) { //TODO make options param
     return (
       <select
         name={key}
         id={key}
-        value={key || ''}
+        value={value || ''}
         required={required}
       >
         <option disabled value="">Select an option</option>
