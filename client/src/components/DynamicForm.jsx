@@ -2,9 +2,10 @@ import React from 'react';
 
 export default function DynamicForm(props) {
   const {
-    submitHandler, onChangeHandler, imageHandler, data, requirements
+    submitHandler, onChangeHandler, imageHandler, formInput, requirements
   } = props;
-  console.log(requirements);
+  console.log('data below');
+  console.log(formInput);
   /* 
   hide arrows input type number https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
   */
@@ -99,7 +100,7 @@ export default function DynamicForm(props) {
       {
         requirements.map((item, index) => {
           const { name, prompt, regexRule, required, type } = item;
-          const value = data ? data[name] : null;
+          const value = formInput ? formInput[name] : null;
           const labelKey = 'label'+index;
           const fieldKey = 'input'+index;
 
