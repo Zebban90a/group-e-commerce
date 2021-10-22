@@ -4,38 +4,148 @@ export default function ProductForm(props) {
   const {
     submitHandler, onChangeHandler, imageHandler, data,
   } = props;
-  const product = data || {};
-  return (
-    <form onSubmit={submitHandler} encType="multipart/form-data">
-      <label htmlFor="title">title: </label>
-      <input type="text" name="title" id="title" defaultValue={product.title || ''} onChange={onChangeHandler} required />
-      <label htmlFor="description">description: </label>
-      <textarea onChange={onChangeHandler} defaultValue={product.description || ''} rows="4" cols="50" type="text" name="description" id="description" required />
-      <label htmlFor="price">price: </label>
-      <input onChange={onChangeHandler} defaultValue={product.price || ''} type="number" name="price" id="price" required />
-      <label htmlFor="category">category: </label>
-      <select onChange={onChangeHandler} id="category" name="category" required defaultValue={product.category || ''}>
+  
+  /* 
+  hide arrows input type number https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+  */
+
+  const productForm = {
+    title: {
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    description: {
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    price: {
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    category: {
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    quantity: {
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    },
+    manufacturer: {
+      required: true,
+      regexRule: null,
+      type: 'text',
+      prompt: null
+    },
+    weight: {
+      required: true,
+      regexRule: null,
+      type: 'number',
+      prompt: null
+    }
+  }
+
+  const {
+    title,
+    description,
+    price,
+    category,
+    quantity,
+    manufacturer,
+    weight
+  } = data || {};
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function renderLabel(key) {
+    <label htmlFor={key}>{capitalizeFirstLetter(key)}: </label>
+  }
+
+  function renderInput(key, type, required) { //TODO make required param
+    return (
+      <input
+        type={type}
+        name={key}
+        id={key}
+        value={key || ''}
+        onChange={onChangeHandler}
+        required={required}
+      />
+    )
+  }
+
+  function renderTextArea(key, type, required) { //TODO make required param
+    return (
+      <textarea
+        onChange={onChangeHandler}
+        value={key || ''}
+        rows="4"
+        cols="50"
+        type={type}
+        name={key}
+        id={key}
+        required={required}
+      />
+    )
+  }
+
+  function renderSelect(key, required) { //TODO make options param
+    return (
+      <select
+        name={key}
+        id={key}
+        value={key || ''}
+        required={required}
+      >
         <option disabled value="">Select an option</option>
         <option value="Samsung">Samsung</option>
         <option value="Apple">Apple</option>
       </select>
-      {/* <input onChange={onChangeHandler} type="text" name="category" id="category" value={data.category || ''} />  required */}
-      <label htmlFor="quantity">quantity: </label>
-      <input onChange={onChangeHandler} defaultValue={product.quantity || ''} type="number" name="quantity" id="quantity" required />
-      <label htmlFor="manufacturer">manufacturer: </label>
-      <input onChange={onChangeHandler} defaultValue={product.manufacturer || ''} type="text" name="manufacturer" id="manufacturer" required />
-      <label htmlFor="weight">weight: </label>
-      <input
-        defaultValue={product.weight || ''}
-        onChange={onChangeHandler}
-        type="number"
-        name="weight"
-        id="weight"
-        required
-      />
-      <label htmlFor="images">image: </label>
-      {/* {data && <image src={data.image} />} */}
-      <input type="file" name="image" onChange={imageHandler} id="images" required />
+    )
+  }
+
+  function renderImageBrowser() {
+    return (
+      <>
+        //* {data && <image src={data.image} />} //TODO make preview for existing or selected image
+        <input
+          type="file"
+          name="image"
+          onChange={imageHandler}
+          id="images"
+          required
+        />
+      </>
+    )
+  }
+
+  function renderField(key, required, type) {
+    switch (key) {
+      case description:
+        return renderTextArea(key, required, type)
+      case image:
+        return renderImageBrowser()
+      default:
+        return renderInput(key, required, type)
+    }
+  }
+
+  return (
+    <form onSubmit={submitHandler} encType="multipart/form-data">
+      (
+        
+      )
       <button type="submit">Submit</button>
     </form>
   );
