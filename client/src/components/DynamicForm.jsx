@@ -133,11 +133,13 @@ export default function ProductForm(props) {
   function renderField(key, required, type) {
     switch (key) {
       case description:
-        return renderTextArea(key, required, type)
+        return renderTextArea(key, required, type);
       case image:
-        return renderImageBrowser()
+        return renderImageBrowser();
+      case category:
+        return renderSelect();
       default:
-        return renderInput(key, required, type)
+        return renderInput(key, required, type);
     }
   }
 
