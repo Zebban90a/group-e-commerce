@@ -41,7 +41,7 @@ const { isAdmin, isLoggedIn } = require('../middleware/authentication');
 
 const router = express.Router();
 // TODO add isAdmin and isLogged in later, and test
-router.route('/').get(isLoggedIn, getProducts).post(imageUpload, createProduct);// createProduct);
+router.route('/').get(getProducts).post(imageUpload, createProduct);// createProduct);
 
 router
   .route('/:id')

@@ -26,15 +26,13 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-
-
 export default function ProductListPage() {
   const [products, setProducts] = useState(null); 
   const query = useQuery();
-  const category = query.get("category")
+  const category = query.get("category");
 
   async function getProducts() {
-    const path = `http://localhost:5000/api/products${category ? '?category='+category : ''}`
+    const path = `/api/products${category ? '?category='+category : ''}`;
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
