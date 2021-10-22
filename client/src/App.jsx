@@ -31,6 +31,7 @@ export default function App() {
         <Route path="/admin" component={AdminPage} />
 
         <Route path="/products/:id" component={ProductDetailPage} />
+        <Route path="/products" component={ProductListPage} />
         <Route path="/" component={ProductListPage} />
       </Switch>
     </div>

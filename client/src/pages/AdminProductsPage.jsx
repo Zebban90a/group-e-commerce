@@ -5,6 +5,46 @@ import ProductForm from '../components/ProductForm';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
+  const requiredInputTypes = {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    category: 'string',
+    quantity: 'number',
+    manufacturer: 'string',
+    weight: 'number',
+  };
+
+  const test = {
+    title: 'string',
+    description: 'string',
+    price: 'number',
+    category: 'string',
+    quantity: 'number',
+    manufacturer: 'string',
+    weight: 'number',
+  }
+  /*   console.log(requiredFieldTypes.title === typeof formInput.title);
+    console.log(requiredFieldTypes.price === typeof "ges"); */
+
+  const formIsValid = (requiredInputTypes, formInput) => {
+
+    const required = Object.entries(requiredInputTypes);
+    const input = Object.entries(formInput);
+    console.log('reqqqq:', required);
+    console.log('inpppp:', input);
+    /* try {
+      Object.entries(requiredInputTypes).map(key => {
+        console.log(requiredInputTypes[key]);
+        console.log([key]);
+      });
+    } catch (error) {
+
+    } */
+  }
+  formIsValid(requiredInputTypes, test);
+
+
   const [formInput, setFormInput] = useState('');
   const [formImage, setFormImage] = useState('');
 

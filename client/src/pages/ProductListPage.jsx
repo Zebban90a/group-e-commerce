@@ -35,7 +35,6 @@ export default function ProductListPage() {
 
   async function getProducts() {
     const path = `http://localhost:5000/api/products${category ? '?category='+category : ''}`
-    
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
