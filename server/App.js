@@ -32,6 +32,7 @@ app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/addtocart', CartRoute);
 app.use('/api/checkout', CheckoutRoute);
+app.use('/api/cart', CartRoute);
 app.use('/auth', AuthRoute);
 
 /* app.get('*', (req, res) => {

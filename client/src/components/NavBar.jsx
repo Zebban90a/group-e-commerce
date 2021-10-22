@@ -37,8 +37,8 @@ export default function NavBar() {
       name: 'Register',
     },
     {
-      path: '/checkout',
-      name: 'Checkout',
+      path: '/cart',
+      name: 'Cart',
     },
     {
       path: '/login',
@@ -56,7 +56,7 @@ export default function NavBar() {
     {
       path: '/products?category=samsung',
       name: 'Samsung',
-    }
+    },
   ];
 
   return (
@@ -70,13 +70,13 @@ export default function NavBar() {
           </StyledButton>
         </Link>
       ))}
-          <a href="http://localhost:5000/auth/logout">
-      <StyledButton>
-            <span type="button" className="nav-link ml-2">
-              logout new
-            </span>
-          </StyledButton>
-            </a>
+      <a href="http://localhost:5000/auth/logout">
+        <StyledButton>
+          <span type="button" className="nav-link ml-2">
+            logout new
+          </span>
+        </StyledButton>
+      </a>
     </StyledNav>
   );
 }
