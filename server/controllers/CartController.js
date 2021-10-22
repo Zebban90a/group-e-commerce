@@ -34,11 +34,12 @@ exports.addToCart = async (req, res) => {
   }
 };
 
-exports.GetCart = async (req, res) => {
-  const mockUserId = req.params.id;
+exports.getCart = async (req, res) => {
+  const userId = req.user[0]._id;
+  console.log(req.user);
 
   try {
-    const user = await User.findById(mockUserId);
+    const user = await User.findById(userId);
     res.status(200).json({
       status: 'success',
       data: {

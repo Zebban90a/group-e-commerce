@@ -1,16 +1,15 @@
 const express = require('express');
 const { isLoggedIn } = require('../middleware/authentication');
 const {
-  addToCart, GetCart,
+  addToCart, getCart
 } = require('../controllers/CartController');
 
 const router = express.Router();
 router
   .route('/')
-  .post(isLoggedIn, addToCart);
+  .post(isLoggedIn, addToCart)
+  .get(isLoggedIn, getCart);
 
-router
-  .route('/:id')
-  .get(GetCart);
+
 
 module.exports = router;
