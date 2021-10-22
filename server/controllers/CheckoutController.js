@@ -2,8 +2,8 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 
 exports.GetCart = async (req, res) => {
-    const mockUserId = req.params.id;
-  
+  const mockUserId = req.params.id;
+
   try {
     const user = await User.findById(mockUserId);
     res.status(200).json({

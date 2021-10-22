@@ -35,8 +35,8 @@ const {
   getSingleProduct,
 } = require('../controllers/ProductController');
 
-//NOTE auth troubleshoot, isloggedin potentially misplaced or wrong solution in general
-//!Important if testing isLoggedIn make sure to test in combination with a logout function or deleting cookie
+// NOTE auth troubleshoot, isloggedin potentially misplaced or wrong solution in general
+//! Important if testing isLoggedIn make sure to test in combination with a logout function or deleting cookie
 const { isAdmin, isLoggedIn } = require('../middleware/authentication');
 
 const router = express.Router();

@@ -25,7 +25,7 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
-  console.log(data);
+  // console.log(data);
   try {
     const user = await User.findByIdAndUpdate(id, data, {
       new: true,
