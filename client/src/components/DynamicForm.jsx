@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
 export default function DynamicForm(props) {
-  const { submitHandler, imageHandler, requirements } = props;
+  const { submitHandler, imageHandler, formFormat, defaultRequired } = props;
   const { formData, setFormData } = useContext(UserContext)
   
   function onChangeHandler(e) {
@@ -22,7 +22,7 @@ export default function DynamicForm(props) {
   function renderLabel(name, key) {
     return (
       <label htmlFor={name} key={key}>
-        {capitalizeFirstLetter(name)}: 
+        {capitalizeFirstLetter(name)}:
       </label>
     )
   }
@@ -96,8 +96,11 @@ export default function DynamicForm(props) {
   return (
     <form onSubmit={submitHandler} encType="multipart/form-data">
       {
-        requirements.map((item, index) => {
-          const { name, prompt, regexRule, required, type } = item;
+        formFormat.map((item, index) => {
+          let { name, prompt, regexRule, required, type } = item;
+          required = defaultRequired !== undefined
+            ? defaultRequired
+            : required;
           const value = formData[name];
           const labelKey = 'label'+index;
           const fieldKey = 'input'+index;

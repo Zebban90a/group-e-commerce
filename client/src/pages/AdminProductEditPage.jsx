@@ -9,7 +9,7 @@ export default function AdminProductEditPage() {
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState('');
 
-  const requirements = [
+  const productForm = [
     {
       name: 'title',
       required: false,
@@ -112,7 +112,8 @@ export default function AdminProductEditPage() {
         <DynamicForm
           submitHandler={submitHandler}
           imageHandler={imageHandler}
-          requirements={requirements}
+          formFormat={productForm}
+          defaultRequired={false}
         />
       </UserContext.Provider>
     </div>
