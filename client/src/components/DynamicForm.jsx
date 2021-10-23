@@ -45,6 +45,11 @@ export default function DynamicForm(props) {
         }
         required={required}
         key={key}
+        onKeyDown={(e) => {
+          if(type === "number") {
+            blockInvalidChar(e)
+          }
+        }}
       />
     )
   }
@@ -92,6 +97,8 @@ export default function DynamicForm(props) {
         return renderInput(name, value, type, required, key);
     }
   }
+
+  const blockInvalidChar = e => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
 
   return (
     <form onSubmit={submitHandler} encType="multipart/form-data">
