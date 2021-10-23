@@ -12,56 +12,56 @@ export default function AdminProductEditPage() {
   const requirements = [
     {
       name: 'title',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'text',
       prompt: null
     },
     {
       name: 'description',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'text',
       prompt: null
     },
     {
       name: 'price',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'number',
       prompt: null
     },
     {
       name: 'category',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'text',
       prompt: null
     },
     {
       name: 'quantity',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'number',
       prompt: null
     },
     {
       name: 'manufacturer',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'text',
       prompt: null
     },
     {
       name: 'weight',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'number',
       prompt: null
     },
     {
       name: 'images',
-      required: true,
+      required: false,
       regexRule: null,
       type: 'file',
       prompt: null

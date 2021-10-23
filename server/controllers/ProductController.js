@@ -7,25 +7,23 @@ exports.getProducts = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
-        products,
-      },
+        products
+      }
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err
     });
   }
 };
 
 exports.createProduct = async (req, res) => {
-  console.log('---------req.body below---------')
-  console.log(req.body)
   const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
   try {
     const productExists = await Product.exists({
-      title: formInputData.title,
+      title: formInputData.title
     });
     if (productExists) {
       throw Error('productExists');
@@ -43,34 +41,35 @@ exports.createProduct = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'fail',
-      message: err.message,
+      message: err.message
     });
-    console.log(err);
   }
 };
 
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
-  const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
-  
-  try {
-    const deployedData = formInputData; // TODO Is there a cleaner way?
+  const deployedData = formInputData; // TODO Is there a cleaner way?
+  if (deployedData.images && req.file.path) {
+    const imagePath = req.file.path; //REVIEW do images pass even if update is rejected?    
     deployedData.images = imagePath;
+  }
+  
+  try {  
     const product = await Product.findByIdAndUpdate(id, deployedData, {
-      new: true,
-      runValidators: true,
+      new: true, //REVIEW why true?
+      // runValidators: true, //NOTE bypassed because image is not always updated
     });
     res.status(200).json({
       status: 'success',
       data: {
-        product,
-      },
+        product
+      }
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err
     });
   }
 };
@@ -81,12 +80,12 @@ exports.deleteProduct = async (req, res) => {
     await Product.findByIdAndDelete(id);
     res.status(200).json({
       status: 'success',
-      data: null,
+      data: null
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err
     });
   }
 };
@@ -98,13 +97,13 @@ exports.getSingleProduct = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
-        product,
-      },
+        product
+      }
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err
     });
   }
 };
