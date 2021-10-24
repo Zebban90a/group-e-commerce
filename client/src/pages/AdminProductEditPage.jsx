@@ -3,70 +3,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
+import productForm from '../data/formFormats'
 
 export default function AdminProductEditPage() {
   const { id } = useParams();
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState('');
-
-  const productForm = [
-    {
-      name: 'title',
-      required: false,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'description',
-      required: false,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'price',
-      required: false,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'category',
-      required: false,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'quantity',
-      required: false,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'manufacturer',
-      required: false,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'weight',
-      required: false,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'images',
-      required: false,
-      regexRule: null,
-      type: 'file',
-      prompt: null
-    }
-  ];
   
   async function getProduct() {
     const path = `http://localhost:5000/api/products/${id}`;

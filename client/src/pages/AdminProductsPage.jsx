@@ -3,70 +3,12 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
+import productForm from '../data/formFormats'
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
   const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
-
-  const requirements = [
-    {
-      name: 'title',
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'description',
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'price',
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'category',
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'quantity',
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'manufacturer',
-      required: true,
-      regexRule: null,
-      type: 'text',
-      prompt: null
-    },
-    {
-      name: 'weight',
-      required: true,
-      regexRule: null,
-      type: 'number',
-      prompt: null
-    },
-    {
-      name: 'images',
-      required: true,
-      regexRule: null,
-      type: 'file',
-      prompt: null
-    }
-  ];
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -112,7 +54,7 @@ export default function AdminProductsPage() {
         <DynamicForm
           submitHandler={submitHandler}
           imageHandler={imageHandler}
-          requirements={requirements}
+          formFormat={productForm}
         />
       </UserContext.Provider>
 

@@ -33,6 +33,8 @@ export default function DynamicForm(props) {
         type={type}
         name={name}
         id={name}
+        required={required}
+        key={key}
         value={
           type === 'file'
           ? undefined
@@ -43,8 +45,6 @@ export default function DynamicForm(props) {
           ? imageHandler
           : onChangeHandler
         }
-        required={required}
-        key={key}
         onKeyDown={(e) => {
           if(type === "number") {
             blockInvalidChar(e)
@@ -97,11 +97,20 @@ export default function DynamicForm(props) {
         return renderInput(name, value, type, required, key);
     }
   }
-
+  
   const blockInvalidChar = e => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
 
+  const validate = (e) => {
+    e.preventDefault()
+
+    
+    //TODO check required and regex (skip regex if required ofc)
+    
+    //submitHandler()
+  }
+
   return (
-    <form onSubmit={submitHandler} encType="multipart/form-data">
+    <form onSubmit={validate} encType="multipart/form-data">
       {
         formFormat.map((item, index) => {
           let { name, prompt, regexRule, required, type } = item;
