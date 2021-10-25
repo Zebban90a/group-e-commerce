@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
-import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1.5rem;
@@ -60,6 +60,22 @@ const Button = styled.button`
 export default function ProductDetailPage(props) {
   const [product, setProduct] = useState('');
 
+  async function addToCart(e) {
+    e.preventDefault();
+    const payload = {
+      productTitle: product.title,
+      productPrice: product.price,
+      productId: product._id,
+
+    };
+    console.log(payload);
+    axios({
+      url: '/api/addtocart',
+      method: 'POST',
+      data: payload,
+    });
+  }
+
   async function getProduct() {
     const { id } = props.match.params;
     console.log(id);
@@ -75,7 +91,8 @@ export default function ProductDetailPage(props) {
   return (
     <Container pad>
       {!product && <p>Loading..</p>}
-      {product &&
+      {product
+        && (
         <Card>
           <div>
             <h1>{product.title}</h1>
@@ -90,24 +107,48 @@ export default function ProductDetailPage(props) {
               />
             </ImageContainer>
             <InfoContainer>
-              <p>{product.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet culpa modi nemo dolorem voluptatem? Cupiditate debitis cumque, quo error officiis recusandae sequi dicta natus fugiat, iusto iure corrupti obcaecati esse soluta! Quibusdam repudiandae ea veritatis earum cumque nemo maxime praesentium est hic ab, eligendi aliquid porro quo labore, exercitationem qui?</p>
-              <p className="price">&#36;{product.price}</p>
+              <p>
+                {product.description}
+                {' '}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet culpa modi nemo dolorem voluptatem? Cupiditate debitis cumque, quo error officiis recusandae sequi dicta natus fugiat, iusto iure corrupti obcaecati esse soluta! Quibusdam repudiandae ea veritatis earum cumque nemo maxime praesentium est hic ab, eligendi aliquid porro quo labore, exercitationem qui?
+              </p>
+              <p className="price">
+                &#36;
+                {product.price}
+              </p>
               <div className="availability">
-                {!product.quantity &&
-                  <img src={crossmark} alt="unavailable" />
-                }
-                {product.quantity &&
-                  <img src={checkmark} alt="available" />
-                }
-                <p>{product.quantity} available</p>
+                {!product.quantity
+                  && <img src={crossmark} alt="unavailable" />}
+                {product.quantity
+                  && <img src={checkmark} alt="available" />}
+                <p>
+                  {product.quantity}
+                  {' '}
+                  available
+                </p>
               </div>
-              <p>Manufacturer: {product.manufacturer}</p>
-              <p>Weight: {product.weight}g</p>
-              <Button>TODO: Add add to cart function</Button>
+              <p>
+                Manufacturer:
+                {' '}
+                {product.manufacturer}
+              </p>
+              <p>
+                Weight:
+                {' '}
+                {product.weight}
+                g
+              </p>
+              <button
+                onClick={addToCart}
+                disabled={!product.quantity}
+                type="button"
+              >
+                TODO: Add add to cart function
+              </button>
             </InfoContainer>
           </Container>
         </Card>
-      }
+        )}
     </Container>
   );
 }
