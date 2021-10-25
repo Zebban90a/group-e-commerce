@@ -1,10 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import styled from 'styled-components'
+
+const StyledInput = styled.input`
+  border: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  border-color: ${props => props.warning ? "red" : "#979797"};
+  
+  padding: 4px;
+  margin: 1px;
+
+  &:focus {
+    margin: 0px;
+    outline: none;
+    border-width: 2px;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none; //Chrome, Safari, Edge, Opera
+    margin: 0;
+  }
+  -moz-appearance: textfield; //Firefox
+`
+
+const WarningText = styled.div`
+    font-size: 0.8em;
+    color: red;
+    height: 16px;
+`
+
+const StyledLabel = styled.label`
+  display: block;
+`
 
 export default function DynamicForm(props) {
   const { submitHandler, imageHandler, formFormat, defaultRequired } = props;
   const { formData, setFormData } = useContext(UserContext)
-  
+  const [alert, setAlert] = useState({});
+
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -19,27 +55,27 @@ export default function DynamicForm(props) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  function renderLabel(name, key) {
+  function renderLabel(name, key, required) {
     return (
-      <label htmlFor={name} key={key}>
-        {capitalizeFirstLetter(name)}:
-      </label>
+      <StyledLabel htmlFor={name} key={key}>
+        {capitalizeFirstLetter(name)}{required ? '*' : ''}:
+      </StyledLabel>
     )
   }
 
-  function renderInput(name, value, type, required, key) {
+  function renderInput(name, value, type, key, isMultiLine) {
     return (
-      <input
+      <StyledInput
         type={type}
         name={name}
         id={name}
-        required={required}
         key={key}
         value={
           type === 'file'
           ? undefined
           : value || ''
         }
+
         onChange={
           type === 'file'
           ? imageHandler
@@ -54,7 +90,7 @@ export default function DynamicForm(props) {
     )
   }
 
-  function renderTextArea(name, value, type, required, key) {
+  function renderTextArea(name, value, type, key) {
     return (
       <textarea
         onChange={onChangeHandler}
@@ -64,19 +100,17 @@ export default function DynamicForm(props) {
         type={type}
         name={name}
         id={name}
-        required={required}
         key={key}
       />
     )
   }
 
-  function renderSelect(name, value, required, key) { //TODO make options param
+  function renderSelect(name, value, key) { //TODO make options param
     return (
       <select
         name={name}
         id={name}
         value={value || ''}
-        required={required}
         onChange={onChangeHandler}
         key={key}
       >
@@ -87,36 +121,66 @@ export default function DynamicForm(props) {
     )
   }
 
-  function renderField(name, required, type, key, value = null) {
+  function renderField(name, type, key, value = null) {
     switch (name) {
       case 'description':
-        return renderTextArea(name, value, type, required, key);
+        return renderTextArea(name, value, type, key);
       case 'category':
-        return renderSelect(name, value, required, key);
+        return renderSelect(name, value, key);
       default:
-        return renderInput(name, value, type, required, key);
+        return renderInput(name, value, type, key);
     }
   }
   
   const blockInvalidChar = e => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
+  
+/*   const regexNumber = /[^0-9]/g;
+  const inputTest = 's123';
+  console.log(regexNumber.exec(inputTest)); */
 
-  const validate = (e) => {
+  const preSubmit = (e) => {
     e.preventDefault()
-
-    
-    //TODO check required and regex (skip regex if required ofc)
-    
+    console.log(e);
+    //TODO change element type based on type?
+    //TODO check required and regex (EVEN IF not required)
+    /*
+    onchange / validate but only show red when existing field and green when correcting
+    submit / validate each field, red on incorrect fields, green when correcting
+    */
     //submitHandler()
   }
 
+  const validateFields = () => { //regular function maybe?
+    // how to not run unnessesary tests, use states?
+    // only check which fields are not filled but required?
+
+    /* 
+    validFields setValidfields
+    
+    */
+
+  }
+
+  const isValid = (e) => { //Use for one field
+    const inputName = e.target.name;
+    const inputValue = e.target.value;
+
+    
+  }
+
   return (
-    <form onSubmit={validate} encType="multipart/form-data">
+    <form onSubmit={preSubmit} encType="multipart/form-data">
       {
         formFormat.map((item, index) => {
           let { name, prompt, regexRule, required, type } = item;
-          required = defaultRequired !== undefined
+
+          prompt = prompt !== undefined
+            ? prompt
+            : '';
+          /* required = defaultRequired !== undefined
             ? defaultRequired
-            : required;
+            : required; */
+          
           const value = formData[name];
           const labelKey = 'label'+index;
           const fieldKey = 'input'+index;
@@ -124,9 +188,10 @@ export default function DynamicForm(props) {
           
           return (
             <React.Fragment key={fragmentKey}>
-              {renderLabel(name, labelKey)}
-              {renderField(name, required, type, fieldKey, value)}
+              {renderLabel(name, labelKey, required)}
+              {renderField(name, type, fieldKey, value, regexRule)}
               <br />
+              <WarningText>{alert[name] && prompt}</WarningText>
             </React.Fragment>
           )
         })

@@ -55,7 +55,7 @@ export default function AdminProductEditPage() {
           submitHandler={submitHandler}
           imageHandler={imageHandler}
           formFormat={productForm}
-          defaultRequired={false}
+          //defaultRequired={false}
         />
       </UserContext.Provider>
     </div>

@@ -1,56 +1,57 @@
 const productForm = [
   {
     name: 'title',
-    required: false,
+    required: true,
     regexRule: null,
     type: 'text',
     prompt: null
   },
   {
     name: 'description',
-    required: false,
+    required: true,
     regexRule: null,
     type: 'text',
-    prompt: null
+    prompt: null,
+    isMultiLine: true
   },
   {
     name: 'price',
-    required: false,
-    regexRule: null,
+    required: true,
+    regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
   {
     name: 'category',
-    required: false,
+    required: true,
     regexRule: null,
     type: 'text',
     prompt: null
   },
   {
     name: 'quantity',
-    required: false,
-    regexRule: null,
+    required: true,
+    regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
   {
     name: 'manufacturer',
-    required: false,
+    required: true,
     regexRule: null,
     type: 'text',
     prompt: null
   },
   {
     name: 'weight',
-    required: false,
-    regexRule: null,
+    required: true,
+    regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
   {
     name: 'images',
-    required: false,
+    required: true,
     regexRule: null,
     type: 'file',
     prompt: null
