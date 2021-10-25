@@ -4,16 +4,20 @@ import axios from 'axios';
 export default function CheckoutPage() {
   const [formInput, setFormInput] = useState({});
 
-  async function submitHandler(e) {
+  function submitHandler(e) {
     e.preventDefault();
 
-    const path = `http://localhost:5000/api/checkout`;
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    const payload = {
+      formInput
+
     };
-    await axios.post(path, formInput, config);
+    axios({
+      url: '/api/checkout',
+      method: 'POST',
+      data: payload,
+    });
+
+
 
   }
   function onChangeHandler(e) {
