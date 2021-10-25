@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CartPage() {
-  
   const [cart, setCart] = useState([]);
-  
 
   useEffect(() => {
     fetch('/api/cart')
       .then((response) => response.json())
       .then((user) => setCart(user.data.user.cart));
   }, []);
-  console.log(cart);
 
   return (
     <div>
@@ -26,7 +24,7 @@ export default function CartPage() {
         </div>
       ))}
       <br />
-      <button>Go to Checkout</button>
+      <Link to="/checkout"><h3>Go to Checkout</h3></Link>
     </div>
 
   );

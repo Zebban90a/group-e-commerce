@@ -12,6 +12,7 @@ import AdminProductsPage from './pages/AdminProductsPage';
 import AdminPage from './pages/AdminPage';
 import AdminProductEditPage from './pages/AdminProductEditPage';
 import NavBar from './components/NavBar';
+import CheckoutPage from './pages/CheckoutPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <NavBar />
       <Switch>
         <Route path="/cart" component={CartPage} />
+        <Route path="/checkout" component={CheckoutPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/user" component={UserPage} />

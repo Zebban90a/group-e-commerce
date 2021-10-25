@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
@@ -27,12 +27,12 @@ function useQuery() {
 }
 
 export default function ProductListPage() {
-  const [products, setProducts] = useState(null); 
+  const [products, setProducts] = useState(null);
   const query = useQuery();
-  const category = query.get("category");
+  const category = query.get('category');
 
   async function getProducts() {
-    const path = `/api/products${category ? '?category='+category : ''}`;
+    const path = `/api/products${category ? `?category=${category}` : ''}`;
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }

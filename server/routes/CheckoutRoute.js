@@ -1,11 +1,12 @@
 const express = require('express');
 
-const { GetCart } = require('../controllers/CheckoutController');
+const { placeOrder } = require('../controllers/CheckoutController');
 
 const router = express.Router();
 
 router
-  .route('/:id')
-  .get(GetCart);
+  .route('/')
+  .get()
+  .post(placeOrder);
 
 module.exports = router;

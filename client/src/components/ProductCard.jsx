@@ -71,12 +71,11 @@ export default function ProductCard({ product }) {
 
   async function addToCart(e) {
     e.preventDefault();
-    
+
     const payload = {
       productTitle: title,
       productPrice: price,
       productId: _id,
-      
 
     };
     axios({

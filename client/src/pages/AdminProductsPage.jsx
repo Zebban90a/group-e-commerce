@@ -23,12 +23,11 @@ export default function AdminProductsPage() {
     quantity: 'number',
     manufacturer: 'string',
     weight: 'number',
-  }
+  };
   /*   console.log(requiredFieldTypes.title === typeof formInput.title);
     console.log(requiredFieldTypes.price === typeof "ges"); */
 
   const formIsValid = (requiredInputTypes, formInput) => {
-
     const required = Object.entries(requiredInputTypes);
     const input = Object.entries(formInput);
     console.log('reqqqq:', required);
@@ -41,9 +40,8 @@ export default function AdminProductsPage() {
     } catch (error) {
 
     } */
-  }
+  };
   formIsValid(requiredInputTypes, test);
-
 
   const [formInput, setFormInput] = useState('');
   const [formImage, setFormImage] = useState('');
