@@ -1,14 +1,14 @@
 const express = require('express');
 const {
-  createUser,
   updateUser,
   findUser,
   deleteUser,
 } = require('../controllers/UserController');
+const { isLoggedIn } = require('../middleware/authentication')
 
 const router = express.Router();
 
-router.route('/').post(createUser);
-router.route('/:id').get(findUser).patch(updateUser).delete(deleteUser);
+router.route('/').get(isLoggedIn, findUser).patch(isLoggedIn, updateUser)
+  .delete(deleteUser);
 
 module.exports = router;
