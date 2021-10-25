@@ -1,61 +1,53 @@
-const productForm = [
-  {
-    name: 'title',
+const productForm = {
+  title : {
     required: true,
-    regexRule: null,
+    regexRule: /^.{1,}$/,
     type: 'text',
     prompt: null
   },
-  {
-    name: 'description',
+  description : {
     required: true,
-    regexRule: null,
+    regexRule: /^$/,
     type: 'text',
     prompt: null,
     isMultiLine: true
   },
-  {
-    name: 'price',
+  price : {
     required: true,
     regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
-  {
-    name: 'category',
+  category : {
     required: true,
-    regexRule: null,
+    regexRule: /^$/,
     type: 'text',
     prompt: null
   },
-  {
-    name: 'quantity',
+  quantity : {
     required: true,
     regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
-  {
-    name: 'manufacturer',
+  manufacturer : {
     required: true,
-    regexRule: null,
+    regexRule: /^$/,
     type: 'text',
     prompt: null
   },
-  {
-    name: 'weight',
+  weight : {
     required: true,
     regexRule: /[^0-9]/g,
     type: 'number',
     prompt: null
   },
-  {
-    name: 'images',
+  images : {
     required: true,
-    regexRule: null,
+    regexRule: /^$/,
     type: 'file',
     prompt: null
   }
-];
+};
 
 export default productForm;

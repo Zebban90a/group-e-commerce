@@ -31,6 +31,7 @@ export default function AdminProductEditPage() {
   }, []);
 
   async function submitHandler(e) {
+    console.log(formData);
     e.preventDefault();
     const path = `http://localhost:5000/api/products/${id}`;
     const formDataDeployment = new FormData();
@@ -55,7 +56,6 @@ export default function AdminProductEditPage() {
           submitHandler={submitHandler}
           imageHandler={imageHandler}
           formFormat={productForm}
-          //defaultRequired={false}
         />
       </UserContext.Provider>
     </div>
