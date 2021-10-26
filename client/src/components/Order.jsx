@@ -55,7 +55,7 @@ export default function Order({ order }) {
       </Wrapper>
       <Container>
         <strong>Products</strong>
-        {order.products.map((product) => (
+        {order.cart.map((product) => (
           /* TODO Add unique id per product object in orders.product array */
           <OrderProductDetails key={product._id} orderProduct={product} />
         ))}
