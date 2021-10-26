@@ -69,19 +69,19 @@ export default function UserPage() {
   const [editUserData, setEditUserData] = useState(false);
 
   async function getUser() {
-    const path = '/api/users';
+    const path = 'api/users';
     const { data } = await axios.get(path);
     setUserData(data.data.user);
   }
 
   const submitUserData = async () => {
-    const path = '/api/users';
+    const path = 'api/users';
     await axios.patch(path, userData);
   }
 
   // Uncomment after merge with cart...
   async function getAllOrders() {
-    const path = '/api/orders';
+    const path = 'api/orders';
     const { data } = await axios.get(path);
     const logData = async () => {
       console.log(data.data.orders);

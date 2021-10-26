@@ -1,53 +1,84 @@
 const productForm = {
-  title : {
+  title: {
     required: true,
     regexRule: /^\S.{1,}$/,
     type: 'text',
-    prompt: null
+    prompt: null,
   },
-  description : {
+  description: {
     required: true,
     regexRule: /^\S./m,
     type: 'text',
     prompt: null,
-    isMultiLine: true
+    isMultiLine: true,
   },
-  price : {
+  price: {
     required: true,
     regexRule: /^[0-9]+$/,
     type: 'number',
-    prompt: null
+    prompt: null,
   },
-  category : {
+  category: {
     required: true,
     regexRule: /^.{1,}$/,
     type: 'text',
-    prompt: null
+    prompt: null,
   },
-  quantity : {
+  quantity: {
     required: true,
     regexRule: /^[0-9]+$/,
     type: 'number',
-    prompt: null
+    prompt: null,
   },
-  manufacturer : {
+  manufacturer: {
     required: true,
     regexRule: /^.{1,}$/,
     type: 'text',
-    prompt: null
+    prompt: null,
   },
-  weight : {
+  weight: {
     required: true,
     regexRule: /^[0-9]+$/,
     type: 'number',
-    prompt: null
+    prompt: null,
   },
-  images : {
+  images: {
     required: true,
     regexRule: null,
     type: 'file',
-    prompt: null
-  }
+    prompt: null,
+  },
+};
+
+const userData = {
+  fullName: {
+    required: true,
+    type: 'text',
+  },
+  email: {
+    required: true,
+    type: 'email',
+  },
+  tel: {
+    required: false,
+    type: 'tel',
+  },
+  street: {
+    required: false,
+    type: 'text',
+  },
+  houseNumber: {
+    required: false,
+    type: 'number',
+  },
+  zip: {
+    required: false,
+    type: 'number',
+  },
+  city: {
+    required: false,
+    type: 'text',
+  },
 };
 
 export default productForm;

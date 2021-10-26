@@ -20,7 +20,7 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       }
     };
-    const path = '/api/products';
+    const path = 'api/products';
     const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
@@ -28,12 +28,12 @@ export default function AdminProductsPage() {
   }
 
   const deleteProduct = (id) => {
-    axios.delete(`/products/${id}`);
+    axios.delete(`products/${id}`);
     window.location.reload();
   };
 
   const getProducts = async () => {
-    const { data } = await axios.get('/api/products');
+    const { data } = await axios.get('api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -57,7 +57,7 @@ export default function AdminProductsPage() {
         const id = product._id;
         return (
           <li key={id}>
-            <Link to={`/Admin/products/${id}`}>{product.title}</Link>
+            <Link to={`Admin/products/${id}`}>{product.title}</Link>
             <button type="button" onClick={() => deleteProduct(id)}>DELETE</button>
           </li>
         );
