@@ -56,6 +56,7 @@ export default function Order({ order }) {
       <Container>
         <strong>Products</strong>
         {order.products.map((product) => (
+          /* TODO Add unique id per product object in orders.product array */
           <OrderProductDetails key={product._id} orderProduct={product} />
         ))}
       </Container>
