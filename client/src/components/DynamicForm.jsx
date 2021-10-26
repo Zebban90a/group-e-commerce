@@ -146,8 +146,8 @@ export default function DynamicForm(props) {
         key={fieldKey}
       >
         <option disabled value="">Select an option</option>
-        <option value="Samsung">Samsung</option>
-        <option value="Apple">Apple</option>
+        <option value="samsung">Samsung</option>
+        <option value="apple">Apple</option>
       </select>
     )
   }
