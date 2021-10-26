@@ -37,16 +37,20 @@ const {
 
 // NOTE auth troubleshoot, isloggedin potentially misplaced or wrong solution in general
 //! Important if testing isLoggedIn make sure to test in combination with a logout function or deleting cookie
-const { isAdmin, isLoggedIn } = require('../middleware/authentication');
+const {
+  isAdmin
+} = require('../middleware/authentication');
 
 const router = express.Router();
-// TODO add isAdmin and isLogged in later, and test
-router.route('/').get(getProducts).post(imageUpload, createProduct);// createProduct);
+router
+  .route('/')
+  .get(getProducts)
+  .post( /* isAdmin,  */ imageUpload, createProduct); // createProduct);
 
 router
   .route('/:id')
   .get(getSingleProduct)
-  .patch(updateProduct)
-  .delete(deleteProduct);
+  .patch( /* isAdmin,  */ updateProduct)
+  .delete(isAdmin, deleteProduct);
 
 module.exports = router;
