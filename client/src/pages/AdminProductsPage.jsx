@@ -27,10 +27,6 @@ export default function AdminProductsPage() {
     }
   }
 
-  function imageHandler(e) {
-    setFormImage({ file: e.target.files[0] });
-  }
-
   const deleteProduct = (id) => {
     axios.delete(`http://localhost:5000/products/${id}`);
     window.location.reload();
@@ -50,10 +46,9 @@ export default function AdminProductsPage() {
     <div>
       <h1>admin products</h1>
 
-      <UserContext.Provider value={{formData, setFormData}}>
+      <UserContext.Provider value={{formData, setFormData, formImage, setFormImage}}>
         <DynamicForm
           submitHandler={submitHandler}
-          imageHandler={imageHandler}
           formFormat={productForm}
         />
       </UserContext.Provider>

@@ -31,7 +31,6 @@ export default function AdminProductEditPage() {
   }, []);
 
   async function submitHandler(e) {
-    console.log(formData);
     e.preventDefault();
     const path = `http://localhost:5000/api/products/${id}`;
     const formDataDeployment = new FormData();
@@ -40,21 +39,17 @@ export default function AdminProductEditPage() {
     formDataDeployment.append('image', formImage.file);
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     };
     await axios.patch(path, formDataDeployment, config);
   }
 
-  function imageHandler(e) {
-    setFormImage({ file: e.target.files[0] });
-  }
   return (
     <div>
-      <UserContext.Provider value={{formData, setFormData}}>
+      <UserContext.Provider value={{ formData, setFormData, formImage, setFormImage }}>
         <DynamicForm
           submitHandler={submitHandler}
-          imageHandler={imageHandler}
           formFormat={productForm}
         />
       </UserContext.Provider>

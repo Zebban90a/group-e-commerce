@@ -3,6 +3,7 @@ import { UserContext } from '../contexts/UserContext';
 import styled from 'styled-components'
 
 const StyledInput = styled.input`
+  width: 60%;
   border-style: solid;
   border-width: 1px;
   border-radius: 3px;
@@ -42,21 +43,34 @@ const WarningText = styled.div`
     height: 16px;
 `
 
+const MainWarningText = styled.div`
+    color: red;
+    height: 16px;
+`
+
 const StyledLabel = styled.label`
   display: block;
 `
 
 export default function DynamicForm(props) {
-  const { submitHandler, imageHandler, formFormat } = props;
-  const { formData, setFormData } = useContext(UserContext)
+  const { submitHandler, formFormat } = props;
+  const { formData, setFormData, formImage, setFormImage } = useContext(UserContext);
+
   const [alert, setAlert] = useState({});
+  const [mainAlert, setMainAlert] = useState('');
 
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
+    const type = formFormat[inputName].type
     
-    setFormData({...formData,[inputName]: inputValue,});
-    setAlert({...alert, [inputName] : !isValid(inputName, inputValue)})
+    if (type === 'file') {
+      setFormImage({ file: e.target.files[0] });
+      setAlert({...alert, [inputName] : !isValid(inputName, e.target.files[0])})
+    } else {
+      setFormData({...formData,[inputName]: inputValue,});
+      setAlert({...alert, [inputName] : !isValid(inputName, inputValue)})
+    }
   }
 
   function capitalizeFirstLetter(string) {
@@ -86,11 +100,7 @@ export default function DynamicForm(props) {
           ? undefined
           : value || ''
         }
-        onChange={
-          type === 'file'
-          ? imageHandler
-          : onChangeHandler
-        }
+        onChange={onChangeHandler}
         onKeyDown={(e) => {
           if (type === "number") {
             blockInvalidNumberInput(e)
@@ -153,31 +163,39 @@ export default function DynamicForm(props) {
   
   function preSubmit(e, submitHandler) {
     e.preventDefault();
-    validateFields(e)
-    //submitHandler(e);
+    if (formIsValid()) {
+      submitHandler(e);
+    } else {
+      setMainAlert('please check the highlighted fields.')
+    }
   }
-  console.log(!!/^.{1,}$/.exec(undefined));
-  const validateFields = (e) => {
+
+  function formIsValid() {
+    let output = true;
 
     for (const field in formFormat) {
       const value = formData[field];
-      console.log(field, value);
-      setAlert({...alert, [field] : !isValid(field, value)})
+      
+      if (!isValid(field, value)) {
+        output = false;
+        setAlert(alert => ({...alert, [field] : true}));
+      }
     }
-    
+    return output;
   }
-  
-  useEffect(() => {
-    console.log(alert);
-  }, [alert])
 
   const isValid = (name, value) => {
     const { regexRule, required } = formFormat[name];
-    //const isEmpty = (required && !value);
-    //console.log(name, (!isEmpty && !!regexRule.exec(value)));
-    return !!regexRule.exec(value);
+    
+    if (required && !value) {
+      return false
+    }
+    if (regexRule && !regexRule.exec(value)) {
+      return false;
+    }
+    return true
   }
-  //!FIXME NUMBER REGEX DOES NOT REACT ON EMPTY FIELDS!
+  
   return (
     <form onSubmit={(e)=> { preSubmit(e, submitHandler) }} encType="multipart/form-data">
       {
@@ -199,12 +217,13 @@ export default function DynamicForm(props) {
               {renderLabel({name, labelKey, required})}
               {renderField({name, type, fieldKey, value, regexRule})}
               <br />
-              <WarningText>{alert[name] && (prompt || 'Invalid value')}</WarningText>
+              <WarningText>{alert[name] && (prompt || 'Invalid input')}</WarningText>
             </React.Fragment>
           )
         })
       }
       <button type="submit">Submit</button>
+      <MainWarningText>{mainAlert && mainAlert}</MainWarningText>
     </form>
   );
 }
