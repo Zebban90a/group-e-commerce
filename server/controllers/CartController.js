@@ -8,6 +8,9 @@ exports.addToCart = async (req, res) => {
   const ProductTitle = req.body.productTitle;
 
   try {
+    req.user[0].cart.push({Id: ProductId,
+      Title: ProductTitle,
+      Price: ProductPrice,})
     await User.findOneAndUpdate(
       {
         _id: userId,
@@ -32,6 +35,7 @@ exports.addToCart = async (req, res) => {
 
 exports.getCart = async (req, res) => {
   const userId = req.user[0]._id;
+  console.log('REQ USER CART:',req.user[0].cart);
 
   try {
     const user = await User.findById(userId);

@@ -4,7 +4,7 @@ const Order = require('../models/OrderModel');
 exports.placeOrder = async (req, res) => {
   const userId = req.user[0]._id;
   const cart = req.user[0].cart;
-  console.log(cart)
+  console.log(req.user[0]);
   
   const addressData = req.body.formInput;
   console.log(addressData);
