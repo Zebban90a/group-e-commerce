@@ -48,9 +48,7 @@ exports.createOrder = async (req, res) => {
 exports.findAllOrders = async (req, res) => {
   const user = req.user[0];
   try {
-    const {
-      isAdmin
-    } = user.roles;
+    const isAdmin = user.roles.includes('admin');
     let orders;
     if (isAdmin) {
       orders = await Order.find({});
