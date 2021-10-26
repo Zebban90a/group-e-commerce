@@ -3,7 +3,7 @@ import axios from 'axios';
 import Orders from '../components/Orders';
 
 export default function UserPage() {
-  const testOrders = [{
+  /* const testOrders = [{
     _id: '616593c4e9eb5c2a271c6b38',
     purchaser: '616584cf8b04b9069807c7ae',
     products: [
@@ -62,28 +62,33 @@ export default function UserPage() {
       email: 'kweku@gmail.com',
       _id: '616593c4e9eb5c2a271c6b3a',
     },
-  }];
+  }]; */
 
   const [userData, setUserData] = useState({});
-  const [orders, setOrders] = useState(testOrders);
+  const [orders, setOrders] = useState([]);
   const [editUserData, setEditUserData] = useState(false);
-  const path = '/api/users';
 
   async function getUser() {
+    const path = '/api/users';
     const { data } = await axios.get(path);
     setUserData(data.data.user);
   }
 
   const submitUserData = async () => {
+    const path = '/api/users';
     await axios.patch(path, userData);
   }
 
   // Uncomment after merge with cart...
-  /* async function getAllOrders() {
+  async function getAllOrders() {
     const path = '/api/orders';
     const { data } = await axios.get(path);
-    setOrders(data.data.order);
-   }*/
+    const logData = async () => {
+      console.log(data.data.orders);
+    }
+    await logData();
+    setOrders(data.data.orders);
+  }
 
   const handleToggleUserDataForm = () => {
     setEditUserData((prevState) => !prevState);
@@ -91,13 +96,13 @@ export default function UserPage() {
 
   useEffect(() => {
     getUser();
+    getAllOrders();
     console.log('useEffect getting users');
   }, []);
 
-    // Uncomment after merge with cart...
-  /* useEffect(() => {
+ /*  // Uncomment after merge with cart...
+  useEffect(() => {
     console.log('useEffect getting orders');
-    getAllOrders();
   }, []); */
 
   // TODO fix styling, make components
