@@ -65,7 +65,7 @@ const OrderSchema = mongoose.Schema({
     max: 3,
   },
   date: {
-    type: String,
+    type: Date,
     default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
   },
   address: OrderAddressSchema,
