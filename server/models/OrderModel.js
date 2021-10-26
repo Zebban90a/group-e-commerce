@@ -63,7 +63,7 @@ const OrderSchema = mongoose.Schema({
     default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
   },
   shippingAddress: OrderAddressSchema,
-  contact: OrderContactInfoSchema,
+  //contact: OrderContactInfoSchema,
 });
 
 module.exports = mongoose.model('Order', OrderSchema);

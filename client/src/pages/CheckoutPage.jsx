@@ -44,7 +44,7 @@ export default function CheckoutPage() {
       <input onChange={onChangeHandler} type="text" name="zip" id="zip" value={formInput.zip || 0} required />
 
       {/* <input onChange={onChangeHandler} type="text" name="category" id="category" value={data.category || ''} />  required */}
-      <button type="submit">SUBMITÖ</button>
+      <button type="submit">SUBMIT</button>
     </form>
   );
 }
