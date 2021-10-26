@@ -8,33 +8,17 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-export default function OrderProductDetails({ orderProduct }) {
+export default function OrderProductDetails({ cartItem }) {
   const [productTitle, setProductTitle] = useState('');
-
-  const getProductTitle = async () => {
-    const id = orderProduct.productId;
-    const path = `/api/products/${id}`;
-    const { data } = await axios.get(path);
-    setProductTitle(data.data.product.title);
-  };
-
-  useEffect(() => {
-    getProductTitle();
-  }, []);
 
   return (
     <Wrapper>
       <p>
-        {productTitle}
-      </p>
-      <p>
-        Qty
-        {' '}
-        {orderProduct.quantity}
+        {cartItem.Title}
       </p>
       <p>
         &#36;
-        {orderProduct.productPrice}
+        {cartItem.Price}
       </p>
     </Wrapper>
   );
