@@ -12,10 +12,10 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(async (user, cb) => {
   // NOTE for auth troubleshoot
   // Not sure if finding in db is needed
-  const existingUser = await User.find({ googleId: user.id });
+  const existingUser = await User.findOne({ googleId: user.id });
   // console.log('passport.js row 16/ deserializeUser / incoming user below');
   // console.log(user);
-  if (existingUser.length > 0) {
+  if (existingUser) {
     //   console.log('passport.js row 19/ deserializeUser / found the user above in db, returning db-doc ');
     return cb(false, existingUser);
   }
@@ -32,11 +32,11 @@ passport.use(new GoogleStrategy({
 },
 (async (request, accessToken, refreshToken, profile, done) => {
   try {
-    const existingUser = await User.find({ googleId: profile.id });
+    const existingUser = await User.findOne({ googleId: profile.id });
     //  console.log('passport.js row 35/ new GoogleStrategy / found user in db below');
-    //  console.log(existingUser);
-    if (existingUser.length > 0) {
-      //    console.log('passport.js row 39/ returning existing user above');
+    console.log(existingUser);
+    if (existingUser) {
+      console.log('passport.js row 39/ returning existing user above');
       return done(false, existingUser);
     }
     const fullName = Object.values(profile.name).join(' ');

@@ -2,13 +2,14 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 
 exports.addToCart = async (req, res) => {
-  const userId = req.user[0]._id;
+  //console.log(req)
+  const userId = req.user._id;
   const ProductId = req.body.productId;
   const ProductPrice = req.body.productPrice;
   const ProductTitle = req.body.productTitle;
 
   try {
-    req.user[0].cart.push({Id: ProductId,
+    req.user.cart.push({Id: ProductId,
       Title: ProductTitle,
       Price: ProductPrice,})
     await User.findOneAndUpdate(
@@ -25,8 +26,8 @@ exports.addToCart = async (req, res) => {
         },
       },
     );
-    res.end();
     console.log(userId);
+    res.end();
     // console.log(users);
   } catch {
     console.log('error');
@@ -34,8 +35,8 @@ exports.addToCart = async (req, res) => {
 };
 
 exports.getCart = async (req, res) => {
-  const userId = req.user[0]._id;
-  console.log('REQ USER CART:',req.user[0].cart);
+  const userId = req.user._id;
+  console.log('REQ USER CART:',req.user.cart);
 
   try {
     const user = await User.findById(userId);

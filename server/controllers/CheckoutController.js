@@ -2,9 +2,9 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 
 exports.placeOrder = async (req, res) => {
-  const userId = req.user[0]._id;
-  const cart = req.user[0].cart;
-  console.log(req.user[0]);
+  const userId = req.user._id;
+  const cart = req.user.cart;
+  console.log(req.user);
   
   const addressData = req.body.formInput;
   console.log(addressData);

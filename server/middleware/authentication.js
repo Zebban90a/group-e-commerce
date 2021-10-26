@@ -14,7 +14,7 @@ exports.isLoggedIn = (req, res, next) => {
 exports.isAdmin = (req, res, next) => {
   console.log('isadmin');
   console.log(req.user);
-  const user = req.user[0];
+  const user = req.user;
   if (user && user.roles && user.roles.includes('admin')) {
     next();
   } else {

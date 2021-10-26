@@ -38,7 +38,6 @@ export default function ProductListPage() {
   }
 
   useEffect(() => {
-    console.log('useeffect');
     getProducts();
   }, [category]);
 
