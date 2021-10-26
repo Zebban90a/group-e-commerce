@@ -55,12 +55,17 @@ export default function Order({ order }) {
       </Wrapper>
       <Container>
         <strong>Products</strong>
-        {order.cart.map((product) => (
+        {order.cart.map((cartItem) => (
           /* TODO Add unique id per product object in orders.product array */
-          <OrderProductDetails key={product._id} orderProduct={product} />
+          <OrderProductDetails key={cartItem._id} cartItem={cartItem} />
         ))}
       </Container>
       <Wrapper>
+        <p>
+          <strong>Order Date</strong>
+          {' '}
+          {order.date}
+        </p>
         <p>
           <strong>Order Total</strong>
           {' '}
