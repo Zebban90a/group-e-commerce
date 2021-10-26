@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Orders from '../components/Orders';
+import DynamicForm from '../components/DynamicForm';
+import { UserContext } from '../contexts/UserContext';
+import {userForm} from '../data/formFormats';
 
 export default function UserPage() {
   /* const testOrders = [{
@@ -64,20 +67,20 @@ export default function UserPage() {
     },
   }]; */
 
-  const [userData, setUserData] = useState({});
+  const [formData, setFormData] = useState({});
   const [orders, setOrders] = useState([]);
   const [editUserData, setEditUserData] = useState(false);
 
   async function getUser() {
     const path = 'api/users';
     const { data } = await axios.get(path);
-    setUserData(data.data.user);
+    setFormData(data.data.user);
   }
 
   const submitUserData = async () => {
     const path = 'api/users';
-    await axios.patch(path, userData);
-  }
+    await axios.patch(path, formData);
+  };
 
   // Uncomment after merge with cart...
   async function getAllOrders() {
@@ -85,14 +88,14 @@ export default function UserPage() {
     const { data } = await axios.get(path);
     const logData = async () => {
       console.log(data.data.orders);
-    }
+    };
     await logData();
     setOrders(data.data.orders);
   }
 
   const handleToggleUserDataForm = () => {
     setEditUserData((prevState) => !prevState);
-  }
+  };
 
   useEffect(() => {
     getUser();
@@ -100,7 +103,7 @@ export default function UserPage() {
     console.log('useEffect getting users');
   }, []);
 
- /*  // Uncomment after merge with cart...
+  /*  // Uncomment after merge with cart...
   useEffect(() => {
     console.log('useEffect getting orders');
   }, []); */
@@ -108,36 +111,53 @@ export default function UserPage() {
   // TODO fix styling, make components
   return (
     <div>
-      {!editUserData &&
+      {!editUserData
+        && (
         <div>
           <div>
             <h2>User details</h2>
-            <p>{userData.fullName}</p>
-            <p>{userData.email}</p>
+            <p>{formData.fullName}</p>
+            <p>{formData.email}</p>
           </div>
-          {userData.contactInfo &&
+          {formData.contactInfo
+            && (
             <div>
               <h2>Contact information</h2>
-              <p>Street: {userData.contactInfo.address.street}</p>
-              <p>House#: {userData.contactInfo.address.houseNumber}</p>
-              <p>City: {userData.contactInfo.address.city}</p>
-              <p>Phone#: {userData.contactInfo.tel}</p>
+              <p>
+                Street:
+                {' '}
+                {formData.contactInfo.address.street}
+              </p>
+              <p>
+                House#:
+                {' '}
+                {formData.contactInfo.address.houseNumber}
+              </p>
+              <p>
+                City:
+                {' '}
+                {formData.contactInfo.address.city}
+              </p>
+              <p>
+                Phone#:
+                {' '}
+                {formData.contactInfo.tel}
+              </p>
             </div>
-          }
+            )}
         </div>
-      }
+        )}
       {
         // Replace with Dino's Dynamic Design Form™
-        editUserData &&
-        <form>
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <button>Save</button>
-        </form>
+        editUserData
+        && (
+          <UserContext.Provider value={{ formData, setFormData }}>
+            <DynamicForm
+              submitHandler={submitUserData}
+              formFormat={userForm}
+            />
+          </UserContext.Provider>
+        )
       }
       <button type="button" onClick={handleToggleUserDataForm}>
         {editUserData ? 'Cancel' : 'Edit Details'}

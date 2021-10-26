@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
-import productForm from '../data/formFormats'
+import {productForm} from '../data/formFormats';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);

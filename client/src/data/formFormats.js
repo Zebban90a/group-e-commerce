@@ -1,4 +1,4 @@
-const productForm = {
+export const productForm = {
   title: {
     required: true,
     regexRule: /^\S.{1,}$/,
@@ -50,7 +50,7 @@ const productForm = {
   },
 };
 
-const userData = {
+export const userForm = {
   fullName: {
     required: true,
     type: 'text',
@@ -80,5 +80,3 @@ const userData = {
     type: 'text',
   },
 };
-
-export default productForm;
