@@ -2,10 +2,6 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 
 exports.addToCart = async (req, res) => {
-/*   const logUser = async (user) => user[0]._id;
-
-  const userId = await logUser(req.user);
- */
   const userId = req.user[0]._id;
   const ProductId = req.body.productId;
   const ProductPrice = req.body.productPrice;

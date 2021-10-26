@@ -60,7 +60,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 exports.findUser = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user[0]._id;
   try {
     const user = await User.findById(id);
     res.status(200).json({

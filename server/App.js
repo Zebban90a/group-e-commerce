@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
+const path = require('path')
 const app = express();
 
 // Middleware
@@ -25,7 +25,9 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/images', express.static('images'));
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
+//app.use('/images', express.static('images'));
 
 app.use('/api/users', UserRoute);
 app.use('/api/orders', OrderRoute);
