@@ -12,7 +12,7 @@ export default function OrderProductDetails({ orderProduct }) {
   const [productTitle, setProductTitle] = useState('');
 
   const getProductTitle = async () => {
-    const id = orderProduct._id;
+    const id = orderProduct.productId;
     const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
     setProductTitle(data.data.product.title);
