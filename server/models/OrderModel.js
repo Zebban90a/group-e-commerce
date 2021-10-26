@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const OrderAddressSchema = mongoose.Schema({
   zip: {
@@ -17,6 +18,7 @@ const OrderAddressSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+
   _id: false,
 });
 
@@ -61,6 +63,10 @@ const OrderSchema = mongoose.Schema({
     default: 0,
     min: 0,
     max: 3,
+  },
+  date: {
+    type: Date,
+    // default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
   },
   address: OrderAddressSchema,
   contact: OrderContactInfoSchema,

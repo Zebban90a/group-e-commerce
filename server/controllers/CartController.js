@@ -36,7 +36,6 @@ exports.addToCart = async (req, res) => {
 
 exports.getCart = async (req, res) => {
   const userId = req.user[0]._id;
-  console.log('GET CART CLG: '+req.user[0].fullName);
 
   try {
     const user = await User.findById(userId);
@@ -46,7 +45,6 @@ exports.getCart = async (req, res) => {
         user,
       },
     });
-    
   } catch (err) {
     res.status(404).json({
       status: 'fail',
