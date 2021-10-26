@@ -17,9 +17,9 @@ export default function CartPage() {
       {cart.map((product) => (
         <div>
           <span>
-            <span>{`Produkt: ${product.Title || 'no name'}`}</span>
+            <span>{`Produkt: ${product.title || 'no name'}`}</span>
             <br />
-            <span>{`Pris: ${product.Price} kr`}</span>
+            <span>{`Pris: ${product.price} kr`}</span>
           </span>
         </div>
       ))}

@@ -1,5 +1,4 @@
 const User = require('../models/UserModel');
-
 exports.createUser = async (req, res) => {
   try {
     const userExists = await User.exists({ email: req.body.email });
@@ -21,7 +20,6 @@ exports.createUser = async (req, res) => {
     });
   }
 };
-
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const data = req.body;

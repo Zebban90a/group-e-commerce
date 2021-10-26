@@ -1,16 +1,14 @@
 const Product = require('../models/ProductModel');
-
 exports.getProducts = async (req, res) => {
+  console.log(req.user);
   try {
     let products = '';
     const { category } = req.query;
-
     if (category) {
       products = await Product.find({ category });
     } else {
       products = await Product.find({});
     }
-
     res.status(200).json({
       status: 'success',
       data: {
@@ -24,12 +22,10 @@ exports.getProducts = async (req, res) => {
     });
   }
 };
-
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
   console.log(imagePath);
   const formInputData = JSON.parse(req.body.input);
-
   try {
     const productExists = await Product.exists({
       title: formInputData.title,
@@ -55,7 +51,6 @@ exports.createProduct = async (req, res) => {
     console.log(err);
   }
 };
-
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
@@ -78,7 +73,6 @@ exports.updateProduct = async (req, res) => {
     });
   }
 };
-
 exports.deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
@@ -94,7 +88,6 @@ exports.deleteProduct = async (req, res) => {
     });
   }
 };
-
 exports.getSingleProduct = async (req, res) => {
   const { id } = req.params;
   try {
