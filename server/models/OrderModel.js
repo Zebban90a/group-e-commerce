@@ -40,16 +40,10 @@ const OrderSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  products: [{
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    quantity: Number,
-    productPrice: Number,
-    _id: false,
-  }],
+  cart: {
+    type: Array,
+    requried: true
+  },
   orderTotal: {
     type: Number,
     required: true,
@@ -68,7 +62,7 @@ const OrderSchema = mongoose.Schema({
     type: Date,
     default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
   },
-  address: OrderAddressSchema,
+  shippingAddress: OrderAddressSchema,
   contact: OrderContactInfoSchema,
 });
 

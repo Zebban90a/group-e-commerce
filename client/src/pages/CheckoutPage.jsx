@@ -37,8 +37,8 @@ export default function CheckoutPage() {
       <input onChange={onChangeHandler} type="text" name="city" id="city" value={formInput.city || ''} required />
       <label htmlFor="street">Street: </label>
       <input onChange={onChangeHandler} type="text" name="street" id="street" value={formInput.street || ''} required />
-      <label htmlFor="housenumber">Housenumber: </label>
-      <input onChange={onChangeHandler} type="text" name="housenumber" id="housenumber" value={formInput.housenumber || ''} required />
+      <label htmlFor="houseNumber">houseNumber: </label>
+      <input onChange={onChangeHandler} type="number" name="houseNumber" id="houseNumber" value={formInput.houseNumber || ''} required />
 
       <label htmlFor="zip">Zip: </label>
       <input onChange={onChangeHandler} type="text" name="zip" id="zip" value={formInput.zip || 0} required />

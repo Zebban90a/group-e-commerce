@@ -16,7 +16,7 @@ exports.createOrder = async (req, res) => {
     "orderTotal": 400,
     "freight":20,
     "status": 0,
-    "address": {
+    "shippingAddress": {
         "zip": "12345",
         "city": "Gotham",
         "street": "Waynestreet",
@@ -52,7 +52,7 @@ exports.findAllOrders = async (req, res) => {
     email: 'kwekan2@hotmail.com',
     contactInfo: {
       tel: 1234,
-      address: {
+      shippingAddress: {
         city: 'Stockholm',
         street: 'studentbacken',
         houseNumber: '32',
