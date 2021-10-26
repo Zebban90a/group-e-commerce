@@ -55,7 +55,8 @@ const StyledLabel = styled.label`
 export default function DynamicForm(props) {
   const { submitHandler, formFormat } = props;
   const { formData, setFormData, formImage, setFormImage } = useContext(UserContext);
-
+  //NOTE formImage kept for future image preview
+  
   const [validFields, setValidFields] = useState({});
   const [showAlert, setShowAlert] = useState(false);
 
@@ -71,7 +72,6 @@ export default function DynamicForm(props) {
       value = e.target.value;
       setFormData({...formData,[name]: value,});
     }
-    console.log('valid:',!validFields[name],'showAlert:',showAlert,'result:',!validFields[name] && showAlert);
     setValidFields({...validFields, [name] : isValid(name, value)})
   }
 
@@ -224,15 +224,19 @@ export default function DynamicForm(props) {
               {renderField({name, type, fieldKey, value, regexRule})}
               <br />
               <WarningText>
-                {((validFields[name] === false) && showAlert)
-                  && (prompt || 'Invalid input')}
+                {
+                  ((validFields[name] === false) && showAlert)
+                    && (prompt || 'Invalid input')
+                }
               </WarningText>
             </React.Fragment>
           )
         })
       }
       <button type="submit">Submit</button>
-      <MainWarningText>{showAlert && 'Please check the highlighted fields'}</MainWarningText>
+      <MainWarningText>
+        {showAlert && 'Please check the highlighted fields'}
+      </MainWarningText>
     </form>
   );
 }
