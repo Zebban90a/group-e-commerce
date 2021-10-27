@@ -3,70 +3,9 @@ import axios from 'axios';
 import Orders from '../components/Orders';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
-import {userForm} from '../data/formFormats';
+import { userForm } from '../data/formFormats';
 
 export default function UserPage() {
-  /* const testOrders = [{
-    _id: '616593c4e9eb5c2a271c6b38',
-    purchaser: '616584cf8b04b9069807c7ae',
-    products: [
-      {
-        productId: '616c307bef6a325dbe86adbd',
-        quantity: 1,
-        productPrice: 400,
-      },
-      {
-        productId: '6172faf153a931bc372bba2a',
-        quantity: 111,
-        productPrice: 1230,
-      },
-    ],
-    orderTotal: 400,
-    freight: 20,
-    status: 0,
-    address: {
-      zip: 12345,
-      city: 'Gotham',
-      street: 'Waynestreet',
-      houseNumber: 10,
-    },
-    contact: {
-      tel: 555555123,
-      email: 'kweku@gmail.com',
-      _id: '616593c4e9eb5c2a271c6b3a',
-    },
-  },
-  {
-    _id: '616593c4e9eb5c2a271c6123',
-    purchaser: '616584cf8b04b9069807c7ae',
-    products: [
-      {
-        productId: '616c32b3ab80ba326d0efe5d',
-        quantity: 12,
-        productPrice: 440,
-      },
-      {
-        productId: '6172b9afa023bf2e1e972251',
-        quantity: 12,
-        productPrice: 4300,
-      },
-    ],
-    orderTotal: 400,
-    freight: 20,
-    status: 0,
-    address: {
-      zip: 12345,
-      city: 'Gotham',
-      street: 'Waynestreet',
-      houseNumber: 10,
-    },
-    contact: {
-      tel: 555555123,
-      email: 'kweku@gmail.com',
-      _id: '616593c4e9eb5c2a271c6b3a',
-    },
-  }]; */
-
   const [formData, setFormData] = useState({});
   const [orders, setOrders] = useState([]);
   const [editUserData, setEditUserData] = useState(false);
@@ -77,8 +16,8 @@ export default function UserPage() {
     const userData = data.data.user;
 
     const { fullName, email } = userData;
-    const { street, houseNumber, city, zip } = userData.contactInfo.address;
-    const { tel } = userData.contactInfo;
+    const { street, houseNumber, city, zip } = userData.contactInfo ? userData.contactInfo.address : {};
+    const { tel } = userData.contactInfo || '';
 
     setFormData({
       fullName,
@@ -96,7 +35,6 @@ export default function UserPage() {
     await axios.patch(path, formData);
   };
 
-  // Uncomment after merge with cart...
   async function getAllOrders() {
     const path = 'api/orders';
     const { data } = await axios.get(path);
@@ -127,44 +65,44 @@ export default function UserPage() {
     <div>
       {!editUserData
         && (
-        <div>
           <div>
-            <h2>User details</h2>
-            <p>{formData.fullName}</p>
-            <p>{formData.email}</p>
-          </div>
-          {formData
-            && (
             <div>
-              <h2>Contact information</h2>
-              <p>
-                Street:
-                {' '}
-                {formData.street}
-              </p>
-              <p>
-                House#:
-                {' '}
-                {formData.houseNumber}
-              </p>
-              <p>
-                Zip:
-                {' '}
-                {formData.zip}
-              </p>
-              <p>
-                City:
-                {' '}
-                {formData.city}
-              </p>
-              <p>
-                Phone#:
-                {' '}
-                {formData.tel}
-              </p>
+              <h2>User details</h2>
+              <p>{formData.fullName}</p>
+              <p>{formData.email}</p>
             </div>
-            )}
-        </div>
+            {formData
+              && (
+                <div>
+                  <h2>Contact information</h2>
+                  <p>
+                    Street:
+                    {' '}
+                    {formData.street}
+                  </p>
+                  <p>
+                    House#:
+                    {' '}
+                    {formData.houseNumber}
+                  </p>
+                  <p>
+                    Zip:
+                    {' '}
+                    {formData.zip}
+                  </p>
+                  <p>
+                    City:
+                    {' '}
+                    {formData.city}
+                  </p>
+                  <p>
+                    Phone#:
+                    {' '}
+                    {formData.tel}
+                  </p>
+                </div>
+              )}
+          </div>
         )}
       {
         // Replace with Dino's Dynamic Design Form™
