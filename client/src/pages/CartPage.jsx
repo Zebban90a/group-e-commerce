@@ -4,11 +4,13 @@ import axios from 'axios';
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);
-
-  useEffect(() => {
+  function getCart() {
     fetch('/api/cart')
       .then((response) => response.json())
       .then((user) => setCart(user.data.user.cart));
+  }
+  useEffect(() => {
+    getCart();
   }, []);
 
   function removeProduct(e, id) {
@@ -24,7 +26,7 @@ export default function CartPage() {
       data: payload,
     });
 
-
+    getCart();
   }
 
   return (
@@ -37,7 +39,7 @@ export default function CartPage() {
             <span>{`Produkt: ${product.title || 'no name'}`}</span>
             <br />
             <span>{`Pris: ${product.price} kr`}</span>
-            <button onClick={e => removeProduct(e, product.id)}>X</button>
+            <button onClick={e => removeProduct(e, product._id)}>X</button>
 
           </span>
         </div>

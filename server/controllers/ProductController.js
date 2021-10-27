@@ -1,6 +1,6 @@
 const Product = require('../models/ProductModel');
 exports.getProducts = async (req, res) => {
-  console.log(req.user);
+  //console.log(req.user);
   try {
     let products = '';
     const { category } = req.query;

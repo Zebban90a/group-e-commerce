@@ -34,9 +34,9 @@ passport.use(new GoogleStrategy({
   try {
     const existingUser = await User.findOne({ googleId: profile.id });
     //  console.log('passport.js row 35/ new GoogleStrategy / found user in db below');
-    console.log(existingUser);
+    //console.log(existingUser);
     if (existingUser) {
-      console.log('passport.js row 39/ returning existing user above');
+      //console.log('passport.js row 39/ returning existing user above');
       return done(false, existingUser);
     }
     const fullName = Object.values(profile.name).join(' ');

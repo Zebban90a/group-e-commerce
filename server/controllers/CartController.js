@@ -27,7 +27,7 @@ exports.addToCart = async (req, res) => {
         },
       },
     );
-    res.end();
+    
     // console.log(users);
   } catch {
     console.log('error');
@@ -52,22 +52,24 @@ exports.getCart = async (req, res) => {
   }
 };
 
-exports.removeProduct = async (req, res) =>{
-  let productId = req.body.productId;
-  let userId = req.user._Id;
-  console.log('REMOVE PRODUCT:',productId);
+exports.removeProduct =  async (req, res) =>{
+  let id = req.body.productId;
+  let userId = req.user._id;
+  console.log('USER._ID:',userId)
+  console.log('REMOVE PRODUCT:',id);
 try{
   await User
   .findByIdAndUpdate(
     userId,
     {
       
-      $pull: { cart: { _id: productId } },
+      $pull: { cart: { _id: id } },
     },
     {
       useFindAndModify: false,
     }
-  )
+    
+  ); 
   
   res.end("Product was removed!");
 }
