@@ -12,11 +12,11 @@ export default function OrderProductDetails({ cartItem }) {
   return (
     <Wrapper>
       <p>
-        {cartItem.Title}
+        {cartItem.title}
       </p>
       <p>
         &#36;
-        {cartItem.Price}
+        {cartItem.price}
       </p>
     </Wrapper>
   );
