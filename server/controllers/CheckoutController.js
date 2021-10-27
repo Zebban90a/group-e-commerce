@@ -33,9 +33,7 @@ exports.placeOrder = async (req, res) => {
   // const userData = {
   //   cart: []
   // }
-  const emptyCart={
-    cart= []
-  }
+  
   const orderData = {
     purchaser: userId,
     cart: newCart,
@@ -45,7 +43,16 @@ exports.placeOrder = async (req, res) => {
     shippingAddress: addressData,
   }
   try {
-    const user = await User.findOneAndUpdate()
+    const user = await User.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $pull:{
+          cart:{}
+        }
+      }
+      );
     const order = await Order.create(orderData);
     console.log("ORDER SUCCESS");
     res.status(200).json({
