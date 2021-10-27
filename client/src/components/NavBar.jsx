@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchField from './SearchField';
 
 const StyledNav = styled.nav`
   background: pink;
@@ -77,6 +78,7 @@ export default function NavBar() {
           </span>
         </StyledButton>
       </a>
+      <SearchField />
     </StyledNav>
   );
 }
