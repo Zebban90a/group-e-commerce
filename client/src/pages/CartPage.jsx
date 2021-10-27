@@ -11,15 +11,34 @@ export default function CartPage() {
       .then((user) => setCart(user.data.user.cart));
   }, []);
 
+  function removeProduct(e, id) {
+    e.preventDefault();
+    console.log(id);
+    const payload = {
+
+      productId: id,
+    };
+    axios({
+      url: '/api/cart',
+      method: 'DELETE',
+      data: payload,
+    });
+
+
+  }
+
   return (
     <div>
       <h1>CART</h1>
       {cart.map((product) => (
+
         <div>
           <span>
             <span>{`Produkt: ${product.title || 'no name'}`}</span>
             <br />
             <span>{`Pris: ${product.price} kr`}</span>
+            <button onClick={e => removeProduct(e, product.id)}>X</button>
+
           </span>
         </div>
       ))}
