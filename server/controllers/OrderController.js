@@ -46,32 +46,9 @@ exports.createOrder = async (req, res) => {
 };
 
 exports.findAllOrders = async (req, res) => {
-  const user = req.user || { // TODO remove test json
-    _id: '616584cf8b04b9069807c7af',
-    fullName: 'Kakan Moses',
-    email: 'kwekan2@hotmail.com',
-    contactInfo: {
-      tel: 1234,
-      shippingAddress: {
-        city: 'Stockholm',
-        street: 'studentbacken',
-        houseNumber: '32',
-        _id: {
-          $oid: '616584cf8b04b9069807c7b1',
-        },
-      },
-      _id: {
-        $oid: '616584cf8b04b9069807c7b0',
-      },
-    },
-    __v: 0,
-    roles: {
-      isAdmin: true,
-    },
-  };
-
+  const user = req.user;
   try {
-    const { isAdmin } = user.roles;
+    const isAdmin = user.roles.includes('admin');
     let orders;
     if (isAdmin) {
       orders = await Order.find({});
@@ -95,7 +72,9 @@ exports.findAllOrders = async (req, res) => {
 };
 
 exports.updateOrderStatus = async (req, res) => {
-  const { id } = req.params;
+  const {
+    id
+  } = req.params;
   const newStatus = req.body.status;
   try {
     const updatedOrder = await Order.findByIdAndUpdate(id, {

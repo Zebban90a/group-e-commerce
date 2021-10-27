@@ -70,7 +70,7 @@ export default function ProductDetailPage(props) {
     };
     console.log(payload);
     axios({
-      url: '/api/addtocart',
+      url: 'api/addtocart',
       method: 'POST',
       data: payload,
     });

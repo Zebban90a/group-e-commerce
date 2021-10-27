@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const AddressSchema = mongoose.Schema({
-  city: String,
   street: String,
   houseNumber: String,
+  zip: Number,
+  city: String
 });
 
 const ContactInfoSchema = mongoose.Schema({

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -8,33 +7,16 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-export default function OrderProductDetails({ orderProduct }) {
-  const [productTitle, setProductTitle] = useState('');
-
-  const getProductTitle = async () => {
-    const id = orderProduct.productId;
-    const path = `/api/products/${id}`;
-    const { data } = await axios.get(path);
-    setProductTitle(data.data.product.title);
-  };
-
-  useEffect(() => {
-    getProductTitle();
-  }, []);
+export default function OrderProductDetails({ cartItem }) {
 
   return (
     <Wrapper>
       <p>
-        {productTitle}
-      </p>
-      <p>
-        Qty
-        {' '}
-        {orderProduct.quantity}
+        {cartItem.title}
       </p>
       <p>
         &#36;
-        {orderProduct.productPrice}
+        {cartItem.price}
       </p>
     </Wrapper>
   );
