@@ -6,6 +6,7 @@ exports.addToCart = async (req, res) => {
   const price = req.body.price;
   const title = req.body.title;
   const weight = req.body.weight;
+  
   try {
     await req.user.cart.push({id: id,
       title: title,
@@ -34,7 +35,7 @@ exports.addToCart = async (req, res) => {
 };
 exports.getCart = async (req, res) => {
   const userId = req.user._id;
-  console.log('REQ USER CART:',req.user.cart);
+  
   try {
     const user = await User.findById(userId);
     res.status(200).json({
@@ -50,3 +51,29 @@ exports.getCart = async (req, res) => {
     });
   }
 };
+
+exports.removeProduct = async (req, res) =>{
+  let productId = req.body.productId;
+  let userId = req.user._Id;
+  console.log('REMOVE PRODUCT:',productId);
+try{
+  await User
+  .findByIdAndUpdate(
+    userId,
+    {
+      
+      $pull: { cart: { _id: productId } },
+    },
+    {
+      useFindAndModify: false,
+    }
+  )
+  
+  res.end("Product was removed!");
+}
+  catch{
+    console.log("ERROR")
+  }
+
+  
+}

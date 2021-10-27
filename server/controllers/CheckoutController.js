@@ -43,6 +43,7 @@ exports.placeOrder = async (req, res) => {
     shippingAddress: addressData,
   }
   try {
+    if(newCart.length > 0){
     const user = await User.findOneAndUpdate(
       {
         _id: userId,
@@ -53,6 +54,7 @@ exports.placeOrder = async (req, res) => {
         }
       }
       );
+    req.user.cart=[];
     const order = await Order.create(orderData);
     console.log("ORDER SUCCESS");
     res.status(200).json({
@@ -63,6 +65,10 @@ exports.placeOrder = async (req, res) => {
       },
     });
     res.end();
+  }
+  else{
+    console.log("ERROR, NO PRODUCTS")
+  }
   } catch (err) {
     console.log("CHECKOUT ERROR");
     console.log(err)
