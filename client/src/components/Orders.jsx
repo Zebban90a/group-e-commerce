@@ -8,10 +8,10 @@ const Container = styled.div`
   background-color: #eee;
 `;
 
-export default function Orders({ orders }) {
+export default function Orders({ orders, admin }) {
   return (
     <Container>
-      {orders.map((order) => <Order key={order._id} order={order} />)}
+      {orders.map((order) => <Order key={order._id} order={order} admin={admin} />)}
     </Container>
   );
 }

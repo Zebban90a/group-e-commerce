@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import OrderProductDetails from './OrderProductDetails';
+import UpdateOrder from './UpdateOrder';
 
 // TODO Fix styling.
 const Container = styled.div`
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-export default function Order({ order }) {
+export default function Order({ order, admin }) {
   // NOTE How handle order status?
   let orderStatus;
   switch (order.status) {
@@ -52,6 +53,7 @@ export default function Order({ order }) {
           {' '}
           {orderStatus}
         </p>
+        {admin && <UpdateOrder id={order._id} />  }
       </Wrapper>
       <Container>
         <strong>Products</strong>
