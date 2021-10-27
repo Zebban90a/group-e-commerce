@@ -2,7 +2,7 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 exports.addToCart = async (req, res) => {
   const userId = req.user._id;
-  const id = req.body.id;
+  const id = req.body.productId;
   const price = req.body.price;
   const title = req.body.title;
   const weight = req.body.weight;
