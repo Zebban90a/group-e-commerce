@@ -21,11 +21,26 @@ exports.createUser = async (req, res) => {
   }
 };
 exports.updateUser = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.user;
   const data = req.body;
-  // console.log(data);
+  const { fullName, email, street, houseNumber, tel, zip, city } = data;
+
+  const deployData = {
+    fullName,
+    email,
+    contactInfo: {
+      tel,
+      address: {
+        street,
+        houseNumber,
+        zip,
+        city
+      }
+    }
+  }
+  console.log(deployData)
   try {
-    const user = await User.findByIdAndUpdate(id, data, {
+    const user = await User.findByIdAndUpdate(_id, deployData, {
       new: true,
       runValidators: true,
     });
@@ -43,9 +58,9 @@ exports.updateUser = async (req, res) => {
   }
 };
 exports.deleteUser = async (req, res) => {
-  const { id } = req.params;
+  const { _id } = req.user;
   try {
-    await User.findByIdAndDelete(id);
+    await User.findByIdAndDelete(_id);
     res.status(200).json({
       status: 'success',
       data: null,
@@ -58,9 +73,9 @@ exports.deleteUser = async (req, res) => {
   }
 };
 exports.findUser = async (req, res) => {
-  const id = req.user._id;
+  const { _id } = req.user;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(_id);
     res.status(200).json({
       status: 'success',
       data: {
