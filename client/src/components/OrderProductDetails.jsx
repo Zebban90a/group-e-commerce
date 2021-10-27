@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -9,7 +8,6 @@ const Wrapper = styled.div`
 `;
 
 export default function OrderProductDetails({ cartItem }) {
-  const [productTitle, setProductTitle] = useState('');
 
   return (
     <Wrapper>
