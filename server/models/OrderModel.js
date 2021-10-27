@@ -48,10 +48,10 @@ const OrderSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  // freight: {
-  //   type: Number,
-  //   required: true,
-  // },
+  freight: {
+     type: Number,
+     required: true,
+   },
   status: {
     type: Number,
     default: 0,

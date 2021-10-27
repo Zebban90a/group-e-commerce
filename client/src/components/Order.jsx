@@ -67,9 +67,14 @@ export default function Order({ order }) {
           {order.date}
         </p>
         <p>
+          <strong>Shipping fee:</strong>
+          {' '}
+          ${order.freight}
+        </p>
+        <p>
           <strong>Order Total</strong>
           {' '}
-          {order.orderTotal}
+          ${order.orderTotal}
         </p>
       </Wrapper>
     </Container>
