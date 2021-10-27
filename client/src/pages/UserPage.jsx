@@ -55,11 +55,6 @@ export default function UserPage() {
     console.log('useEffect getting users');
   }, []);
 
-  /*  // Uncomment after merge with cart...
-  useEffect(() => {
-    console.log('useEffect getting orders');
-  }, []); */
-
   // TODO fix styling, make components
   return (
     <div>
@@ -104,9 +99,7 @@ export default function UserPage() {
               )}
           </div>
         )}
-      {
-        // Replace with Dino's Dynamic Design Form™
-        editUserData
+      {editUserData
         && (
           <UserContext.Provider value={{ formData, setFormData }}>
             <DynamicForm
