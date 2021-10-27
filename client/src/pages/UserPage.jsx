@@ -74,7 +74,21 @@ export default function UserPage() {
   async function getUser() {
     const path = 'api/users';
     const { data } = await axios.get(path);
-    setFormData(data.data.user);
+    const userData = data.data.user;
+
+    const { fullName, email } = userData;
+    const { street, houseNumber, city, zip } = userData.contactInfo.address;
+    const { tel } = userData.contactInfo;
+
+    setFormData({
+      fullName,
+      email,
+      tel,
+      street,
+      houseNumber,
+      city,
+      zip
+    });
   }
 
   const submitUserData = async () => {
@@ -119,29 +133,34 @@ export default function UserPage() {
             <p>{formData.fullName}</p>
             <p>{formData.email}</p>
           </div>
-          {formData.contactInfo
+          {formData
             && (
             <div>
               <h2>Contact information</h2>
               <p>
                 Street:
                 {' '}
-                {formData.contactInfo.address.street}
+                {formData.street}
               </p>
               <p>
                 House#:
                 {' '}
-                {formData.contactInfo.address.houseNumber}
+                {formData.houseNumber}
+              </p>
+              <p>
+                Zip:
+                {' '}
+                {formData.zip}
               </p>
               <p>
                 City:
                 {' '}
-                {formData.contactInfo.address.city}
+                {formData.city}
               </p>
               <p>
                 Phone#:
                 {' '}
-                {formData.contactInfo.tel}
+                {formData.tel}
               </p>
             </div>
             )}
