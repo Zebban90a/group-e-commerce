@@ -6,6 +6,7 @@ exports.addToCart = async (req, res) => {
   const price = req.body.price;
   const title = req.body.title;
   const weight = req.body.weight;
+  console.log(id);
   
   try {
     await req.user.cart.push({id: id,
@@ -35,6 +36,8 @@ exports.addToCart = async (req, res) => {
 };
 exports.getCart = async (req, res) => {
   const userId = req.user._id;
+  console.log(req.user.cart);
+  console.log(req.user);
   
   try {
     const user = await User.findById(userId);

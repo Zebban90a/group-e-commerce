@@ -72,7 +72,7 @@ export default function ProductCard({ product }) {
       weight: weight,
       productId: _id,
     };
-    axios({
+    await axios({
       url: '/api/addtocart',
       method: 'POST',
       data: payload,

@@ -7,6 +7,7 @@ exports.placeOrder = async (req, res) => {
   let productTotal = 0;
   let occurrences = [];
   let orderCart = [];
+  console.log(cart);
 
   const setOrderData = async () => {
     for (let i = 0; i < cart.length; i++) {
