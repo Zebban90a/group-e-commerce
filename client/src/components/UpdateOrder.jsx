@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function UpdateOrder({ id }) {
-  const [orderUpdate, setOrderUpdate] = useState('');
+  const [orderStatus, setOrderStatus] = useState('');
 
   function onChangeHandler(e) {
-    setOrderUpdate(e.target.value);
+    setOrderStatus(e.target.value);
   }
 
   async function updateOrderStatus() {
     const path = `../api/orders/${id}`;
-    await axios.patch(path, orderUpdate);
-    const logData = async () => {
-        console.log(orderUpdate);
-      };
-      await logData();
-
+    await axios.patch(path, { status: orderStatus });
+    await logData();
   }
+  
   const submitUserData = async (e) => {
     e.preventDefault();
     updateOrderStatus();
