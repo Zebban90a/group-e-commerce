@@ -62,7 +62,8 @@ const Button = styled.button`
 export default function ProductDetailPage(props) {
   const [product, setProduct] = useState('');
   const { cart, setCart } = useContext(UserContext);
-
+  const { id } = props.match.params;
+  
   async function getProduct() {
     const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
