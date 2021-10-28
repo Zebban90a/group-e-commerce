@@ -5,10 +5,11 @@ import { UserContext } from '../contexts/UserContext';
 
 export default function CartPage() {
   const { cart, setCart } = useContext(UserContext); //TODO Setcart = localstorage
-  const [ productList, setProductList ] = useState([]);
-  
+  const [productList, setProductList] = useState([]);
+
   async function getProductList() {
     let output = [];
+    console.log('CART', cart);
     for (const item of cart) {
       const data = await getProduct(item.id);
       data.qtyInCart = item.quantity;
@@ -25,14 +26,14 @@ export default function CartPage() {
 
   function renderCartItem(product) {
     const { title, price, qtyInCart, quantity, _id } = product;
-    
+
     return (
       <div key={_id}>
         <span>
           <span>{`Produkt: ${title || 'no name'}`}</span>
           <br />
           <span>{`Pris: ${price} kr`}</span>
-          <button 
+          <button
             onClick={e => addToCart(_id)}
             disabled={qtyInCart >= quantity}
           >+</button>
@@ -45,7 +46,7 @@ export default function CartPage() {
 
   function addToCart(id) {
     let updatedCart = cart;
-    
+
     cart.map((cartProduct, index) => {
       if (cartProduct.id === id) {
         updatedCart[index].quantity += 1;

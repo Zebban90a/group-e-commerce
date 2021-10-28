@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-
+import { UserContext } from '../contexts/UserContext';
 export default function CheckoutPage() {
   const [formInput, setFormInput] = useState({});
+  const { cart, setCart, localStorageCart, setLocalStorageCart } = useContext(UserContext);
 
   function submitHandler(e) {
     e.preventDefault();
@@ -14,6 +15,8 @@ export default function CheckoutPage() {
       method: 'POST',
       data: payload,
     });
+    localStorage.clear();
+    setLocalStorageCart("");
   }
 
   function onChangeHandler(e) {

@@ -17,10 +17,11 @@ import { UserContext } from './contexts/UserContext';
 
 export default function App() {
   const [cart, setCart] = useState([]);
+  const [localStorageCart, setLocalStorageCart] = useState([]);
 
   useEffect(() => {
     console.log(cart);
-    const localStorageCart = JSON.parse(localStorage.getItem('cart'))
+    setLocalStorageCart(JSON.parse(localStorage.getItem('cart')))
 
     if (cart.length !== 0) {
       localStorage.setItem('cart', JSON.stringify(cart))
@@ -32,7 +33,7 @@ export default function App() {
 
   return (
     <div>
-      <UserContext.Provider value={{ cart, setCart }}>
+      <UserContext.Provider value={{ cart, setCart, localStorageCart, setLocalStorageCart }}>
         <NavBar />
         <Switch>
           <Route path="/cart" component={CartPage} /> {/* add remove from cart */}

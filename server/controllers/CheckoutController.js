@@ -3,15 +3,11 @@ const Order = require('../models/OrderModel');
 const Product = require('../models/ProductModel');
 
 
-//TODO - fetch prices from product database
 exports.placeOrder = async (req, res) => {
   const userId = req.user._id;
-  
   const cart  = req.body.cart;
   let productTotal = 0;
   
-  
-  let orderCart = [];
   async function getPrice(id){
     const product = await Product.findById(id);
     return product.price;
@@ -25,8 +21,6 @@ exports.placeOrder = async (req, res) => {
       
     }
     
-
-  
     const freight = productTotal > 100 ? 0 : 50;
     
     const orderTotal = parseInt(freight + productTotal);
