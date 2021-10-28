@@ -11,12 +11,13 @@ export default function UpdateOrder({ id }) {
   async function updateOrderStatus() {
     const path = `../api/orders/${id}`;
     await axios.patch(path, { status: orderStatus });
-    await logData();
   }
   
   const submitUserData = async (e) => {
     e.preventDefault();
-    updateOrderStatus();
+    await updateOrderStatus();
+    // NOTE non ideal solution
+    window.location.reload();
   };
 
   return (

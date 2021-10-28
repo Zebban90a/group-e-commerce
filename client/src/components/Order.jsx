@@ -20,7 +20,6 @@ const Wrapper = styled.div`
 `;
 
 export default function Order({ order, admin }) {
-  // NOTE How handle order status?
   let orderStatus;
   switch (order.status) {
     case 0:
@@ -53,7 +52,7 @@ export default function Order({ order, admin }) {
           {' '}
           {orderStatus}
         </p>
-        {admin && <UpdateOrder id={order._id} />  }
+        {admin && <UpdateOrder id={order._id} />}
       </Wrapper>
       <Container>
         <strong>Products</strong>
