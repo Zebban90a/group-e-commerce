@@ -21,18 +21,16 @@ const OrderAddressSchema = mongoose.Schema({
 
   _id: false,
 });
-
-const OrderContactInfoSchema = mongoose.Schema({
-  tel: {
-    type: Number,
+const CartItem = mongoose.Schema({
+  id: { //id = productId
     required: true,
-  },
-  email: {
     type: String,
-    required: true,
   },
-  _id: false,
-});
+  quantity: {
+    type: Number,
+  } 
+})
+
 
 const OrderSchema = mongoose.Schema({
   purchaser: {
@@ -40,18 +38,15 @@ const OrderSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  cart: {
-    type: Array,
-    requried: true
-  },
+  cart: [CartItem],
   orderTotal: {
     type: Number,
     required: true,
   },
   freight: {
-    type: Number,
-    required: true,
-  },
+     type: Number,
+     required: true,
+   },
   status: {
     type: Number,
     default: 0,
@@ -63,7 +58,6 @@ const OrderSchema = mongoose.Schema({
     default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
   },
   shippingAddress: OrderAddressSchema,
-  //contact: OrderContactInfoSchema,
 });
 
 module.exports = mongoose.model('Order', OrderSchema);

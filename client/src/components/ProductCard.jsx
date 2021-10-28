@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
+import { UserContext } from '../contexts/UserContext';
+import AddToCartBtn from './AddToCartBtn';
 
 const Card = styled.div`
   padding: 15px;
@@ -63,23 +65,17 @@ const Card = styled.div`
 `;
 
 export default function ProductCard({ product }) {
+  const { cart, setCart } = useContext(UserContext);
   const {
     _id, title, price, images, quantity, weight,
   } = product;
 
   async function addToCart(e) {
     e.preventDefault();
-    const payload = {
-      title: title,
-      price: price,
-      weight: weight,
-      productId: _id,
-    };
-    axios({
-      url: '/api/addtocart',
-      method: 'POST',
-      data: payload,
-    });
+
+    await setCart(oldCart => [...oldCart, product]);
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
   
   return (
@@ -114,14 +110,7 @@ export default function ProductCard({ product }) {
             available
           </div>
         </div>
-        <button
-          className="addToCart"
-          onClick={addToCart}
-          disabled={!quantity}
-          type="button"
-        >
-          Add to cart
-        </button>
+        <AddToCartBtn cart={cart} setCart={setCart} disabled={!quantity} productId={_id} />
       </div>
     </Card>
   );

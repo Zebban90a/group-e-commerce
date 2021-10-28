@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import Orders from '../components/Orders';
 import axios from 'axios';
+import Orders from '../components/Orders';
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
-  
+
   async function getAllOrders() {
-    const path = 'api/orders';
+    const path = '../api/orders';
     const { data } = await axios.get(path);
     setOrders(data.data.orders);
-   }
+  }
 
-   useEffect(() => {
+  useEffect(() => {
     console.log('useEffect getting orders');
     getAllOrders();
   }, []);
@@ -19,7 +19,8 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <h1>admin orders</h1>
-      <Orders orders={orders} />
+      {orders
+      && <Orders orders={orders} admin />}
     </div>
   );
 }

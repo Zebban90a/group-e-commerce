@@ -11,7 +11,7 @@ export default function AdminProductEditPage() {
   const [formImage, setFormImage] = useState('');
   
   async function getProduct() {
-    const path = `api/products/${id}`;
+    const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
     const { product } = data.data;
     
@@ -32,7 +32,7 @@ export default function AdminProductEditPage() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    const path = `api/products/${id}`;
+    const path = `/api/products/${id}`;
     const formDataDeployment = new FormData();
 
     formDataDeployment.append('input', JSON.stringify(formData));

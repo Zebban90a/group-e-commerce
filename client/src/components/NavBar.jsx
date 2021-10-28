@@ -15,12 +15,8 @@ const StyledButton = styled.button`
   }
   `;
 
-export default function NavBar() {
-  const linkArray = [
-    /* {
-      path: '/products',
-      name: 'Products',
-    }, */
+export default function NavBar({ isLoggedIn, isAdmin }) {
+  const AdminLinks = [
     {
       path: '/admin',
       name: 'Admin',
@@ -34,22 +30,9 @@ export default function NavBar() {
       name: 'User',
     },
     {
-      path: '/register',
-      name: 'Register',
-    },
-    {
       path: '/cart',
       name: 'Cart',
     },
-    {
-      path: '/login',
-      name: 'Login',
-    },
-    /* {
-      path: '/logout',
-      name: 'Logout',
-
-    }, */
     {
       path: '/products?category=apple',
       name: 'Apple',
@@ -59,6 +42,60 @@ export default function NavBar() {
       name: 'Samsung',
     },
   ];
+
+  const userLinks = [
+    {
+      path: '/',
+      name: 'Home',
+    },
+    {
+      path: '/user',
+      name: 'User',
+    }, ,
+    {
+      path: '/cart',
+      name: 'Cart',
+    },
+    {
+      path: '/products?category=apple',
+      name: 'Apple',
+    },
+    {
+      path: '/products?category=samsung',
+      name: 'Samsung',
+    },
+  ];
+
+  const standardLinks = [
+    {
+      path: '/',
+      name: 'Home',
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+    },
+    {
+      path: '/products?category=apple',
+      name: 'Apple',
+    },
+    {
+      path: '/products?category=samsung',
+      name: 'Samsung',
+    },
+    {
+      path: '/login',
+      name: 'Login',
+    },
+  ];
+
+  let linkArray = standardLinks;
+
+  if (isAdmin) {
+    linkArray = AdminLinks;
+  } else if (isLoggedIn) {
+    linkArray = userLinks;
+  }
 
   return (
     <StyledNav>
@@ -71,13 +108,15 @@ export default function NavBar() {
           </StyledButton>
         </Link>
       ))}
-      <a href="http://localhost:5000/auth/logout">
-        <StyledButton>
-          <span type="button" className="nav-link ml-2">
-            logout new
-          </span>
-        </StyledButton>
-      </a>
+      {isLoggedIn &&
+        <a href="http://localhost:5000/auth/logout">
+          <StyledButton>
+            <span type="button" className="nav-link ml-2">
+              Log out
+            </span>
+          </StyledButton>
+        </a>
+      }
       <SearchField />
     </StyledNav>
   );

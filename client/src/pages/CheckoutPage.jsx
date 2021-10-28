@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
 
 export default function CheckoutPage() {
+  const history = useHistory();
   const [formInput, setFormInput] = useState({});
-
-  function submitHandler(e) {
+  const { cart, setCart } = useContext(UserContext);
+  async function submitHandler(e) {
     e.preventDefault();
-
-    const payload = {
-      formInput
-
-    };
-    axios({
+    const localCart = localStorage.getItem('cart');
+    const cart = JSON.parse(localCart);
+    const payload = { formInput, cart };
+    const response = await axios({
       url: '/api/checkout',
       method: 'POST',
       data: payload,
-    });
+    })
 
-
-
+    if (response.status === 200) {
+      localStorage.clear(),
+        setCart([]),
+        history.push('/');
+    }
   }
+
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -27,9 +32,8 @@ export default function CheckoutPage() {
       ...formInput,
       [inputName]: inputValue,
     });
-    const data = formInput || {};
-
   }
+
   return (
 
     <form onSubmit={submitHandler} encType="multipart/form-data">

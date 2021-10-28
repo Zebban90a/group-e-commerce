@@ -54,6 +54,7 @@ exports.createProduct = async (req, res) => {
 };
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
+  console.log(req.body)
   const formInputData = JSON.parse(req.body.input);
   const deployedData = formInputData; // TODO Is there a cleaner way?
   if (deployedData.images && req.file.path) {

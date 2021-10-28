@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
-import {productForm} from '../data/formFormats';
+import { productForm } from '../data/formFormats';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
@@ -20,7 +20,7 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       }
     };
-    const path = 'api/products';
+    const path = '/api/products';
     const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
@@ -28,12 +28,12 @@ export default function AdminProductsPage() {
   }
 
   const deleteProduct = (id) => {
-    axios.delete(`products/${id}`);
+    axios.delete(`/products/${id}`);
     window.location.reload();
   };
 
   const getProducts = async () => {
-    const { data } = await axios.get('api/products');
+    const { data } = await axios.get('../api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -46,7 +46,7 @@ export default function AdminProductsPage() {
     <div>
       <h1>admin products</h1>
 
-      <UserContext.Provider value={{formData, setFormData, formImage, setFormImage}}>
+      <UserContext.Provider value={{ formData, setFormData, formImage, setFormImage }}>
         <DynamicForm
           submitHandler={submitHandler}
           formFormat={productForm}
@@ -57,7 +57,7 @@ export default function AdminProductsPage() {
         const id = product._id;
         return (
           <li key={id}>
-            <Link to={`Admin/products/${id}`}>{product.title}</Link>
+            <Link to={`/admin/products/${id}`}>{product.title}</Link>
             <button type="button" onClick={() => deleteProduct(id)}>DELETE</button>
           </li>
         );
