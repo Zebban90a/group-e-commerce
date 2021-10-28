@@ -50,7 +50,7 @@ router
 router
   .route('/:id')
   .get(getSingleProduct)
-  .patch( /* isAdmin,  */ updateProduct)
+  .patch(imageUpload, updateProduct)
   .delete(isAdmin, deleteProduct);
 
 module.exports = router;
