@@ -57,7 +57,7 @@ export default function AdminProductsPage() {
         const id = product._id;
         return (
           <li key={id}>
-            <Link to={`Admin/products/${id}`}>{product.title}</Link>
+            <Link to={`/admin/products/${id}`}>{product.title}</Link>
             <button type="button" onClick={() => deleteProduct(id)}>DELETE</button>
           </li>
         );
