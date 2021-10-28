@@ -64,8 +64,6 @@ export default function ProductDetailPage(props) {
   const { cart, setCart } = useContext(UserContext);
 
   async function getProduct() {
-    const { id } = props.match.params;
-    console.log(id);
     const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
     setProduct(data.data.product);
@@ -73,7 +71,7 @@ export default function ProductDetailPage(props) {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
 
   return (
     <Container pad>

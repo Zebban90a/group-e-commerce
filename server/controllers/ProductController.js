@@ -1,11 +1,14 @@
 const Product = require('../models/ProductModel');
+
 exports.getProducts = async (req, res) => {
-  //console.log(req.user);
   try {
     let products = '';
-    const { category } = req.query;
+    const { category, search } = req.query;
+    
     if (category) {
       products = await Product.find({ category });
+    } else if (search) {
+      products = await Product.find({ title: {$regex : search , $options: 'i'} });
     } else {
       products = await Product.find({});
     }

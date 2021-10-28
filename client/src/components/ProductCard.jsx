@@ -7,6 +7,7 @@ import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
 import { UserContext } from '../contexts/UserContext';
 import AddToCartBtn from './AddToCartBtn';
+
 const Card = styled.div`
   padding: 15px;
   border: 1px solid black;
@@ -62,32 +63,24 @@ const Card = styled.div`
     height: 40px;
   }
 `;
+
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(UserContext);
   const {
     _id, title, price, images, quantity, weight,
   } = product;
+
   async function addToCart(e) {
     e.preventDefault();
+
     await setCart(oldCart => [...oldCart, product]);
     console.log(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
-    // const payload = {
-    //   title: title,
-    //   price: price,
-    //   weight: weight,
-    //   productId: _id,
-    // };
-    // await axios({
-    //   url: '/api/addtocart',
-    //   method: 'POST',
-    //   data: payload,
-    // });
-    // console.log(title);
   }
+  
   return (
     <Card>
-      <Link to={`./products/${_id}`} className="product-link">
+      <Link to={`/products/${_id}`} className="product-link">
         <div>
           <img
             className="display-img"
