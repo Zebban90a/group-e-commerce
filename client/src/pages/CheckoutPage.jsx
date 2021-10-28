@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function CheckoutPage() {
   const [formInput, setFormInput] = useState({});
+  const [error, setError] = useState(false);
 
   function submitHandler(e) {
     e.preventDefault();
 
-    const payload = {
-      formInput
-
-    };
+    const payload = { formInput };
     axios({
       url: '/api/checkout',
       method: 'POST',
       data: payload,
+    }).catch(function (error) {
+      // TODO update status code in CheckoutController ???
+      if (error.response.status === 404) {
+        setError(true);
+      }
     });
-
-
-
   }
+
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -30,6 +32,16 @@ export default function CheckoutPage() {
     const data = formInput || {};
 
   }
+
+  if (error) {
+    return (
+      <div>
+        <p>You have to log in to be able to checkout.</p>
+        <Link to='/login'>Go to Login</Link>
+      </div>
+    );
+  }
+
   return (
 
     <form onSubmit={submitHandler} encType="multipart/form-data">
