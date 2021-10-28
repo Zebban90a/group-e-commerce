@@ -11,7 +11,7 @@ export default function AdminProductEditPage() {
   const [formImage, setFormImage] = useState('');
   
   async function getProduct() {
-    const path = `api/products/${id}`;
+    const path = `../api/products/${id}`;
     const { data } = await axios.get(path);
     const { product } = data.data;
     
