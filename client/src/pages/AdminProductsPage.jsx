@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import { UserContext } from '../contexts/UserContext';
-import {productForm} from '../data/formFormats';
+import { productForm } from '../data/formFormats';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
@@ -33,7 +33,7 @@ export default function AdminProductsPage() {
   };
 
   const getProducts = async () => {
-    const { data } = await axios.get('api/products');
+    const { data } = await axios.get('../api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -46,7 +46,7 @@ export default function AdminProductsPage() {
     <div>
       <h1>admin products</h1>
 
-      <UserContext.Provider value={{formData, setFormData, formImage, setFormImage}}>
+      <UserContext.Provider value={{ formData, setFormData, formImage, setFormImage }}>
         <DynamicForm
           submitHandler={submitHandler}
           formFormat={productForm}

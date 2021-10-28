@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import UserPage from './pages/UserPage';
@@ -15,21 +16,44 @@ import NavBar from './components/NavBar';
 import CheckoutPage from './pages/CheckoutPage';
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const checkIsLoggedIn = async () => {
+    const { data } = await axios.get('/auth/isloggedin');
+    console.log(data);
+    setIsLoggedIn(data);
+  }
+
+  const checkIsAdmin = async () => {
+    const { data } = await axios.get('/auth/isadmin');
+    console.log(data);
+    setIsAdmin(data);
+  }
+
+  useEffect(() => {
+    console.log('rendering App.jsx');
+    checkIsLoggedIn();
+    checkIsAdmin();
+  }, []);
+
   return (
     <div>
       <NavBar />
       <Switch>
-        <Route path="/cart" component={CartPage} />
-        <Route path="/checkout" component={CheckoutPage} />
+        {isLoggedIn && <Route path="/cart" component={CartPage} />}
+        {isLoggedIn && <Route path="/checkout" component={CheckoutPage} />}
+        {isLoggedIn && <Route path="/user" component={UserPage} />}
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/user" component={UserPage} />
         {/* todo general 404 page for nonadmins (and non logged in) */}
 
-        <Route path="/admin/orders" component={AdminOrdersPage} />
-        <Route path="/admin/products/:id" component={AdminProductEditPage} />
-        <Route path="/admin/products" component={AdminProductsPage} />
-        <Route path="/admin" component={AdminPage} />
+        {isAdmin && <Route path="/admin/orders" component={AdminOrdersPage} />}
+        {isAdmin &&
+          <Route path="/admin/products/:id" component={AdminProductEditPage} />}
+        {isAdmin &&
+          <Route path="/admin/products" component={AdminProductsPage} />}
+        {isAdmin && <Route path="/admin" component={AdminPage} />}
 
         <Route path="/products/:id" component={ProductDetailPage} />
         <Route path="/products" component={ProductListPage} />
