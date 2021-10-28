@@ -53,26 +53,26 @@ export default function App() {
   return (
     <div>
       <UserContext.Provider value={{ cart, setCart, }}>
-      <NavBar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
-      <Switch>
-        <Route path="/cart" component={CartPage} />
-        {isLoggedIn && <Route path="/checkout" component={CheckoutPage} />}
-        {isLoggedIn && <Route path="/user" component={UserPage} />}
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LoginPage} />
-        {/* todo general 404 page for nonadmins (and non logged in) */}
+        <NavBar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
+        <Switch>
+          <Route path="/cart" component={CartPage} />
+          {isLoggedIn && <Route path="/checkout" component={CheckoutPage} />}
+          {isLoggedIn && <Route path="/user" component={UserPage} />}
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" component={LoginPage} />
+          {/* todo general 404 page for nonadmins (and non logged in) */}
 
-        {isAdmin && <Route path="/admin/orders" component={AdminOrdersPage} />}
-        {isAdmin &&
-          <Route path="/admin/products/:id" component={AdminProductEditPage} />}
-        {isAdmin &&
-          <Route path="/admin/products" component={AdminProductsPage} />}
-        {isAdmin && <Route path="/admin" component={AdminPage} />}
+          {isAdmin && <Route path="/admin/orders" exact component={AdminOrdersPage} />}
+          {isAdmin &&
+            <Route path="/admin/products/:id" exact component={AdminProductEditPage} />}
+          {isAdmin &&
+            <Route path="/admin/products" exact component={AdminProductsPage} />}
+          {isAdmin && <Route path="/admin" exact component={AdminPage} />}
 
-        <Route path="/products/:id" component={ProductDetailPage} />
-        <Route path="/products" component={ProductListPage} />
-        <Route path="/" component={ProductListPage} />
-      </Switch>
+          <Route path="/products/:id" exact component={ProductDetailPage} />
+          <Route path="/products" exact component={ProductListPage} />
+          <Route path="/" exact component={ProductListPage} />
+        </Switch>
       </UserContext.Provider>   
     </div>
   );

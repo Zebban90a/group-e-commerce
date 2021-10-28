@@ -20,7 +20,7 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       }
     };
-    const path = 'api/products';
+    const path = '/api/products';
     const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
@@ -28,7 +28,7 @@ export default function AdminProductsPage() {
   }
 
   const deleteProduct = (id) => {
-    axios.delete(`products/${id}`);
+    axios.delete(`/products/${id}`);
     window.location.reload();
   };
 

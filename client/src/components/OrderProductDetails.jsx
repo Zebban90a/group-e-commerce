@@ -21,7 +21,8 @@ export default function OrderProductDetails({ cartItem }) {
     getProduct()
   }, [])
   return (
-    <Wrapper>
+    productData && (
+      <Wrapper>
       <p>
         {productData.title}
       </p>
@@ -33,5 +34,6 @@ export default function OrderProductDetails({ cartItem }) {
         {productData.price}
       </p>
     </Wrapper>
+    )
   );
 }

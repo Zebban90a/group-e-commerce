@@ -66,13 +66,13 @@ export default function DynamicForm(props) {
     const type = formFormat[name].type
     
     if (type === 'file') {
-      value = e.target.files[0]
+      value = e.target.files[0];
       setFormImage({ file: value });
     } else {
       value = e.target.value;
-      setFormData({...formData,[name]: value,});
     }
-    setValidFields({...validFields, [name] : isValid(name, value)})
+    setFormData({...formData,[name]: value,});
+    setValidFields({...validFields, [name]: isValid(name, value)})
   }
 
   function capitalizeFirstLetter(string) {
@@ -177,11 +177,13 @@ export default function DynamicForm(props) {
   }
 
   function formIsValid() {
+    console.log(validFields);
     let output = true;
 
     for (const name in formFormat) {
       const value = formData[name];
       const fieldStatus = isValid(name, value);
+      console.log(name, value);
       setValidFields(validFields => ({...validFields, [name] : fieldStatus}));
       
       if (!fieldStatus) output = false;
@@ -193,7 +195,6 @@ export default function DynamicForm(props) {
     const { regexRule, required } = formFormat[name];
     
     if (required && !value) {
-      console.log(name, value);
       return false
     }
     if (regexRule && !regexRule.exec(value)) {
