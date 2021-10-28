@@ -6,20 +6,14 @@ export default function CheckoutPage() {
 
   function submitHandler(e) {
     e.preventDefault();
-
-    const payload = {
-      formInput
-
-    };
+    const payload = { formInput };
     axios({
       url: '/api/checkout',
       method: 'POST',
       data: payload,
     });
-
-
-
   }
+
   function onChangeHandler(e) {
     const inputName = e.target.name;
     const inputValue = e.target.value;
@@ -27,9 +21,8 @@ export default function CheckoutPage() {
       ...formInput,
       [inputName]: inputValue,
     });
-    const data = formInput || {};
-
   }
+
   return (
 
     <form onSubmit={submitHandler} encType="multipart/form-data">

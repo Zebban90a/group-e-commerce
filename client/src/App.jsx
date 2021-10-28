@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
@@ -17,14 +17,25 @@ import { UserContext } from './contexts/UserContext';
 
 export default function App() {
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    console.log(cart);
+    const localStorageCart = JSON.parse(localStorage.getItem('cart'))
+    
+    if (cart.length !== 0) {
+      localStorage.setItem('cart', JSON.stringify(cart))
+    } else if (localStorageCart){
+      setCart(localStorageCart);
+    }
+  }, [cart])
+
+
   return (
     <div>
       <UserContext.Provider value={{ cart, setCart }}>
-
-
         <NavBar />
         <Switch>
-          <Route path="/cart" component={CartPage} />
+          <Route path="/cart" component={CartPage} /> {/* add remove from cart */}
           <Route path="/checkout" component={CheckoutPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
@@ -36,9 +47,9 @@ export default function App() {
           <Route path="/admin/products" component={AdminProductsPage} />
           <Route path="/admin" component={AdminPage} />
 
-          <Route path="/products/:id" component={ProductDetailPage} />
-          <Route path="/products" component={ProductListPage} />
-          <Route path="/" component={ProductListPage} />
+          <Route path="/products/:id" component={ProductDetailPage} /> {/* add remove from cart */}
+          <Route path="/products" component={ProductListPage} /> {/* add remove from cart */}
+          <Route path="/" component={ProductListPage} /> 
         </Switch>
 
 

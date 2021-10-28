@@ -6,6 +6,7 @@ import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
 import { UserContext } from '../contexts/UserContext';
+import AddToCartBtn from './AddToCartBtn';
 const Card = styled.div`
   padding: 15px;
   border: 1px solid black;
@@ -116,14 +117,7 @@ export default function ProductCard({ product }) {
             available
           </div>
         </div>
-        <button
-          className="addToCart"
-          onClick={addToCart}
-          disabled={!quantity}
-          type="button"
-        >
-          Add to cart
-        </button>
+        <AddToCartBtn cart={cart} setCart={setCart} disabled={!quantity} productId={_id} />
       </div>
     </Card>
   );

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
+import AddToCartBtn from '../components/AddToCartBtn';
+import { UserContext } from '../contexts/UserContext';
 
 const Container = styled.div`
   padding: 1.5rem;
@@ -59,22 +61,7 @@ const Button = styled.button`
 
 export default function ProductDetailPage(props) {
   const [product, setProduct] = useState('');
-
-  async function addToCart(e) {
-    e.preventDefault();
-    const payload = {
-      productTitle: product.title,
-      productPrice: product.price,
-      productId: product._id,
-
-    };
-    console.log(payload);
-    axios({
-      url: 'api/addtocart',
-      method: 'POST',
-      data: payload,
-    });
-  }
+  const { cart, setCart } = useContext(UserContext);
 
   async function getProduct() {
     const { id } = props.match.params;
@@ -138,13 +125,7 @@ export default function ProductDetailPage(props) {
                 {product.weight}
                 g
               </p>
-              <button
-                onClick={addToCart}
-                disabled={!product.quantity}
-                type="button"
-              >
-                TODO: Add add to cart function
-              </button>
+              <AddToCartBtn cart={cart} setCart={setCart} disabled={!product.quantity} productId={product._id} />
             </InfoContainer>
           </Container>
         </Card>
