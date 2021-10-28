@@ -7,6 +7,6 @@ const router = express.Router();
 router
   .route('/')
   .get()
-  .post(isLoggedIn,placeOrder);
+  .post(placeOrder);
 
 module.exports = router;
