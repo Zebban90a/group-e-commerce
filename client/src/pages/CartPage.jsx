@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../contexts/UserContext';
 
 export default function CartPage() {
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(UserContext); //TODO Setcart = localstorage
   function getCart() {
-    fetch('/api/cart')
-      .then((response) => response.json())
-      .then((user) => setCart(user.data.user.cart));
+    const localCart = localStorage.getItem('cart');
+    setCart(JSON.parse(localCart));
+    //   fetch('/api/cart')
+    //     .then((response) => response.json())
+    //     .then((user) => setCart(user.data.user.cart));
   }
   useEffect(() => {
     getCart();
