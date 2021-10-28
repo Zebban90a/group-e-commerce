@@ -2,24 +2,22 @@ const User = require('../models/UserModel');
 const Order = require('../models/OrderModel');
 
 exports.placeOrder = async (req, res) => {
-  const userId = req.user._id;
-  const { cart } = req.user;
+  const userId = req.body.purchaser
+  const { cart } = req.body;
   let productTotal = 0;
-  let occurrences = [];
-  let orderCart = [];
+  const occurrences = [];
+  const orderCart = [];
 
   const setOrderData = async () => {
     for (let i = 0; i < cart.length; i++) {
       productTotal += cart[i].price;
       occurrences.push(cart[i].id);
     }
-    const quantity = occurrences.reduce(function (acc, curr) {
-    return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
-  }, {});
+    const quantity = occurrences.reduce((acc, curr) => (acc[curr] ? ++acc[curr] : acc[curr] = 1, acc), {});
 
-  for (const [key, value] of Object.entries(quantity)) {
-    orderCart.push({id:key, quantity:value});
-  }
+    for (const [key, value] of Object.entries(quantity)) {
+      orderCart.push({ id: key, quantity: value });
+    }
     const freight = productTotal > 100 ? 0 : 50;
     const orderTotal = freight + productTotal;
     const addressData = req.body.formInput;
@@ -35,7 +33,7 @@ exports.placeOrder = async (req, res) => {
   };
   const orderData = await setOrderData();
   try {
-    if(orderCart.length > 0){
+    /* if(orderCart.length > 0){
     const user = await User.findOneAndUpdate(
       {
         _id: userId,
@@ -45,22 +43,21 @@ exports.placeOrder = async (req, res) => {
           cart:{}
         }
       }
-      );
-    req.user.cart=[];
+      ); */
+    //req.user.cart = [];
     const order = await Order.create(orderData);
     console.log('ORDER SUCCESS');
     res.status(200).json({
       status: 'success',
       data: {
         order,
-        user
       },
     });
     res.end();
-  }
-  else{
+
+  /* else{
     throw Error("ERROR, NO PRODUCTS")
-  }
+  } */
   } catch (err) {
     console.log('CHECKOUT ERROR');
     console.log(err);
