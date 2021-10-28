@@ -59,6 +59,7 @@ const Button = styled.button`
 
 export default function ProductDetailPage(props) {
   const [product, setProduct] = useState('');
+  const { id } = props.match.params;
 
   async function addToCart(e) {
     e.preventDefault();
@@ -68,7 +69,6 @@ export default function ProductDetailPage(props) {
       productId: product._id,
 
     };
-    console.log(payload);
     axios({
       url: 'api/addtocart',
       method: 'POST',
@@ -77,8 +77,6 @@ export default function ProductDetailPage(props) {
   }
 
   async function getProduct() {
-    const { id } = props.match.params;
-    console.log(id);
     const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
     setProduct(data.data.product);
@@ -86,7 +84,7 @@ export default function ProductDetailPage(props) {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
 
   return (
     <Container pad>

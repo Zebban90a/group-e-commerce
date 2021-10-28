@@ -9,8 +9,6 @@ exports.getProducts = async (req, res) => {
       products = await Product.find({ category });
     } else if (search) {
       products = await Product.find({ title: {$regex : search , $options: 'i'} });
-      console.log('---------products---------')
-      console.log(products)
     } else {
       products = await Product.find({});
     }

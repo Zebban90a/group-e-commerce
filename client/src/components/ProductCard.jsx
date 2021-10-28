@@ -5,6 +5,7 @@ import axios from 'axios';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
+
 const Card = styled.div`
   padding: 15px;
   border: 1px solid black;
@@ -60,10 +61,12 @@ const Card = styled.div`
     height: 40px;
   }
 `;
+
 export default function ProductCard({ product }) {
   const {
     _id, title, price, images, quantity, weight,
   } = product;
+
   async function addToCart(e) {
     e.preventDefault();
     const payload = {
@@ -77,11 +80,11 @@ export default function ProductCard({ product }) {
       method: 'POST',
       data: payload,
     });
-    console.log(title);
   }
+  
   return (
     <Card>
-      <Link to={`./products/${_id}`} className="product-link">
+      <Link to={`/products/${_id}`} className="product-link">
         <div>
           <img
             className="display-img"
