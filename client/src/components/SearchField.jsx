@@ -3,9 +3,33 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const StyledListItem = styled.ul`
+const StyledSearchField = styled.div`
+  width: 300px;
+  position: relative;
+  
+  ul {
+    position: absolute;
+    margin: 0;
+    background-color: grey;
+    padding-left: 0;
+  }
+`
+
+const StyledListItem = styled.li`
+  width: 100%;
+  list-style-type: none;
+  margin-right: 15px;
+
+  p {
+    margin-left: 15px;
+  }
+  &:hover {
+    background-color: white;
+  }
   a {
     display: block;
+    width: 100%;
+    display: flex;
   }
   img {
     width: 100px;
@@ -36,27 +60,45 @@ export default function SearchField() {
   }
 
   function renderListItem(product) {
-    const { _id, images, title, price } = product;
+    const { _id, images, title } = product;
     return (
-      <StyledListItem key={_id}>
+      <StyledListItem key={_id} onClick={clearSearch} >
         <Link to={`/products/${_id}`}>
           <img src={`/${images[0]}`} alt="product image"/>
           <p>{title}</p>
-          <p>{'$'+price}</p>
         </Link>
       </StyledListItem>
     )
   }
 
+  function clearSearch() {
+    document.getElementById('search-field').value = '';
+    setProducts([]);
+  }
+
+  function resumeSearch(e) {
+    const currentValue = e.target.value;
+    if (currentValue) {
+      searchProducts(currentValue)
+    }
+  }
+
   return (
-    <div>
-      <label htmlFor="search">Search product:</label>
-      <input type="text" name="search" id="search" placeholder="Ex: Iphone 13 Pro" onChange={handleOnChange}/>
-      <ul>
+    <StyledSearchField>
+      <label htmlFor="search-field">Search product:</label>
+      <input
+        type="text"
+        name="search-field"
+        id="search-field"
+        placeholder="Ex: Iphone 13 Pro"
+        onChange={handleOnChange}
+        onFocus={resumeSearch}
+      />
+      <ul className="search-result">
         {products && products.map(product => {
           return renderListItem(product)
         })}
       </ul>
-    </div>
+    </StyledSearchField>
   )
 }
