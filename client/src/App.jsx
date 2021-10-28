@@ -39,9 +39,9 @@ export default function App() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
       <Switch>
-        {isLoggedIn && <Route path="/cart" component={CartPage} />}
+        <Route path="/cart" component={CartPage} />
         {isLoggedIn && <Route path="/checkout" component={CheckoutPage} />}
         {isLoggedIn && <Route path="/user" component={UserPage} />}
         <Route path="/register" component={RegisterPage} />
