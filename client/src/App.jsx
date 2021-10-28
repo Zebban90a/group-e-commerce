@@ -14,8 +14,10 @@ import AdminPage from './pages/AdminPage';
 import AdminProductEditPage from './pages/AdminProductEditPage';
 import NavBar from './components/NavBar';
 import CheckoutPage from './pages/CheckoutPage';
+import { UserContext } from './contexts/UserContext';
 
 export default function App() {
+  const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -36,9 +38,21 @@ export default function App() {
     checkIsLoggedIn();
     checkIsAdmin();
   }, []);
+  
+   useEffect(() => {
+  
+    const localStorageCart = JSON.parse(localStorage.getItem('cart'))
+
+    if (cart.length !== 0) {
+      localStorage.setItem('cart', JSON.stringify(cart))
+    } else if (localStorageCart && localStorageCart.length) {
+      setCart(localStorageCart);
+    }
+  }, [cart])
 
   return (
     <div>
+      <UserContext.Provider value={{ cart, setCart, }}>
       <NavBar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
       <Switch>
         <Route path="/cart" component={CartPage} />
@@ -59,6 +73,7 @@ export default function App() {
         <Route path="/products" component={ProductListPage} />
         <Route path="/" component={ProductListPage} />
       </Switch>
+      </UserContext.Provider>   
     </div>
   );
 }

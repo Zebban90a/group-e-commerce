@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../contexts/UserContext';
 
 export default function CheckoutPage() {
+  const history = useHistory();
   const [formInput, setFormInput] = useState({});
-  const [error, setError] = useState(false);
-
-  function submitHandler(e) {
+  const { cart, setCart } = useContext(UserContext);
+  async function submitHandler(e) {
     e.preventDefault();
-
-    const payload = { formInput };
-    axios({
+    const localCart = localStorage.getItem('cart');
+    const cart = JSON.parse(localCart);
+    const payload = { formInput, cart };
+    const response = await axios({
       url: '/api/checkout',
       method: 'POST',
       data: payload,
-    }).catch(function (error) {
-      // TODO update status code in CheckoutController ???
-      if (error.response.status === 404) {
-        setError(true);
-      }
-    });
+    })
+
+    if (response.status === 200) {
+      localStorage.clear(),
+        setCart([]),
+        history.push('/');
+    }
   }
 
   function onChangeHandler(e) {
@@ -29,17 +32,6 @@ export default function CheckoutPage() {
       ...formInput,
       [inputName]: inputValue,
     });
-    const data = formInput || {};
-
-  }
-
-  if (error) {
-    return (
-      <div>
-        <p>You have to log in to be able to checkout.</p>
-        <Link to='/login'>Go to Login</Link>
-      </div>
-    );
   }
 
   return (

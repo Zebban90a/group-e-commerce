@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('*', (req, res, next) => {
-  console.log(req.user);
+  //console.log(req.user);
   next();
 })
 app.use('/images', express.static(path.join(__dirname, 'images')));
