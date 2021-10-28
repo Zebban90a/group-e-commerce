@@ -3,7 +3,7 @@ import axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 export default function CheckoutPage() {
   const [formInput, setFormInput] = useState({});
-  const { cart, setCart, localStorageCart, setLocalStorageCart } = useContext(UserContext);
+  const { cart, setCart } = useContext(UserContext);
 
   function submitHandler(e) {
     e.preventDefault();
@@ -16,7 +16,7 @@ export default function CheckoutPage() {
       data: payload,
     });
     localStorage.clear();
-    setLocalStorageCart("");
+    setCart("");
   }
 
   function onChangeHandler(e) {
