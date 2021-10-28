@@ -6,7 +6,9 @@ export default function CheckoutPage() {
 
   function submitHandler(e) {
     e.preventDefault();
-    const payload = { formInput };
+    const localCart = localStorage.getItem('cart');
+    const cart = JSON.parse(localCart);
+    const payload = { formInput, cart };
     axios({
       url: '/api/checkout',
       method: 'POST',

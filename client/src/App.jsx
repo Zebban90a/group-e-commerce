@@ -21,10 +21,10 @@ export default function App() {
   useEffect(() => {
     console.log(cart);
     const localStorageCart = JSON.parse(localStorage.getItem('cart'))
-    
+
     if (cart.length !== 0) {
       localStorage.setItem('cart', JSON.stringify(cart))
-    } else if (localStorageCart){
+    } else if (localStorageCart && localStorageCart.length) {
       setCart(localStorageCart);
     }
   }, [cart])
@@ -49,7 +49,7 @@ export default function App() {
 
           <Route path="/products/:id" component={ProductDetailPage} /> {/* add remove from cart */}
           <Route path="/products" component={ProductListPage} /> {/* add remove from cart */}
-          <Route path="/" component={ProductListPage} /> 
+          <Route path="/" component={ProductListPage} />
         </Switch>
 
 
