@@ -8,5 +8,6 @@ module.exports = session({
   path: '/',
   /* httpOnly: true, */
   /* secure: false, */
+  secure: true,
   maxAge: null,
 });
