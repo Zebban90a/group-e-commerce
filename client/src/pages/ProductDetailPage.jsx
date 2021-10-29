@@ -52,13 +52,6 @@ const InfoContainer = styled.div`
   }
 `;
 
-const Button = styled.button`
-  display: flex;
-  justify-self: flex-end;
-  background-color: #01da01;
-  height: 40px;
-`;
-
 export default function ProductDetailPage(props) {
   const [product, setProduct] = useState('');
   const { cart, setCart } = useContext(UserContext);

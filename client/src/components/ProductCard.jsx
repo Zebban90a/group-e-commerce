@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
@@ -67,16 +66,8 @@ const Card = styled.div`
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(UserContext);
   const {
-    _id, title, price, images, quantity, weight,
+    _id, title, price, images, quantity
   } = product;
-
-  async function addToCart(e) {
-    e.preventDefault();
-
-    await setCart(oldCart => [...oldCart, product]);
-    console.log(cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
   
   return (
     <Card>

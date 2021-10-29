@@ -51,7 +51,7 @@ export default function NavBar({ isLoggedIn, isAdmin }) {
     {
       path: '/user',
       name: 'User',
-    }, ,
+    },
     {
       path: '/cart',
       name: 'Cart',

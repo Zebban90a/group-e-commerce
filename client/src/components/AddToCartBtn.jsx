@@ -14,8 +14,9 @@ export default function AddToCartBtn(props) {
           productExistsInCart = true;
           updatedCart[index].quantity += 1;
           setCart([...updatedCart]);
-          return;
+          return null;
         }
+        return null;
       })
       if (!productExistsInCart) {
         updatedCart.push({id: productId, quantity: 1})

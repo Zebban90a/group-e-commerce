@@ -27,9 +27,11 @@ export default function AdminProductsPage() {
     }
   }
 
-  const deleteProduct = (id) => {
-    axios.delete(`/products/${id}`);
-    window.location.reload();
+  const deleteProduct = async (id) => {
+    const res = await axios.delete(`../api/products/${id}`);
+    if (res && res.status === 200) {
+      getProducts();
+    }
   };
 
   const getProducts = async () => {

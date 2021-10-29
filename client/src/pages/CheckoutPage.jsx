@@ -6,7 +6,7 @@ import { UserContext } from '../contexts/UserContext';
 export default function CheckoutPage() {
   const history = useHistory();
   const [formInput, setFormInput] = useState({});
-  const { cart, setCart } = useContext(UserContext);
+  const { setCart } = useContext(UserContext);
   async function submitHandler(e) {
     e.preventDefault();
     const localCart = localStorage.getItem('cart');
@@ -19,9 +19,9 @@ export default function CheckoutPage() {
     })
 
     if (response.status === 200) {
-      localStorage.clear(),
-        setCart([]),
-        history.push('/');
+      localStorage.clear()
+      setCart([])
+      history.push('/');
     }
   }
 

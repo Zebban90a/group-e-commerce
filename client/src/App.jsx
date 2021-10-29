@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
@@ -23,18 +22,15 @@ export default function App() {
 
   const checkIsLoggedIn = async () => {
     const { data } = await axios.get('/auth/isloggedin');
-    console.log(data);
     setIsLoggedIn(data);
   }
 
   const checkIsAdmin = async () => {
     const { data } = await axios.get('/auth/isadmin');
-    console.log(data);
     setIsAdmin(data);
   }
 
   useEffect(() => {
-    console.log('rendering App.jsx');
     checkIsLoggedIn();
     checkIsAdmin();
   }, []);

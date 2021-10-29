@@ -64,7 +64,7 @@ export default function SearchField() {
     return (
       <StyledListItem key={_id} onClick={clearSearch} >
         <Link to={`/products/${_id}`}>
-          <img src={`/${images[0]}`} alt="product image"/>
+          <img src={`/${images[0]}`} alt={title}/>
           <p>{title}</p>
         </Link>
       </StyledListItem>

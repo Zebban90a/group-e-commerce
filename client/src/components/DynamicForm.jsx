@@ -54,8 +54,7 @@ const StyledLabel = styled.label`
 
 export default function DynamicForm(props) {
   const { submitHandler, formFormat } = props;
-  const { formData, setFormData, formImage, setFormImage } = useContext(UserContext);
-  //NOTE formImage kept for future image preview
+  const { formData, setFormData, setFormImage } = useContext(UserContext);
   
   const [validFields, setValidFields] = useState({});
   const [showAlert, setShowAlert] = useState(false);
@@ -93,7 +92,6 @@ export default function DynamicForm(props) {
     return (
       <StyledInput
         name={name}
-        name={name}
         id={name}
         key={fieldKey}
         type={type}
@@ -116,12 +114,11 @@ export default function DynamicForm(props) {
   }
 
   function renderTextArea(data) {
-    const { name, value, type, fieldKey } = data;
+    const { name, value, fieldKey } = data;
     return (
       <StyledTextArea
         name={name}
         value={value || ''}
-        name={name}
         id={name}
         key={fieldKey}
         onChange={onChangeHandler}
@@ -138,7 +135,7 @@ export default function DynamicForm(props) {
     const { name, value, fieldKey } = data;
     
     return (
-      <select //TODO make options param?
+      <select
         name={name}
         id={name}
         value={value || ''}

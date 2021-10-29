@@ -8,14 +8,10 @@ export default function AdminOrdersPage() {
   async function getAllOrders() {
     const path = '../api/orders';
     const { data } = await axios.get(path);
-    console.log(data.data.orders[0].date);
-    console.log(new Date(data.data.orders[0].date).getHours(),':',new Date(data.data.orders[0].date).getMinutes());
-    console.log();
     setOrders(data.data.orders);
   }
 
   useEffect(() => {
-    console.log('useEffect getting orders');
     getAllOrders();
   }, []);
 

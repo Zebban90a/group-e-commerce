@@ -65,7 +65,6 @@ export default function Order({ order, admin }) {
         <p>
           <strong>Order Date</strong>
           {' '}
-          {console.log(order.date)}
           {(new Date(order.date)).getFullYear()}-
           {(new Date(order.date)).getMonth()+1}-
           {(new Date(order.date)).getDate()}

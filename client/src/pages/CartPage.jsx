@@ -51,8 +51,9 @@ export default function CartPage() {
       if (cartProduct.id === id) {
         updatedCart[index].quantity += 1;
         setCart([...updatedCart]);
-        return;
+        return null;
       }
+      return null;
     })
   }
 
@@ -72,8 +73,9 @@ export default function CartPage() {
           localStorage.removeItem('cart');
           getProductList();
         }
-        return;
+        return null;
       }
+      return null;
     })
   }
 
