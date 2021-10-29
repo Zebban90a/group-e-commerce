@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const OrderAddressSchema = mongoose.Schema({
   zip: {
@@ -20,16 +21,14 @@ const OrderAddressSchema = mongoose.Schema({
   _id: false,
 });
 
-const OrderContactInfoSchema = mongoose.Schema({
-  tel: {
-    type: Number,
+const CartItem = mongoose.Schema({
+  id: {
     required: true,
-  },
-  email: {
     type: String,
-    required: true,
   },
-  _id: false,
+  quantity: {
+    type: Number,
+  },
 });
 
 const OrderSchema = mongoose.Schema({
@@ -38,16 +37,7 @@ const OrderSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  products: [{
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    quantity: Number,
-    productPrice: Number,
-    _id: false,
-  }],
+  cart: [CartItem],
   orderTotal: {
     type: Number,
     required: true,
@@ -62,8 +52,11 @@ const OrderSchema = mongoose.Schema({
     min: 0,
     max: 3,
   },
-  address: OrderAddressSchema,
-  contact: OrderContactInfoSchema,
+  date: {
+    type: Date,
+    default: () => moment().format('YYYY-MM-DD HH:mm:ss'),
+  },
+  shippingAddress: OrderAddressSchema,
 });
 
 module.exports = mongoose.model('Order', OrderSchema);

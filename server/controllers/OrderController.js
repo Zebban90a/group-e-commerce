@@ -1,82 +1,15 @@
 const Order = require('../models/OrderModel');
 
-exports.createOrder = async (req, res) => {
-  /*
-  Test post to http://localhost:5000/api/orders
-
-  {
-    "purchaser": "616584cf8b04b9069807c7af",
-    "products": [
-        {
-            "productId":"61658a1c2e620ab1b18dd34a",
-            "quantity":1,
-            "productPrice":400
-        }
-    ],
-    "orderTotal": 400,
-    "freight":20,
-    "status": 0,
-    "address": {
-        "zip": "12345",
-        "city": "Gotham",
-        "street": "Waynestreet",
-        "houseNumber": 10
-    },
-    "contact": {
-        "tel": 555555123,
-        "email": "kweku@gmail.com"
-    }
-}
-  */
-
-  try {
-    const newOrder = await Order.create(req.body);
-    res.status(201).json({
-      status: 'success',
-      data: {
-        order: newOrder,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: 'fail',
-      message: 'Oops! Something went wrong.',
-    });
-  }
-};
-
 exports.findAllOrders = async (req, res) => {
-  const user = req.user || { // TODO remove test json
-    _id: '616584cf8b04b9069807c7af',
-    fullName: 'Kakan Moses',
-    email: 'kwekan2@hotmail.com',
-    contactInfo: {
-      tel: 1234,
-      address: {
-        city: 'Stockholm',
-        street: 'studentbacken',
-        houseNumber: '32',
-        _id: {
-          $oid: '616584cf8b04b9069807c7b1',
-        },
-      },
-      _id: {
-        $oid: '616584cf8b04b9069807c7b0',
-      },
-    },
-    __v: 0,
-    roles: {
-      isAdmin: true,
-    },
-  };
-
+  const { user } = req;
   try {
-    const { isAdmin } = user.roles;
+    const isAdmin = user.roles.includes('admin');
     let orders;
     if (isAdmin) {
       orders = await Order.find({});
     } else {
       orders = await Order.find({
+        // eslint-disable-next-line no-underscore-dangle
         purchaser: user._id,
       });
     }
@@ -95,7 +28,9 @@ exports.findAllOrders = async (req, res) => {
 };
 
 exports.updateOrderStatus = async (req, res) => {
-  const { id } = req.params;
+  const {
+    id,
+  } = req.params;
   const newStatus = req.body.status;
   try {
     const updatedOrder = await Order.findByIdAndUpdate(id, {
@@ -116,9 +51,4 @@ exports.updateOrderStatus = async (req, res) => {
       message: 'Oops! Something went wrong.',
     });
   }
-};
-
-exports.addToCart = async (req, res) => {
-  console.log(`User:${req.body.userId}`);
-  console.log(`Product:${req.body.productId}`);
 };

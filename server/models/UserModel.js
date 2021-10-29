@@ -1,9 +1,17 @@
 const mongoose = require('mongoose');
 
+const CartSchema = mongoose.Schema({
+  id: String,
+  title: String,
+  price: Number,
+  weight: Number,
+});
+
 const AddressSchema = mongoose.Schema({
-  city: String,
   street: String,
   houseNumber: String,
+  zip: Number,
+  city: String,
 });
 
 const ContactInfoSchema = mongoose.Schema({
@@ -34,10 +42,7 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     default: 'user',
   },
-  cart: {
-    type: Array,
-    required: true,
-  },
+  cart: [CartSchema],
 });
 
 module.exports = mongoose.model('User', UserSchema);

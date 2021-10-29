@@ -1,42 +1,54 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 export default function CheckoutPage() {
-  const mockUserId = '616fdfbc1576abbb9e174e03';
-  const [cart, setCart] = useState([]);
+  const history = useHistory();
+  const [formInput, setFormInput] = useState({});
+  const { setCart } = useContext(UserContext);
 
-  // async function getProducts() {
+  async function submitHandler(e) {
+    e.preventDefault();
+    const localCart = localStorage.getItem('cart');
+    const cart = JSON.parse(localCart);
+    const payload = { formInput, cart };
+    const response = await axios({
+      url: '/api/checkout',
+      method: 'POST',
+      data: payload,
+    });
 
-  //   // console.log(payload);
-  //   // const data = await axios({
-  //   //   url: `http://localhost:5000/api/checkout/${mockUserId}`,
-  //   //   method: 'GET',
-  //   // });
-  //   // console.log(data);
-  // }
+    if (response.status === 200) {
+      localStorage.clear();
+      setCart([]);
+      history.push('/');
+    }
+  }
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/api/checkout/${mockUserId}`)
-      .then((response) => response.json())
-      .then((user) => setCart(user.data.user.cart));
-  }, []);
-  console.log(cart);
+  function onChangeHandler(e) {
+    const inputName = e.target.name;
+    const inputValue = e.target.value;
+    setFormInput({
+      ...formInput,
+      [inputName]: inputValue,
+    });
+  }
 
   return (
-    <div>
-      <h1>CART</h1>
-      {cart.map((product) => (
-        <div>
-          <span>
-            <span>{`Produkt: ${product.Title || 'no name'}`}</span>
-            <br />
-            <span>{`Pris: ${product.Price} kr`}</span>
-          </span>
-        </div>
-      ))}
-      <br />
-      <button>Place Order</button>
-    </div>
 
+    <form onSubmit={submitHandler} encType="multipart/form-data">
+      <label htmlFor="city">City: </label>
+      <input onChange={onChangeHandler} type="text" name="city" id="city" value={formInput.city || ''} required />
+      <label htmlFor="street">Street: </label>
+      <input onChange={onChangeHandler} type="text" name="street" id="street" value={formInput.street || ''} required />
+      <label htmlFor="houseNumber">houseNumber: </label>
+      <input onChange={onChangeHandler} type="number" name="houseNumber" id="houseNumber" value={formInput.houseNumber || ''} required />
+
+      <label htmlFor="zip">Zip: </label>
+      <input onChange={onChangeHandler} type="text" name="zip" id="zip" value={formInput.zip || 0} required />
+      <button type="submit">SUBMIT</button>
+    </form>
   );
 }

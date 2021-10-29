@@ -1,11 +1,12 @@
 const express = require('express');
-
-const {GetCart} = require('../controllers/CheckoutController');
+const { isLoggedIn } = require('../middleware/authentication');
+const { placeOrder } = require('../controllers/CheckoutController');
 
 const router = express.Router();
 
 router
-.route('/:id')
-.get(GetCart);
+  .route('/')
+  .get()
+  .post(isLoggedIn, placeOrder);
 
 module.exports = router;

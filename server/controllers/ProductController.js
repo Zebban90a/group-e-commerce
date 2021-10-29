@@ -3,14 +3,15 @@ const Product = require('../models/ProductModel');
 exports.getProducts = async (req, res) => {
   try {
     let products = '';
-    const { category } = req.query
-    
+    const { category, search } = req.query;
+
     if (category) {
-      products = await Product.find({ 'category': category });
+      products = await Product.find({ category });
+    } else if (search) {
+      products = await Product.find({ title: { $regex: search, $options: 'i' } });
     } else {
       products = await Product.find({});
     }
-    
     res.status(200).json({
       status: 'success',
       data: {
@@ -24,12 +25,9 @@ exports.getProducts = async (req, res) => {
     });
   }
 };
-
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
-  console.log(imagePath);
   const formInputData = JSON.parse(req.body.input);
-
   try {
     const productExists = await Product.exists({
       title: formInputData.title,
@@ -52,18 +50,20 @@ exports.createProduct = async (req, res) => {
       status: 'fail',
       message: err.message,
     });
-    console.log(err);
   }
 };
-
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
-  console.log(data);
+  const formInputData = JSON.parse(req.body.input);
+  const deployedData = formInputData; // TODO Is there a cleaner way?
+  if (deployedData.images && req.file.path) {
+    const imagePath = req.file.path; // REVIEW do images pass even if update is rejected?
+    deployedData.images = imagePath;
+  }
+
   try {
-    const product = await Product.findByIdAndUpdate(id, data, {
+    const product = await Product.findByIdAndUpdate(id, deployedData, {
       new: true,
-      runValidators: true,
     });
     res.status(200).json({
       status: 'success',

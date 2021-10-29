@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
-
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
+import UserContext from '../contexts/UserContext';
+import AddToCartBtn from './AddToCartBtn';
 
 const Card = styled.div`
   padding: 15px;
@@ -14,7 +14,6 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
   .product-link{
     height: 100%;
     display: flex;
@@ -59,38 +58,20 @@ const Card = styled.div`
   .addToCart {
     display: flex;
     justify-self: flex-end;
-    background-color: #01da01;
+    background-color: #01DA01;
     height: 40px;
   }
 `;
 
 export default function ProductCard({ product }) {
+  const { cart, setCart } = useContext(UserContext);
   const {
     _id, title, price, images, quantity,
   } = product;
 
-  async function addToCart(e) {
-    e.preventDefault();
-    const mockUserId = '616fdfbc1576abbb9e174e03';
-    const payload = {
-      productTitle: title,
-      productPrice: price,
-      productId: _id,
-      userId: mockUserId,
-
-    };
-    axios({
-      url: 'http://localhost:5000/api/addtocart',
-      method: 'POST',
-      data: payload,
-    });
-
-    console.log(title);
-  }
-
   return (
     <Card>
-      <Link to={`./products/${_id}`} className="product-link">
+      <Link to={`/products/${_id}`} className="product-link">
         <div>
           <img
             className="display-img"
@@ -120,14 +101,7 @@ export default function ProductCard({ product }) {
             available
           </div>
         </div>
-        <button
-          className="addToCart"
-          onClick={addToCart}
-          disabled={!quantity}
-          type="button"
-        >
-          Add to cart
-        </button>
+        <AddToCartBtn cart={cart} setCart={setCart} disabled={!quantity} productId={_id} />
       </div>
     </Card>
   );
