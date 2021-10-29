@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Orders from '../components/Orders';
 import DynamicForm from '../components/DynamicForm';
-import { UserContext } from '../contexts/UserContext';
+import UserContext from '../contexts/UserContext';
 import { userForm } from '../data/formFormats';
 
 export default function UserPage() {
@@ -16,7 +16,9 @@ export default function UserPage() {
     const userData = data.data.user;
 
     const { fullName, email } = userData;
-    const { street, houseNumber, city, zip } = userData.contactInfo ? userData.contactInfo.address : {};
+    const {
+      street, houseNumber, city, zip,
+    } = userData.contactInfo ? userData.contactInfo.address : {};
     const { tel } = userData.contactInfo || '';
 
     setFormData({
@@ -26,7 +28,7 @@ export default function UserPage() {
       street,
       houseNumber,
       city,
-      zip
+      zip,
     });
   }
 
@@ -38,10 +40,6 @@ export default function UserPage() {
   async function getAllOrders() {
     const path = 'api/orders';
     const { data } = await axios.get(path);
-    const logData = async () => {
-      console.log(data.data.orders);
-    };
-    await logData();
     setOrders(data.data.orders);
   }
 
@@ -52,10 +50,8 @@ export default function UserPage() {
   useEffect(() => {
     getUser();
     getAllOrders();
-    console.log('useEffect getting users');
   }, []);
 
-  // TODO fix styling, make components
   return (
     <div>
       {!editUserData
@@ -107,8 +103,7 @@ export default function UserPage() {
               formFormat={userForm}
             />
           </UserContext.Provider>
-        )
-      }
+        )}
       <button type="button" onClick={handleToggleUserDataForm}>
         {editUserData ? 'Cancel' : 'Edit Details'}
       </button>

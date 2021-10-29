@@ -47,6 +47,7 @@ export default function ProductListPage() {
       <CardGrid>
         {
           products
+            // eslint-disable-next-line no-underscore-dangle
             ? products.map((product) => <ProductCard product={product} key={product._id} />)
             : (<p>Loading...</p>)
         }

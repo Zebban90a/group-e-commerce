@@ -5,7 +5,7 @@ import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
 import AddToCartBtn from '../components/AddToCartBtn';
-import { UserContext } from '../contexts/UserContext';
+import UserContext from '../contexts/UserContext';
 
 const Container = styled.div`
   padding: 1.5rem;
@@ -20,7 +20,7 @@ const Card = styled.div`
   flex-direction: column;
   border: solid 1px #000;
   width: 60vw;
-  min-width: 800px; // TODO fix media queries
+  min-width: 800px;
 `;
 
 const ImageContainer = styled.div`
@@ -52,11 +52,11 @@ const InfoContainer = styled.div`
   }
 `;
 
-export default function ProductDetailPage(props) {
+export default function ProductDetailPage({ match }) {
   const [product, setProduct] = useState('');
   const { cart, setCart } = useContext(UserContext);
-  const { id } = props.match.params;
-  
+  const { id } = match.params;
+
   async function getProduct() {
     const path = `/api/products/${id}`;
     const { data } = await axios.get(path);
@@ -72,55 +72,60 @@ export default function ProductDetailPage(props) {
       {!product && <p>Loading..</p>}
       {product
         && (
-        <Card>
-          <div>
-            <h1>{product.title}</h1>
-            <p>{product.category}</p>
-          </div>
-          <Container>
-            <ImageContainer>
-              <Image
-                alt={product.title}
-                src={`../${product.images[0]}` || noImage}
-                onError={(e) => { e.target.src = noImage; }}
-              />
-            </ImageContainer>
-            <InfoContainer>
-              <p>
-                {product.description}
-                {' '}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet culpa modi nemo dolorem voluptatem? Cupiditate debitis cumque, quo error officiis recusandae sequi dicta natus fugiat, iusto iure corrupti obcaecati esse soluta! Quibusdam repudiandae ea veritatis earum cumque nemo maxime praesentium est hic ab, eligendi aliquid porro quo labore, exercitationem qui?
-              </p>
-              <p className="price">
-                &#36;
-                {product.price}
-              </p>
-              <div className="availability">
-                {!product.quantity
-                  && <img src={crossmark} alt="unavailable" />}
-                {product.quantity
-                  && <img src={checkmark} alt="available" />}
+          <Card>
+            <div>
+              <h1>{product.title}</h1>
+              <p>{product.category}</p>
+            </div>
+            <Container>
+              <ImageContainer>
+                <Image
+                  alt={product.title}
+                  src={`../${product.images[0]}` || noImage}
+                  onError={(e) => { e.target.src = noImage; }}
+                />
+              </ImageContainer>
+              <InfoContainer>
                 <p>
-                  {product.quantity}
+                  {product.description}
                   {' '}
-                  available
                 </p>
-              </div>
-              <p>
-                Manufacturer:
-                {' '}
-                {product.manufacturer}
-              </p>
-              <p>
-                Weight:
-                {' '}
-                {product.weight}
-                g
-              </p>
-              <AddToCartBtn cart={cart} setCart={setCart} disabled={!product.quantity} productId={product._id} />
-            </InfoContainer>
-          </Container>
-        </Card>
+                <p className="price">
+                  &#36;
+                  {product.price}
+                </p>
+                <div className="availability">
+                  {!product.quantity
+                    && <img src={crossmark} alt="unavailable" />}
+                  {product.quantity
+                    && <img src={checkmark} alt="available" />}
+                  <p>
+                    {product.quantity}
+                    {' '}
+                    available
+                  </p>
+                </div>
+                <p>
+                  Manufacturer:
+                  {' '}
+                  {product.manufacturer}
+                </p>
+                <p>
+                  Weight:
+                  {' '}
+                  {product.weight}
+                  g
+                </p>
+                <AddToCartBtn
+                  cart={cart}
+                  setCart={setCart}
+                  disabled={!product.quantity}
+                  // eslint-disable-next-line no-underscore-dangle
+                  productId={product._id}
+                />
+              </InfoContainer>
+            </Container>
+          </Card>
         )}
     </Container>
   );

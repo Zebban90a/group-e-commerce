@@ -12,7 +12,7 @@ export default function UpdateOrder({ id }) {
     const path = `../api/orders/${id}`;
     await axios.patch(path, { status: orderStatus });
   }
-  
+
   const submitUserData = async (e) => {
     e.preventDefault();
     await updateOrderStatus();

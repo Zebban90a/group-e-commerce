@@ -99,8 +99,8 @@ export default function NavBar({ isLoggedIn, isAdmin }) {
 
   return (
     <StyledNav>
-      {linkArray.map((link, index) => (
-        <Link to={link.path} key={index}>
+      {linkArray.map((link) => (
+        <Link to={link.path} key={`${link.name}`}>
           <StyledButton>
             <span type="button" className="nav-link ml-2">
               {link.name}
@@ -108,7 +108,8 @@ export default function NavBar({ isLoggedIn, isAdmin }) {
           </StyledButton>
         </Link>
       ))}
-      {isLoggedIn &&
+      {isLoggedIn
+        && (
         <a href="http://localhost:5000/auth/logout">
           <StyledButton>
             <span type="button" className="nav-link ml-2">
@@ -116,7 +117,7 @@ export default function NavBar({ isLoggedIn, isAdmin }) {
             </span>
           </StyledButton>
         </a>
-      }
+        )}
       <SearchField />
     </StyledNav>
   );

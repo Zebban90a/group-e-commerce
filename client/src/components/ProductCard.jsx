@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import noImage from '../no-img.png';
 import checkmark from '../checkmark.svg';
 import crossmark from '../crossmark.svg';
-import { UserContext } from '../contexts/UserContext';
+import UserContext from '../contexts/UserContext';
 import AddToCartBtn from './AddToCartBtn';
 
 const Card = styled.div`
@@ -66,9 +66,9 @@ const Card = styled.div`
 export default function ProductCard({ product }) {
   const { cart, setCart } = useContext(UserContext);
   const {
-    _id, title, price, images, quantity
+    _id, title, price, images, quantity,
   } = product;
-  
+
   return (
     <Card>
       <Link to={`/products/${_id}`} className="product-link">

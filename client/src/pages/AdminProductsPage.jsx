@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
-import { UserContext } from '../contexts/UserContext';
+import UserContext from '../contexts/UserContext';
 import { productForm } from '../data/formFormats';
 
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
   const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
+
+  const getProducts = async () => {
+    const { data } = await axios.get('../api/products');
+    const { products } = data.data;
+    setProductList(products);
+  };
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -18,7 +24,7 @@ export default function AdminProductsPage() {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-      }
+      },
     };
     const path = '/api/products';
     const res = await axios.post(path, deployForm, config);
@@ -34,12 +40,6 @@ export default function AdminProductsPage() {
     }
   };
 
-  const getProducts = async () => {
-    const { data } = await axios.get('../api/products');
-    const { products } = data.data;
-    setProductList(products);
-  };
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -48,14 +48,19 @@ export default function AdminProductsPage() {
     <div>
       <h1>admin products</h1>
 
-      <UserContext.Provider value={{ formData, setFormData, formImage, setFormImage }}>
+      <UserContext.Provider value={{
+        formData, setFormData, formImage, setFormImage,
+      }}
+      >
         <DynamicForm
+          // eslint-disable-next-line react/jsx-no-bind
           submitHandler={submitHandler}
           formFormat={productForm}
         />
       </UserContext.Provider>
 
       {productList.map((product) => {
+        // eslint-disable-next-line no-underscore-dangle
         const id = product._id;
         return (
           <li key={id}>

@@ -1,9 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import styled from 'styled-components';
 import OrderProductDetails from './OrderProductDetails';
 import UpdateOrder from './UpdateOrder';
 
-// TODO Fix styling.
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,22 +65,27 @@ export default function Order({ order, admin }) {
         <p>
           <strong>Order Date</strong>
           {' '}
-          {(new Date(order.date)).getFullYear()}-
-          {(new Date(order.date)).getMonth()+1}-
+          {(new Date(order.date)).getFullYear()}
+          -
+          {(new Date(order.date)).getMonth() + 1}
+          -
           {(new Date(order.date)).getDate()}
           {' '}
-          {(new Date(order.date)).getHours()}:
+          {(new Date(order.date)).getHours()}
+          :
           {(new Date(order.date)).getMinutes()}
         </p>
         <p>
           <strong>Shipping fee:</strong>
           {' '}
-          ${order.freight}
+          $
+          {order.freight}
         </p>
         <p>
           <strong>Order Total</strong>
           {' '}
-          ${order.orderTotal}
+          $
+          {order.orderTotal}
         </p>
       </Wrapper>
     </Container>

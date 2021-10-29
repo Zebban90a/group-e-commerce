@@ -1,14 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 export default function AddToCartBtn(props) {
-  const { cart, setCart, disabled, productId } = props;
-  
+  const {
+    cart, setCart, disabled, productId,
+  } = props;
+
   function addToCart() {
-    let updatedCart = cart;
+    const updatedCart = cart;
 
     if (cart.length !== 0) {
       let productExistsInCart = false;
-      
+
       cart.map((cartProduct, index) => {
         if (cartProduct.id === productId) {
           productExistsInCart = true;
@@ -17,12 +19,12 @@ export default function AddToCartBtn(props) {
           return null;
         }
         return null;
-      })
+      });
       if (!productExistsInCart) {
-        updatedCart.push({id: productId, quantity: 1})
+        updatedCart.push({ id: productId, quantity: 1 });
         setCart([...updatedCart]);
       }
-    } else setCart([{id: productId, quantity: 1}]);
+    } else setCart([{ id: productId, quantity: 1 }]);
   }
 
   return (
@@ -33,5 +35,5 @@ export default function AddToCartBtn(props) {
     >
       Add to cart
     </button>
-  )
+  );
 }

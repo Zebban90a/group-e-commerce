@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ const StyledSearchField = styled.div`
     background-color: grey;
     padding-left: 0;
   }
-`
+`;
 
 const StyledListItem = styled.li`
   width: 100%;
@@ -36,39 +36,27 @@ const StyledListItem = styled.li`
     height: 100px;
     object-fit: cover;
   }
-`
+`;
 
 export default function SearchField() {
   const [products, setProducts] = useState([]);
   let searchTimer = null;
-  
-  function handleOnChange(e) {
-    const value = e.target.value;
-    clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => searchProducts(value), 350);
-  }
 
   async function searchProducts(value) {
     if (value.length < 2) {
       setProducts([]);
       return;
-    };
-    
+    }
+
     const path = `/api/products?search=${value}`;
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
 
-  function renderListItem(product) {
-    const { _id, images, title } = product;
-    return (
-      <StyledListItem key={_id} onClick={clearSearch} >
-        <Link to={`/products/${_id}`}>
-          <img src={`/${images[0]}`} alt={title}/>
-          <p>{title}</p>
-        </Link>
-      </StyledListItem>
-    )
+  function handleOnChange(e) {
+    const { value } = e.target;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => searchProducts(value), 350);
   }
 
   function clearSearch() {
@@ -76,15 +64,29 @@ export default function SearchField() {
     setProducts([]);
   }
 
+  function renderListItem(product) {
+    const { _id, images, title } = product;
+    return (
+      // eslint-disable-next-line react/jsx-no-bind
+      <StyledListItem key={_id} onClick={clearSearch}>
+        <Link to={`/products/${_id}`}>
+          <img src={`/${images[0]}`} alt={title} />
+          <p>{title}</p>
+        </Link>
+      </StyledListItem>
+    );
+  }
+
   function resumeSearch(e) {
     const currentValue = e.target.value;
     if (currentValue) {
-      searchProducts(currentValue)
+      searchProducts(currentValue);
     }
   }
 
   return (
     <StyledSearchField>
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label htmlFor="search-field">Search product:</label>
       <input
         type="text"
@@ -95,10 +97,8 @@ export default function SearchField() {
         onFocus={resumeSearch}
       />
       <ul className="search-result">
-        {products && products.map(product => {
-          return renderListItem(product)
-        })}
+        {products && products.map((product) => renderListItem(product))}
       </ul>
     </StyledSearchField>
-  )
+  );
 }
