@@ -4,7 +4,7 @@ const {
   findUser,
   deleteUser,
 } = require('../controllers/UserController');
-const { isLoggedIn } = require('../middleware/authentication')
+const { isLoggedIn } = require('../middleware/authentication');
 
 const router = express.Router();
 

@@ -1,24 +1,7 @@
 const Order = require('../models/OrderModel');
 
-exports.createOrder = async (req, res) => {
-  try {
-    const newOrder = await Order.create(req.body);
-    res.status(201).json({
-      status: 'success',
-      data: {
-        order: newOrder,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({
-      status: 'fail',
-      message: 'Oops! Something went wrong.',
-    });
-  }
-};
-
 exports.findAllOrders = async (req, res) => {
-  const user = req.user;
+  const { user } = req;
   try {
     const isAdmin = user.roles.includes('admin');
     let orders;
@@ -26,6 +9,7 @@ exports.findAllOrders = async (req, res) => {
       orders = await Order.find({});
     } else {
       orders = await Order.find({
+        // eslint-disable-next-line no-underscore-dangle
         purchaser: user._id,
       });
     }
@@ -45,7 +29,7 @@ exports.findAllOrders = async (req, res) => {
 
 exports.updateOrderStatus = async (req, res) => {
   const {
-    id
+    id,
   } = req.params;
   const newStatus = req.body.status;
   try {
@@ -67,9 +51,4 @@ exports.updateOrderStatus = async (req, res) => {
       message: 'Oops! Something went wrong.',
     });
   }
-};
-
-exports.addToCart = async (req, res) => {
-  console.log(`User:${req.body.userId}`);
-  console.log(`Product:${req.body.productId}`);
 };

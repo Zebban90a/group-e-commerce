@@ -4,24 +4,24 @@ exports.getProducts = async (req, res) => {
   try {
     let products = '';
     const { category, search } = req.query;
-    
+
     if (category) {
       products = await Product.find({ category });
     } else if (search) {
-      products = await Product.find({ title: {$regex : search , $options: 'i'} });
+      products = await Product.find({ title: { $regex: search, $options: 'i' } });
     } else {
       products = await Product.find({});
     }
     res.status(200).json({
       status: 'success',
       data: {
-        products
-      }
+        products,
+      },
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err
+      message: err,
     });
   }
 };
@@ -30,7 +30,7 @@ exports.createProduct = async (req, res) => {
   const formInputData = JSON.parse(req.body.input);
   try {
     const productExists = await Product.exists({
-      title: formInputData.title
+      title: formInputData.title,
     });
     if (productExists) {
       throw Error('productExists');
@@ -48,53 +48,53 @@ exports.createProduct = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'fail',
-      message: err.message
+      message: err.message,
     });
   }
 };
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
-  console.log(req.body)
   const formInputData = JSON.parse(req.body.input);
   const deployedData = formInputData; // TODO Is there a cleaner way?
   if (deployedData.images && req.file.path) {
-    const imagePath = req.file.path; //REVIEW do images pass even if update is rejected?    
+    const imagePath = req.file.path; // REVIEW do images pass even if update is rejected?
     deployedData.images = imagePath;
   }
-  
-  try {  
+
+  try {
     const product = await Product.findByIdAndUpdate(id, deployedData, {
-      new: true, //REVIEW why true?
-      // runValidators: true, //NOTE bypassed because image is not always updated
+      new: true,
     });
     res.status(200).json({
       status: 'success',
       data: {
-        product
-      }
+        product,
+      },
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err
+      message: err,
     });
   }
 };
+
 exports.deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
     await Product.findByIdAndDelete(id);
     res.status(200).json({
       status: 'success',
-      data: null
+      data: null,
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err
+      message: err,
     });
   }
 };
+
 exports.getSingleProduct = async (req, res) => {
   const { id } = req.params;
   try {
@@ -102,13 +102,13 @@ exports.getSingleProduct = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
-        product
-      }
+        product,
+      },
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err
+      message: err,
     });
   }
 };

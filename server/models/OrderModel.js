@@ -18,19 +18,18 @@ const OrderAddressSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-
   _id: false,
 });
+
 const CartItem = mongoose.Schema({
-  id: { //id = productId
+  id: {
     required: true,
     type: String,
   },
   quantity: {
     type: Number,
-  } 
-})
-
+  },
+});
 
 const OrderSchema = mongoose.Schema({
   purchaser: {
@@ -44,9 +43,9 @@ const OrderSchema = mongoose.Schema({
     required: true,
   },
   freight: {
-     type: Number,
-     required: true,
-   },
+    type: Number,
+    required: true,
+  },
   status: {
     type: Number,
     default: 0,

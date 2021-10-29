@@ -1,19 +1,18 @@
 const express = require('express');
 const {
-  createOrder,
-  updateOrderStatus, // Admin Only
+  updateOrderStatus,
   findAllOrders,
 } = require('../controllers/OrderController');
+const { isAdmin } = require('../middleware/authentication');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(findAllOrders)
-  .post(createOrder);
+  .get(findAllOrders);
 
 router
   .route('/:id')
-  .patch(updateOrderStatus);
+  .patch(isAdmin, updateOrderStatus);
 
 module.exports = router;
