@@ -9,4 +9,4 @@ const db = process.env.DATABASE.replace(
 );
 // eslint-disable-next-line no-console
 mongoose.connect(db).then(() => console.log('connected successfully'));
-//server.listen(PORT, () => `Server running on port ${PORT}`);
+server.listen(PORT, () => `Server running on port ${PORT}`);

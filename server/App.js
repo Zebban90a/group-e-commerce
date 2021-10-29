@@ -17,7 +17,7 @@ const passport = require('./config/passport');
 const session = require('./config/session');
 
 // App Use
-app.use(cors({ origin: process.env.CLIENT }));
+app.use(cors(/* { origin: process.env.CLIENT } */));
 app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
@@ -30,11 +30,5 @@ app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/checkout', CheckoutRoute);
 app.use('/auth', AuthRoute);
-app.set( 'port', ( process.env.PORT || 5000 ));
 
-// Start node server
-app.listen( app.get( 'port' ), function() {
-  console.log( 'Node server is running on port ' + app.get( 'port' ));
-  });
-  
 module.exports = app;
