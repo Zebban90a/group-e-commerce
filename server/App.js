@@ -17,7 +17,7 @@ const passport = require('./config/passport');
 const session = require('./config/session');
 
 // App Use
-app.use(cors(/* { origin: process.env.CLIENT } */));
+app.use(cors({ origin: process.env.CLIENT }));
 app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
