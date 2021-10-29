@@ -16,14 +16,14 @@ export default function UpdateOrder({ id }) {
   const submitUserData = async (e) => {
     e.preventDefault();
     await updateOrderStatus();
-    // NOTE non ideal solution
     window.location.reload();
   };
 
   return (
     <div>
       <form onSubmit={submitUserData}>
-        <select onChange={onChangeHandler}>
+        <select onChange={onChangeHandler} defaultValue="none">
+          <option value="none" disabled>Select a status</option>
           <option value="0">pending</option>
           <option value="1">shipped</option>
           <option value="2">completed</option>
