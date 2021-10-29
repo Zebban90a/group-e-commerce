@@ -4,7 +4,7 @@ export default function LoginPage() {
   return (
     <div>
       <h1>login page</h1>
-      <form action="http://localhost:5000/auth/google">
+      <form action="https://group-e-commerce.herokuapp.com/auth/google">
         <button type="submit" className="google-button">
           <span className="google-button__icon">
             <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">

@@ -4,14 +4,14 @@ module.exports = (app) => {
   app.use(
     '/auth',
     createProxyMiddleware({
-      target: 'http://localhost:3000',
+      target: 'https://group-e-commerce-client.herokuapp.com/',
       changeOrigin: true,
     }),
   );
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:3000',
+      target: 'https://group-e-commerce-client.herokuapp.com/',
       changeOrigin: true,
     }),
   );

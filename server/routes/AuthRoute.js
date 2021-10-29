@@ -31,18 +31,18 @@ router.get('/google',
   }));
 
 router.get('/google/failure', (req, res) => {
-  res.redirect('http://localhost:3000/login');
+  res.redirect('https://group-e-commerce-client.herokuapp.com/login');
 });
 
 router.get('/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000',
+    successRedirect: 'https://group-e-commerce-client.herokuapp.com',
     failureRedirect: 'auth/google/failure',
   }));
 
 router.get('/logout', (req, res) => {
   req.session.destroy(null);
-  res.redirect('http://localhost:3000/login');
+  res.redirect('https://group-e-commerce-client.herokuapp.com/login');
 });
 
 module.exports = router;

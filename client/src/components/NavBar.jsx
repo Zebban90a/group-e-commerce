@@ -110,7 +110,7 @@ export default function NavBar({ isLoggedIn, isAdmin }) {
       ))}
       {isLoggedIn
         && (
-        <a href="http://localhost:5000/auth/logout">
+        <a href="https://group-e-commerce.herokuapp.com/auth/logout">
           <StyledButton>
             <span type="button" className="nav-link ml-2">
               Log out
