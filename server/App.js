@@ -22,6 +22,7 @@ app.use(cors({
   // origin: process.env.CLIENT,
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   //credentials: true,
+  preflightContinue: true,
 }));
 
 console.log('change cors 12:40');
