@@ -6,17 +6,13 @@ import UserContext from '../contexts/UserContext';
 import { productForm } from '../data/formFormats';
 
 export default function AdminProductsPage() {
-  API_SERVER='https://group-e-commerce.herokuapp.com/'
-  const instance = axios.create({
-    withCredentials: true,
-    baseURL: API_SERVER
-  })
   const [productList, setProductList] = useState([]);
   const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
 
   const getProducts = async () => {
-    const { data } = await instance.get('https://group-e-commerce.herokuapp.com/api/products');
+    axios.defaults.withCredentials = true;
+    const { data } = await axios.get('https://group-e-commerce.herokuapp.com/api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -33,7 +29,7 @@ export default function AdminProductsPage() {
       },
     };
     const path = 'https://group-e-commerce.herokuapp.com/api/products';
-    const res = await instance.post(path, deployForm, config);
+    const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
     }

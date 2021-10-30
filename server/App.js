@@ -21,7 +21,7 @@ app.use(cors({
   // origin: '*',
   origin: process.env.CLIENT,
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  //credentials: true,
+  credentials: true,
   // preflightContinue: true,
 }));
 
