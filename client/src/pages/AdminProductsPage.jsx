@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import UserContext from '../contexts/UserContext';
 import { productForm } from '../data/formFormats';
-API_SERVER='https://group-e-commerce.herokuapp.com/'
-const instance = axios.create({
-  withCredentials: true,
-  baseURL: API_SERVER
-})
+
 export default function AdminProductsPage() {
+  API_SERVER='https://group-e-commerce.herokuapp.com/'
+  const instance = axios.create({
+    withCredentials: true,
+    baseURL: API_SERVER
+  })
   const [productList, setProductList] = useState([]);
   const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
