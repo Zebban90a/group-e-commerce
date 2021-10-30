@@ -13,7 +13,7 @@ import AdminProductEditPage from './pages/AdminProductEditPage';
 import NavBar from './components/NavBar';
 import CheckoutPage from './pages/CheckoutPage';
 import UserContext from './contexts/UserContext';
-
+axios.defaults.withCredentials = true;
 export default function App() {
   const [cart, setCart] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
