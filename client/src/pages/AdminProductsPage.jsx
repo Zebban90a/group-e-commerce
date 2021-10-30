@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
 import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import UserContext from '../contexts/UserContext';
@@ -12,6 +11,7 @@ export default function AdminProductsPage() {
   const [formImage, setFormImage] = useState('');
 
   const getProducts = async () => {
+    axios.defaults.withCredentials = true;
     const { data } = await axios.get('https://group-e-commerce.herokuapp.com/api/products');
     const { products } = data.data;
     setProductList(products);
