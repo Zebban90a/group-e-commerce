@@ -8,11 +8,11 @@ module.exports = (app) => {
       changeOrigin: true,
     }),
   );
-  /* app.use(
+  app.use(
     '/api',
     createProxyMiddleware({
       target: 'https://group-e-commerce-client.herokuapp.com',
       changeOrigin: true,
     }),
-  ); */
+  );
 };
