@@ -29,6 +29,7 @@ export default function AdminProductsPage() {
       },
     };
     const path = 'https://group-e-commerce.herokuapp.com/api/products';
+    axios.defaults.withCredentials = true;
     const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
