@@ -21,7 +21,7 @@ app.use(cors({
   origin: process.env.CLIENT,
 }));
 
-console.log('change cors 12:44');
+console.log('change cors 12:46');
 app.use((req, res, next) => {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT);
