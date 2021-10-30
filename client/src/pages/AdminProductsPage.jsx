@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import UserContext from '../contexts/UserContext';
 import { productForm } from '../data/formFormats';
-
+API_SERVER='https://group-e-commerce.herokuapp.com/'
+const instance = axios.create({
+  withCredentials: true,
+  baseURL: API_SERVER
+})
 export default function AdminProductsPage() {
   const [productList, setProductList] = useState([]);
   const [formData, setFormData] = useState('');
   const [formImage, setFormImage] = useState('');
 
   const getProducts = async () => {
-    axios.defaults.withCredentials = true;
-    const { data } = await axios.get('https://group-e-commerce.herokuapp.com/api/products');
+    const { data } = await instance.get('https://group-e-commerce.herokuapp.com/api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -29,7 +32,7 @@ export default function AdminProductsPage() {
       },
     };
     const path = 'https://group-e-commerce.herokuapp.com/api/products';
-    const res = await axios.post(path, deployForm, config);
+    const res = await instance.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();
     }
