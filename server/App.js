@@ -18,15 +18,14 @@ const session = require('./config/session');
 
 // App Use
 app.use(cors({
-  origin: '*',
-  // origin: process.env.CLIENT,
+  // origin: '*',
+  origin: process.env.CLIENT,
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   //credentials: true,
-  preflightContinue: true,
+  // preflightContinue: true,
 }));
 
-console.log('change cors 12:40');
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
@@ -36,7 +35,7 @@ app.use((req, res, next) => {
 );
   next();
 });
-
+ */
 app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
