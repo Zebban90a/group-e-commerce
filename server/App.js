@@ -16,10 +16,11 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 const passport = require('./config/passport');
 const session = require('./config/session');
 
-console.log('cors test 1:14');
+console.log('cors test 1:17');
 // App Use
 app.use(cors({
-  origin: process.env.CLIENT,
+  origin: '*',
+  // origin: process.env.CLIENT,
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
 }));
