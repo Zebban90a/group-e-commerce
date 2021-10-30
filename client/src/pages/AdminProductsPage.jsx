@@ -25,7 +25,6 @@ export default function AdminProductsPage() {
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        withCredentials: true 
       },
     };
     const path = 'https://group-e-commerce.herokuapp.com/api/products';
