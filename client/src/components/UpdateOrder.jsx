@@ -9,7 +9,7 @@ export default function UpdateOrder({ id }) {
   }
 
   async function updateOrderStatus() {
-    const path = `../api/orders/${id}`;
+    const path = `https://group-e-commerce.herokuapp.com/api/orders/${id}`;
     await axios.patch(path, { status: orderStatus });
   }
 

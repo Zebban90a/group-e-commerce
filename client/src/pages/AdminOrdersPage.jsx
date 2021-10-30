@@ -6,7 +6,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
 
   async function getAllOrders() {
-    const path = '../api/orders';
+    const path = 'https://group-e-commerce.herokuapp.com/api/orders';
     const { data } = await axios.get(path);
     setOrders(data.data.orders);
   }

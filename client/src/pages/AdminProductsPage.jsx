@@ -11,7 +11,7 @@ export default function AdminProductsPage() {
   const [formImage, setFormImage] = useState('');
 
   const getProducts = async () => {
-    const { data } = await axios.get('../api/products');
+    const { data } = await axios.get('https://group-e-commerce.herokuapp.com/api/products');
     const { products } = data.data;
     setProductList(products);
   };
@@ -26,7 +26,7 @@ export default function AdminProductsPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const path = '/api/products';
+    const path = 'https://group-e-commerce.herokuapp.com/api/products';
     const res = await axios.post(path, deployForm, config);
     if (res && res.status === 201) {
       getProducts();

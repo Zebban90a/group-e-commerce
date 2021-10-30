@@ -58,7 +58,7 @@ export default function ProductDetailPage({ match }) {
   const { id } = match.params;
 
   async function getProduct() {
-    const path = `/api/products/${id}`;
+    const path = `https://group-e-commerce.herokuapp.com/api/products/${id}`;
     const { data } = await axios.get(path);
     setProduct(data.data.product);
   }

@@ -48,7 +48,7 @@ export default function SearchField() {
       return;
     }
 
-    const path = `/api/products?search=${value}`;
+    const path = `https://group-e-commerce.herokuapp.com/api/products?search=${value}`;
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }

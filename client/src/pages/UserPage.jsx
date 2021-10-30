@@ -33,12 +33,12 @@ export default function UserPage() {
   }
 
   const submitUserData = async () => {
-    const path = 'api/users';
+    const path = 'https://group-e-commerce.herokuapp.com/api/users';
     await axios.patch(path, formData);
   };
 
   async function getAllOrders() {
-    const path = 'api/orders';
+    const path = 'https://group-e-commerce.herokuapp.com/api/orders';
     const { data } = await axios.get(path);
     setOrders(data.data.orders);
   }

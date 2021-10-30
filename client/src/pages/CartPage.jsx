@@ -9,7 +9,7 @@ export default function CartPage() {
   const [productList, setProductList] = useState([]);
 
   async function getProduct(id) {
-    const path = `/api/products/${id}`;
+    const path = `https://group-e-commerce.herokuapp.com/api/products/${id}`;
     const { data } = await axios.get(path);
     return data.data.product;
   }

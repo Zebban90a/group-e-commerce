@@ -15,7 +15,7 @@ export default function CheckoutPage() {
     const cart = JSON.parse(localCart);
     const payload = { formInput, cart };
     const response = await axios({
-      url: '/api/checkout',
+      url: 'https://group-e-commerce.herokuapp.com/api/checkout',
       method: 'POST',
       data: payload,
     });
