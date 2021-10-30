@@ -16,7 +16,6 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 const passport = require('./config/passport');
 const session = require('./config/session');
 
-console.log('cors test 1:17');
 // App Use
 app.use(cors({
   origin: '*',
@@ -24,6 +23,14 @@ app.use(cors({
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   //credentials: true,
 }));
+
+console.log('change cors 12:40');
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
+  //res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
+  next();
+});
 
 app.use(session);
 app.use(express.json());
