@@ -16,29 +16,13 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 const passport = require('./config/passport');
 const session = require('./config/session');
 
+console.log('cors test 1:14');
 // App Use
 app.use(cors({
   origin: process.env.CLIENT,
+  methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+  credentials: true,
 }));
-
-console.log('change cors 12:46');
-app.use((req, res, next) => {
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT);
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
 
 app.use(session);
 app.use(express.json());
