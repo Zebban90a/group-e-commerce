@@ -32,7 +32,7 @@ export default function ProductListPage() {
   const category = query.get('category');
 
   async function getProducts() {
-    const path = `/api/products${category ? `?category=${category}` : ''}`;
+    const path = `https://group-e-commerce.herokuapp.com/api/products${category ? `?category=${category}` : ''}`;
     const { data } = await axios.get(path);
     setProducts(data.data.products);
   }
