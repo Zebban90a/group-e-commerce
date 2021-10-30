@@ -16,8 +16,12 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 const passport = require('./config/passport');
 const session = require('./config/session');
 
+console.log('change cors 12:25');
 // App Use
-app.use(cors({ origin: process.env.CLIENT }));
+app.use(cors({
+  origin: process.env.CLIENT,
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
 app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
