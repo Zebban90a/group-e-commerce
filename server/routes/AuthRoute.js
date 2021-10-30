@@ -41,6 +41,7 @@ router.get('/google/callback',
   }));
 
 router.get('/logout', (req, res) => {
+  console.log('logout')
   req.session.destroy(null);
   res.redirect('https://group-e-commerce-client.herokuapp.com/login');
 });
