@@ -25,6 +25,7 @@ app.use(passport.session());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Routes
+console.log('app.js')
 app.use('/api/users', UserRoute);
 app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);

@@ -37,7 +37,7 @@ const {
 const {
   isAdmin,
 } = require('../middleware/authentication');
-
+console.log('ProductRoute')
 const router = express.Router();
 router
   .route('/')
