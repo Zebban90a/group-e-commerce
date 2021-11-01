@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Orders from '../components/Orders';
+axios.defaults.withCredentials = true;
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
