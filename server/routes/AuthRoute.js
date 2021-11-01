@@ -4,16 +4,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/isloggedin', ((req, res) => {
-  console.log('isloggedin')
-  console.log("sessionStore.session")
-  console.log(req.sessionStore.session)
-  console.log('sessionID')
-  console.log(req.sessionID)
-  console.log('session')
-  console.log(req.session)
-  console.log('req.user')
-  console.log(req.user)
-  
+  console.log('isloggedin, req')
+  console.log(req)
+
   if (req.user) {
     res.send(true);
     res.end();
