@@ -14,7 +14,7 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 
 // Config
 const passport = require('./config/passport');
-const session = require('./config/session');
+//const session = require('./config/session');
 
 // App Use
 app.use(cors({
@@ -32,7 +32,15 @@ app.use((req, res, next) => {
   next();
 }); */
 
-app.use(session);
+//app.use(session);
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      maxAge: 1000 * 30
+  }
+}));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());

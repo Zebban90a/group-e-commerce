@@ -1,7 +1,6 @@
 const Product = require('../models/ProductModel');
 
 exports.getProducts = async (req, res) => {
-  console.log('getProducts');
   try {
     let products = '';
     const { category, search } = req.query;
@@ -11,10 +10,7 @@ exports.getProducts = async (req, res) => {
     } else if (search) {
       products = await Product.find({ title: { $regex: search, $options: 'i' } });
     } else {
-      console.log('Product.find({})');
       products = await Product.find({});
-      console.log('products below');
-      console.log(products);
     }
     res.status(200).json({
       status: 'success',
