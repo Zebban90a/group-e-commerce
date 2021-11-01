@@ -45,10 +45,8 @@ export default function App() {
 
   useEffect(() => {
     const localStorageCart = JSON.parse(localStorage.getItem('cart'));
-    console.log('localStorageCart', localStorageCart);
+    
     if (cart.length !== 0) {
-      console.log('JSON.stringify(cart)', JSON.stringify(cart));
-      console.log(`localStorage.setItem('cart', JSON.stringify(cart));`);
       localStorage.setItem('cart', JSON.stringify(cart));
     } else if (localStorageCart && localStorageCart.length) {
       setCart(localStorageCart);
