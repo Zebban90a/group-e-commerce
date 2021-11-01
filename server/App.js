@@ -18,7 +18,7 @@ const session = require('./config/session');
 
 // App Use
 app.use(cors({
-  //origin: '',
+  origin: false,
   //origin: [process.env.CLIENT, 'https://group-e-commerce.herokuapp.com/auth/google'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
