@@ -4,10 +4,14 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/UserModel');
 
 passport.serializeUser((user, cb) => {
+  console.log('serialize - incoming user')
+  console.log(user)
   cb(null, user);
 });
 
 passport.deserializeUser(async (user, cb) => {
+  console.log('deserialize - incoming user')
+  console.log(user)
   const existingUser = await User.findOne({
     googleId: user.id,
   });
