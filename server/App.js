@@ -15,6 +15,7 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 // Config
 const passport = require('./config/passport');
 //const session = require('./config/session');
+const session = require('express-session');
 
 // App Use
 app.use(cors({
