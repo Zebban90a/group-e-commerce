@@ -6,7 +6,10 @@ module.exports = session({
   resave: false,
   saveUninitialized: false,
   path: '/',
-  /* httpOnly: true, */
-  /* secure: false, */
   maxAge: null,
+  cookie: {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  }
 });
