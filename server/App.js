@@ -18,21 +18,19 @@ const session = require('./config/session');
 
 // App Use
 app.use(cors({
-  origin: false,
-  //origin: [process.env.CLIENT, 'https://group-e-commerce.herokuapp.com/auth/google'],
+  origin: process.env.CLIENT,
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
-  // preflightContinue: true,
 }));
-
+/* 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
-  /* res.setHeader(
+   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Authorization"
-); */
+); 
   next();
-});
+}); */
 
 app.use(session);
 app.use(express.json());
