@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 
-async function handleOnClick(e) {
+async function handleLogin(e) {
   e.preventDefault();
   const path = 'https://group-e-commerce.herokuapp.com/auth/google';
   const res = await axios.get(path);
@@ -14,7 +14,7 @@ export default function LoginPage() {
   return (
     <div>
       <h1>login page</h1>
-      <form action={handleOnClick}>
+      <form onSubmit={handleLogin}>
         <button type="submit" className="google-button">
           <span className="google-button__icon">
             <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
