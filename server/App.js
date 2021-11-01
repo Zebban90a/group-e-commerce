@@ -24,8 +24,7 @@ app.use(cors({
 }));
 
 
-// didnt help?
-app.set('trust proxy', 1) // trust first proxy
+app.enable('trust proxy');
 
 app.use(session);
 app.use(express.json());

@@ -17,6 +17,7 @@ module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  proxy : true,
   cookie: {
       maxAge: 1000 * 30
   }
