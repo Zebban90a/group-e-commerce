@@ -5,8 +5,15 @@ const router = express.Router();
 
 router.get('/isloggedin', ((req, res) => {
   console.log('isloggedin')
-  console.log(req)
+  console.log("sessionStore.session")
+  console.log(req.sessionStore.session)
+  console.log('sessionID')
+  console.log(req.sessionID)
+  console.log('session')
+  console.log(req.session)
+  console.log('req.user')
   console.log(req.user)
+  
   if (req.user) {
     res.send(true);
     res.end();
