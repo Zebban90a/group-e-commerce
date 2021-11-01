@@ -3,11 +3,10 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 
-function handleOnClick(e) {
+async function handleOnClick(e) {
   e.preventDefault();
   const path = 'https://group-e-commerce.herokuapp.com/auth/google';
-  const res = axios.get(path);
-
+  const res = await axios.get(path);
   console.log(res);
 }
 
