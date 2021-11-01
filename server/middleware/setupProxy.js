@@ -1,4 +1,4 @@
-/* const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = (app) => {
   app.use(
@@ -16,4 +16,3 @@ module.exports = (app) => {
     }),
   );
 };
- */
