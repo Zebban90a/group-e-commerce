@@ -4,22 +4,18 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/UserModel');
 
 passport.serializeUser((user, cb) => {
-  console.log('serialize - incoming user')
-  console.log(user)
   cb(null, user);
 });
 
 passport.deserializeUser(async (user, cb) => {
-  console.log('deserialize - incoming user')
-  console.log(user)
   const existingUser = await User.findOne({
     googleId: user.id,
   });
 
   if (existingUser) {
-    return cb(false, existingUser);
+    cb(false, existingUser);
   }
-  return cb(null, user);
+  cb(null, user);
 });
 
 passport.use(new GoogleStrategy({
@@ -35,7 +31,7 @@ passport.use(new GoogleStrategy({
     });
 
     if (existingUser) {
-      return done(false, existingUser);
+      done(false, existingUser);
     }
     const fullName = Object.values(profile.name).join(' ');
     const newUser = await User.create({
@@ -43,9 +39,9 @@ passport.use(new GoogleStrategy({
       googleId: profile.id,
       email: profile.email,
     });
-    return done(false, newUser);
+    done(false, newUser);
   } catch (error) {
-    return done(error, null);
+    done(error, null);
   }
 })));
 

@@ -14,8 +14,7 @@ const CheckoutRoute = require('./routes/CheckoutRoute');
 
 // Config
 const passport = require('./config/passport');
-//const session = require('./config/session');
-const session = require('express-session');
+const session = require('./config/session');
 
 // App Use
 app.use(cors({
@@ -23,40 +22,18 @@ app.use(cors({
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
 }));
-/* 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
-   res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Authorization"
-); 
-  next();
-}); */
 
-//app.use(session);
+
+// didnt help?
 app.set('trust proxy', 1) // trust first proxy
-/* app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-})) */
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-      maxAge: 1000 * 30
-  }
-}));
+app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Routes
-console.log('app.js')
 app.use('/api/users', UserRoute);
 app.use('/api/orders', OrderRoute);
 app.use('/api/products', ProductRoute);

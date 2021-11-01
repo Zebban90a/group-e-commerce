@@ -1,7 +1,7 @@
 const session = require('express-session');
 require('dotenv').config();
 
-module.exports = session({
+/* module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -11,5 +11,13 @@ module.exports = session({
     httpOnly: true,
     sameSite: 'none',
     secure: true,
+  }
+}); */
+module.exports = session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      maxAge: 1000 * 30
   }
 });
