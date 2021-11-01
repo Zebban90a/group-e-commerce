@@ -1,7 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-import axios from 'axios';
 
 function handleOnClick(e) {
   e.preventDefault();
