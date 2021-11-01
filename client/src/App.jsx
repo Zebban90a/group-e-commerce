@@ -20,13 +20,17 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const checkIsLoggedIn = async () => {
-    const { data } = await axios.get('/auth/isloggedin');
-    setIsLoggedIn(data);
+    const { data } = await axios.get('https://group-e-commerce.herokuapp.com/auth/isloggedin');
+    if (data === true) {
+      setIsLoggedIn(true);
+    }
   };
 
   const checkIsAdmin = async () => {
-    const { data } = await axios.get('/auth/isadmin');
-    setIsAdmin(data);
+    const { data } = await axios.get('https://group-e-commerce.herokuapp.com/auth/isadmin');
+    if (data === true) {
+      setIsAdmin(true);
+    }
   };
 
   useEffect(() => {
