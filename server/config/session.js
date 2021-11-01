@@ -16,7 +16,7 @@ require('dotenv').config();
 module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
       maxAge: 1000 * 30
   }

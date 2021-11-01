@@ -4,7 +4,7 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/UserModel');
 
 passport.serializeUser((user, cb) => {
-  cb(null, user);
+  return cb(null, user);
 });
 
 passport.deserializeUser(async (user, cb) => {
@@ -13,9 +13,9 @@ passport.deserializeUser(async (user, cb) => {
   });
 
   if (existingUser) {
-    cb(false, existingUser);
+    return cb(false, existingUser);
   }
-  cb(null, user);
+  return cb(null, user);
 });
 
 passport.use(new GoogleStrategy({
@@ -31,7 +31,7 @@ passport.use(new GoogleStrategy({
     });
 
     if (existingUser) {
-      done(false, existingUser);
+      return done(false, existingUser);
     }
     const fullName = Object.values(profile.name).join(' ');
     const newUser = await User.create({
@@ -39,9 +39,9 @@ passport.use(new GoogleStrategy({
       googleId: profile.id,
       email: profile.email,
     });
-    done(false, newUser);
+    return done(false, newUser);
   } catch (error) {
-    done(error, null);
+    return done(error, null);
   }
 })));
 
