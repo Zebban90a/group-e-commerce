@@ -12,11 +12,11 @@ const multerUploads = multer({
   },
   fileFilter(_req, file, cb) {
     if (!file.originalname.match(/\.(png|jpg)$/)) {
-      return cb(new Error('Please upload a Image'));
+      return cb(new Error('Please upload an image'));
     }
     return cb(undefined, true);
   },
-}).single('image');
+}).single('images');
 
 // DataURI
 const parser = new DatauriParser();
