@@ -7,7 +7,7 @@ module.exports = session({
   saveUninitialized: false,
   //proxy : true,
   cookie: {
-    sameSite: none,
+    sameSite: 'none',
     httpOnly: true,
     secure : true,
     expires: Date.now()+ 86400*1000,
