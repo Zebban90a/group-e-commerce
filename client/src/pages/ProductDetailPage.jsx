@@ -81,7 +81,7 @@ export default function ProductDetailPage({ match }) {
               <ImageContainer>
                 <Image
                   alt={product.title}
-                  src={`../${product.images[0]}` || noImage}
+                  src={`https://group-e-commerce.herokuapp.com/${product.images[0]}` || noImage}
                   onError={(e) => { e.target.src = noImage; }}
                 />
               </ImageContainer>
