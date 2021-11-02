@@ -27,7 +27,7 @@ exports.getProducts = async (req, res) => {
 };
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
-  console.log(imagePath)
+  console.log(req.file)
   const formInputData = JSON.parse(req.body.input);
   try {
     const productExists = await Product.exists({
