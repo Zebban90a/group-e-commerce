@@ -1,8 +1,9 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
+const multerUploads = require('../middleware/multer');
+// const multer = require('multer');
+// const path = require('path');
 
-const imageStorage = multer.diskStorage({
+/* const imageStorage = multer.diskStorage({
   // Destination to store image
   destination: 'images',
   filename: (_req, file, cb) => {
@@ -24,7 +25,7 @@ const imageUpload = multer({
     }
     return cb(undefined, true);
   },
-}).single('image');
+}).single('image'); */
 
 const {
   createProduct,
@@ -42,12 +43,18 @@ const router = express.Router();
 router
   .route('/')
   .get(getProducts)
-  .post(isAdmin, imageUpload, createProduct);
+  .post(isAdmin, /* imageUpload,  */ createProduct);
 
 router
-  .route('/:id')
+  .route('/cloudinarytest')
+  .post(multerUploads, (req, res) => {
+    console.log('req.file: ', req.file);
+  });
+
+router
+  .route('/TABORT/:id')
   .get(getSingleProduct)
-  .patch(isAdmin, imageUpload, updateProduct)
+  .patch(isAdmin, /* imageUpload,  */ updateProduct)
   .delete(isAdmin, deleteProduct);
 
 module.exports = router;
