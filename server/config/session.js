@@ -8,7 +8,6 @@ module.exports = session({
   proxy : true,
   cookie: {
     httpOnly: false,
-    secure : true,
-    maxAge: 1000 * 30,
+    secure : true
   }
 });
