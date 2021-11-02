@@ -7,7 +7,8 @@ module.exports = session({
   saveUninitialized: false,
   proxy : true,
   cookie: {
-    httpOnly: false,
-    secure : true
+    httpOnly: true,
+    secure : true,
+    expires: Date.now()+ 86400*1000,
   }
 });
