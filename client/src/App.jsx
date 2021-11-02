@@ -23,7 +23,6 @@ export default function App() {
 
   const checkIsLoggedIn = async () => {
     const { data } = await axios.get('https://group-e-commerce.herokuapp.com/auth/isloggedin');
-    console.log('data isloggedin', data);
     if (data === true) {
       setIsLoggedIn(true);
     }
@@ -31,14 +30,12 @@ export default function App() {
 
   const checkIsAdmin = async () => {
     const { data } = await axios.get('https://group-e-commerce.herokuapp.com/auth/isadmin');
-    console.log('data isAdmin', data);
     if (data === true) {
       setIsAdmin(true);
     }
   };
 
   useEffect(() => {
-    console.log('checkIsLoggedIn, checkIsAdmin');
     checkIsLoggedIn();
     checkIsAdmin();
   }, []);

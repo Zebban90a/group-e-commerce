@@ -4,9 +4,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/isloggedin', ((req, res) => {
-  console.log('isloggedin, req')
-  console.log(req)
-
   if (req.user) {
     res.send(true);
     res.end();
@@ -36,11 +33,6 @@ router.get('/google',
 router.get('/google/failure', (req, res) => {
   res.redirect('https://group-e-commerce-client.herokuapp.com/login');
 });
-
-router.get('/google/success', (req, res) => {
-  //console.log(req)
-  console.log('success')
-})
 
 router.get('/google/callback',
   passport.authenticate('google', {

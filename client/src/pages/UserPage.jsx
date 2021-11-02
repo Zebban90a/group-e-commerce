@@ -11,7 +11,7 @@ export default function UserPage() {
   const [editUserData, setEditUserData] = useState(false);
 
   async function getUser() {
-    const path = 'api/users';
+    const path = 'https://group-e-commerce.herokuapp.com/api/users';
     const { data } = await axios.get(path);
     const userData = data.data.user;
 

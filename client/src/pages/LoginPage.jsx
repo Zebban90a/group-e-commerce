@@ -2,14 +2,6 @@ import React from 'react';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-/* 
-async function handleLogin(e) {
-  e.preventDefault();
-  const path = 'https://group-e-commerce.herokuapp.com/auth/google';
-  const res = await axios.get(path);
-  console.log(res);
-} */
-
 export default function LoginPage() {
   return (
     <div>
