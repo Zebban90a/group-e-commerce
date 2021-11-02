@@ -36,7 +36,7 @@ export default function AdminProductsPage() {
   }
 
   const deleteProduct = async (id) => {
-    const res = await axios.delete(`../api/products/${id}`);
+    const res = await axios.delete(`https://group-e-commerce.herokuapp.com/api/products/${id}`);
     if (res && res.status === 200) {
       getProducts();
     }
