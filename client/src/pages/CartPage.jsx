@@ -16,10 +16,16 @@ export default function CartPage() {
 
   async function getProductList() {
     const output = [];
+    console.log('cart 19');
+    console.log(cart);
 
     for (const item of cart) {
+      console.log('item');
+      console.log(item);
       // eslint-disable-next-line no-await-in-loop
       const data = await getProduct(item.id);
+      console.log('data');
+      console.log(data);
       data.qtyInCart = item.quantity;
       output.push(data);
     }
@@ -92,6 +98,8 @@ export default function CartPage() {
   }
 
   useEffect(() => {
+    console.log('cart 101');
+    console.log(cart);
     if (cart.length > 0) {
       getProductList();
     }
