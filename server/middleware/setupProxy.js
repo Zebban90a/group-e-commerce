@@ -5,14 +5,14 @@ module.exports = (app) => {
     '/auth',
     createProxyMiddleware({
       target: 'https://group-e-commerce-client.herokuapp.com',
-      changeOrigin: false,
+      changeOrigin: true,
     }),
   );
   app.use(
     '/api',
     createProxyMiddleware({
       target: 'https://group-e-commerce-client.herokuapp.com',
-      changeOrigin: false,
+      changeOrigin: true,
     }),
   );
 };
