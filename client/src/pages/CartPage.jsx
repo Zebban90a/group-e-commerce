@@ -92,7 +92,7 @@ export default function CartPage() {
   }
 
   useEffect(() => {
-    if (cart.length < 1) {
+    if (cart.length > 0) {
       getProductList();
     }
   }, [cart]);
