@@ -5,7 +5,7 @@ module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  //proxy : true,
+  proxy : true,
   cookie: {
     domain: 'https://group-e-commerce.herokuapp.com',
     sameSite: 'none',
