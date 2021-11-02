@@ -2,11 +2,11 @@
 
 ## Participants
 
-Kweku Moses
-Dino Pacariz
-Antonio Axelsson
-Harald Norlin
-Sebastian Örbom
+1. Kweku Moses
+2. Dino Pacariz
+3. Antonio Axelsson
+4. Harald Norlin
+5. Sebastian Örbom
 
 ### Link to client
 https://group-e-commerce-client.herokuapp.com/
