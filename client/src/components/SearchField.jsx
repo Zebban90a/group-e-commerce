@@ -70,7 +70,7 @@ export default function SearchField() {
       // eslint-disable-next-line react/jsx-no-bind
       <StyledListItem key={_id} onClick={clearSearch}>
         <Link to={`/products/${_id}`}>
-          <img src={`/${images[0]}`} alt={title} />
+          <img src={`https://group-e-commerce.herokuapp.com/${images[0]}`} alt={title} />
           <p>{title}</p>
         </Link>
       </StyledListItem>
