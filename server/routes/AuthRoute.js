@@ -39,8 +39,8 @@ router.get('/google/failure', (req, res) => {
 
 router.get('/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'https://group-e-commerce-client.herokuapp.com',
-    failureRedirect: 'https://group-e-commerce-client.herokuapp.com/auth/google/failure',
+    successRedirect: '/',
+    failureRedirect: 'auth/google/failure',
   }));
 
 router.get('/logout', (req, res) => {
