@@ -27,6 +27,7 @@ exports.getProducts = async (req, res) => {
 };
 exports.createProduct = async (req, res) => {
   const imagePath = req.file.path;
+  console.log(imagePath)
   const formInputData = JSON.parse(req.body.input);
   try {
     const productExists = await Product.exists({
@@ -35,7 +36,7 @@ exports.createProduct = async (req, res) => {
     if (productExists) {
       throw Error('productExists');
     } else {
-      const deployedData = formInputData; // TODO Is there a cleaner way?
+      const deployedData = formInputData;
       deployedData.images = imagePath;
       const newProduct = await Product.create(deployedData);
       res.status(201).json({
@@ -55,9 +56,9 @@ exports.createProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   const formInputData = JSON.parse(req.body.input);
-  const deployedData = formInputData; // TODO Is there a cleaner way?
+  const deployedData = formInputData;
   if (deployedData.images && req.file.path) {
-    const imagePath = req.file.path; // REVIEW do images pass even if update is rejected?
+    const imagePath = req.file.path;
     deployedData.images = imagePath;
   }
 
