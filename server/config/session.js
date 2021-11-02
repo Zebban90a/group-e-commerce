@@ -5,8 +5,9 @@ module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  proxy : true,
+  //proxy : true,
   cookie: {
+    sameSite: none,
     httpOnly: true,
     secure : true,
     expires: Date.now()+ 86400*1000,
