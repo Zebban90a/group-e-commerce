@@ -1,7 +1,7 @@
 const express = require('express');
-const cloudinary = require('cloudinary');
+// const cloudinary = require('cloudinary');
 const { multerUploads, dataUri } = require('../middleware/multer');
-const cloudinaryConfig = require('../config/cloudinary');
+const uploadToCloudinary = require('../config/cloudinary');
 // const multer = require('multer');
 // const path = require('path');
 
@@ -40,6 +40,7 @@ const {
 const {
   isAdmin,
 } = require('../middleware/authentication');
+const Product = require('../models/ProductModel');
 
 const router = express.Router();
 router
@@ -48,26 +49,54 @@ router
   .post(isAdmin, /* imageUpload,  */ createProduct);
 
 router
-  .use(cloudinaryConfig)
   .route('/cloudinarytest')
-  .post(multerUploads, (req, res) => {
-    if (req.file) {
+  .post(multerUploads, async (req, res) => {
+    try {
       const file = dataUri(req).content;
-      return cloudinary.uploader.upload(file).then((result) => {
-        const image = result.url;
-        return res.status(200).json({
-          messge: 'Your image has been uploded successfully to cloudinary',
-          data: { image },
+      console.log('req.body', req.body);
+      console.log('req.body.title', req.body.title);
+      const imageData = await uploadToCloudinary(file, 'images');
+      console.log(imageData);
+      const formInputData = req.body;
+      const productExists = await Product.exists({
+        title: formInputData.title,
+      });
+      if (productExists) {
+        throw Error('Product already exists');
+      } else {
+        const deployedData = formInputData;
+        deployedData.images = imageData.url;
+        const newProduct = await Product.create(deployedData);
+        res.status(201).json({
+          status: 'success',
+          data: {
+            newProduct,
+          },
         });
-      }).catch((err) => res.status(400).json({
-        messge: 'someting went wrong while processing your request',
-        data: { err },
-      }));
+      }
+    } catch (error) {
+      res.status(400).json({
+        status: 'fail',
+        message: error.message,
+      });
     }
   });
+/* if (req.file) {
+    const file = dataUri(req).content;
+    return cloudinary.uploader.upload(file).then((result) => {
+      const image = result.url;
+      return res.status(200).json({
+        messge: 'Your image has been uploded successfully to cloudinary',
+        data: { image },
+      });
+    }).catch((err) => res.status(400).json({
+      messge: 'someting went wrong while processing your request',
+      data: { err },
+    }));
+  } */
 
 router
-  .route('/TABORT/:id')
+  .route('/TABORT/:id') // FIXME change path to just '/:id' when testing is done.
   .get(getSingleProduct)
   .patch(isAdmin, /* imageUpload,  */ updateProduct)
   .delete(isAdmin, deleteProduct);
