@@ -38,7 +38,7 @@ router.get('/google/failure', (req, res) => {
 });
 
 router.get('/google/success', (req, res) => {
-  console.log(req)
+  //console.log(req)
   console.log('success')
 })
 
