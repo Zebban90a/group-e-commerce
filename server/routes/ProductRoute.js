@@ -1,5 +1,7 @@
 const express = require('express');
-const multerUploads = require('../middleware/multer');
+const cloudinary = require('cloudinary');
+const { multerUploads, dataUri } = require('../middleware/multer');
+const cloudinaryConfig = require('../config/cloudinary');
 // const multer = require('multer');
 // const path = require('path');
 
@@ -46,9 +48,22 @@ router
   .post(isAdmin, /* imageUpload,  */ createProduct);
 
 router
+  .use(cloudinaryConfig)
   .route('/cloudinarytest')
   .post(multerUploads, (req, res) => {
-    console.log('req.file: ', req.file);
+    if (req.file) {
+      const file = dataUri(req).content;
+      return cloudinary.uploader.upload(file).then((result) => {
+        const image = result.url;
+        return res.status(200).json({
+          messge: 'Your image has been uploded successfully to cloudinary',
+          data: { image },
+        });
+      }).catch((err) => res.status(400).json({
+        messge: 'someting went wrong while processing your request',
+        data: { err },
+      }));
+    }
   });
 
 router
