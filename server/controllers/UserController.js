@@ -40,23 +40,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Not implemented - for future use
-exports.deleteUser = async (req, res) => {
-  const { _id } = req.user;
-  try {
-    await User.findByIdAndDelete(_id);
-    res.status(200).json({
-      status: 'success',
-      data: null,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
-
 exports.findUser = async (req, res) => {
   const { _id } = req.user;
   try {

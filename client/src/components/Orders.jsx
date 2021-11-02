@@ -17,7 +17,6 @@ export default function Orders({ orders, admin }) {
     }
   }, [orders]);
 
-  // const sortedOrders = orders.sort((a, b) => a.getTime() - b.getTime());
   return (
     <Container>
       {/* eslint-disable-next-line no-underscore-dangle */}

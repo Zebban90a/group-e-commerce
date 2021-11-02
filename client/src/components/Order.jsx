@@ -57,7 +57,6 @@ export default function Order({ order, admin }) {
       <Container>
         <strong>Products</strong>
         {order.cart.map((cartItem) => (
-          /* TODO Add unique id per product object in orders.product array */
           <OrderProductDetails key={cartItem._id} cartItem={cartItem} />
         ))}
       </Container>
