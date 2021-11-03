@@ -1,14 +1,28 @@
 const Product = require('../models/ProductModel');
+const {
+  dataUri,
+} = require('../middleware/multer');
+const uploadToCloudinary = require('../config/cloudinary');
 
 exports.getProducts = async (req, res) => {
   try {
     let products = '';
-    const { category, search } = req.query;
-    
+    const {
+      category,
+      search,
+    } = req.query;
+
     if (category) {
-      products = await Product.find({ category });
+      products = await Product.find({
+        category,
+      });
     } else if (search) {
-      products = await Product.find({ title: { $regex: search, $options: 'i' } });
+      products = await Product.find({
+        title: {
+          $regex: search,
+          $options: 'i',
+        },
+      });
     } else {
       products = await Product.find({});
     }
@@ -26,8 +40,38 @@ exports.getProducts = async (req, res) => {
   }
 };
 exports.createProduct = async (req, res) => {
-  const imagePath = req.file.path;
-  
+  try {
+    const file = dataUri(req).content;
+    console.log('req.body', req.body);
+    console.log('req.body.title', req.body.title);
+    const imageData = await uploadToCloudinary(file, 'images');
+    console.log(imageData);
+    const formInputData = JSON.parse(req.body.input); // NOTE might have to use JSON.parse()
+    const productExists = await Product.exists({
+      title: formInputData.title,
+    });
+    if (productExists) {
+      throw Error('Product already exists');
+    } else {
+      const deployedData = formInputData;
+      deployedData.images = imageData.url;
+      const newProduct = await Product.create(deployedData);
+      res.status(201).json({
+        status: 'success',
+        data: {
+          newProduct,
+        },
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
+
+/* const imagePath = req.file.path;
   const formInputData = JSON.parse(req.body.input);
   try {
     const productExists = await Product.exists({
@@ -52,9 +96,12 @@ exports.createProduct = async (req, res) => {
       message: err.message,
     });
   }
-};
+}; */
+
 exports.updateProduct = async (req, res) => {
-  const { id } = req.params;
+  const {
+    id,
+  } = req.params;
   const formInputData = JSON.parse(req.body.input);
   const deployedData = formInputData;
   if (deployedData.images && req.file.path) {
@@ -81,7 +128,9 @@ exports.updateProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
-  const { id } = req.params;
+  const {
+    id,
+  } = req.params;
   try {
     await Product.findByIdAndDelete(id);
     res.status(200).json({
@@ -97,7 +146,9 @@ exports.deleteProduct = async (req, res) => {
 };
 
 exports.getSingleProduct = async (req, res) => {
-  const { id } = req.params;
+  const {
+    id,
+  } = req.params;
   try {
     const product = await Product.findById(id);
     res.status(200).json({
