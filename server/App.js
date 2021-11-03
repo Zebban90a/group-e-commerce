@@ -27,7 +27,12 @@ app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.use((err, req, res, next) => {
+  console.log('This is the invalid field ->', err.field);
+  next(err);
+});
 
 // Routes
 app.use('/api/users', UserRoute);
