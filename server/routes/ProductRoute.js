@@ -16,8 +16,7 @@ const router = express.Router();
 router
   .route('/')
   .get(getProducts)
-  // TODO re-enable multerUploads
-  .post(/* isAdmin, */ multerUploads, createProduct);
+  .post(isAdmin, multerUploads, createProduct);
 
 router
   .route('/:id')
