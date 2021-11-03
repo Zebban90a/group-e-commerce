@@ -10,16 +10,19 @@ const multerUploads = multer({
   limits: {
     fileSize: 1000000,
   },
-}).single('images');
+  fileFilter(_req, file, cb) {
+    if (!file.originalname.match(/\.(png|jpg)$/)) {
+      return cb(new Error('Please upload an image'));
+    }
+    return cb(undefined, true);
+  },
+}).single('image');
 
 // DataURI
 const parser = new DatauriParser();
 
 // pass the request object and format the buffer and return a string blob.
 // eslint-disable-next-line max-len
-const dataUri = (req) => {
-  console.log('logging from dataUri: ', req.file.originalname);
-  return parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
-};
+const dataUri = (req) => parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 
 module.exports = { multerUploads, dataUri };
