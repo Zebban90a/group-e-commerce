@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import DynamicForm from '../components/DynamicForm';
 import UserContext from '../contexts/UserContext';
 import { productForm } from '../data/formFormats';
@@ -9,6 +9,7 @@ export default function AdminProductEditPage() {
   const { id } = useParams();
   const [formData, setFormData] = useState({});
   const [formImage, setFormImage] = useState('');
+  const history = useHistory();
 
   async function getProduct() {
     const path = `https://group-e-commerce.herokuapp.com/api/products/${id}`;
@@ -42,7 +43,10 @@ export default function AdminProductEditPage() {
         'Content-Type': 'multipart/form-data',
       },
     };
-    await axios.patch(path, formDataDeployment, config);
+    const res = await axios.patch(path, formDataDeployment, config);
+    if (res.status === 200) {
+      history.push('/admin/products');
+    }
   }
 
   return (
