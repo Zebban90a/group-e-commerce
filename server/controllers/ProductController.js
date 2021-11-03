@@ -39,14 +39,12 @@ exports.getProducts = async (req, res) => {
     });
   }
 };
+
 exports.createProduct = async (req, res) => {
   try {
     const file = dataUri(req).content;
-    console.log('req.body', req.body);
-    console.log('req.body.title', req.body.title);
     const imageData = await uploadToCloudinary(file, 'images');
-    console.log(imageData);
-    const formInputData = JSON.parse(req.body.input); // NOTE might have to use JSON.parse()
+    const formInputData = JSON.parse(req.body.input);
     const productExists = await Product.exists({
       title: formInputData.title,
     });
@@ -70,33 +68,6 @@ exports.createProduct = async (req, res) => {
     });
   }
 };
-
-/* const imagePath = req.file.path;
-  const formInputData = JSON.parse(req.body.input);
-  try {
-    const productExists = await Product.exists({
-      title: formInputData.title,
-    });
-    if (productExists) {
-      throw Error('productExists');
-    } else {
-      const deployedData = formInputData;
-      deployedData.images = imagePath;
-      const newProduct = await Product.create(deployedData);
-      res.status(201).json({
-        status: 'success',
-        data: {
-          newProduct,
-        },
-      });
-    }
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: err.message,
-    });
-  }
-}; */
 
 exports.updateProduct = async (req, res) => {
   const {
