@@ -44,9 +44,8 @@ export default function AdminProductEditPage() {
       },
     };
     const res = await axios.patch(path, formDataDeployment, config);
-    console.log(res);
+    
     if (res.status === 200) {
-      console.log('status 200');
       history.push('/admin/products');
     }
   }
