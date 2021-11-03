@@ -21,8 +21,7 @@ router
 router
   .route('/:id')
   .get(getSingleProduct)
-  // TODO update updateProducts to implement new image functionality
-  .patch(isAdmin, /* multerUploads,  */ updateProduct)
+  .patch(isAdmin, multerUploads,  updateProduct)
   .delete(isAdmin, deleteProduct);
 
 module.exports = router;

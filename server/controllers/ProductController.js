@@ -41,14 +41,11 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
-  console.log(req);
   const formInputData = JSON.parse(req.body.input);
   const file = dataUri(req).content;
-  console.log('file below')
-  console.log(file)
+
   try {
     const imageData = await uploadToCloudinary(file, 'images');
-    console.log(imageData);
     const productExists = await Product.exists({
       title: formInputData.title,
     });
@@ -74,17 +71,16 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-  const {
-    id,
-  } = req.params;
+  const { id } = req.params;
   const formInputData = JSON.parse(req.body.input);
   const deployedData = formInputData;
-  if (deployedData.images && req.file.path) {
-    const imagePath = req.file.path;
-    deployedData.images = imagePath;
-  }
-
+  
   try {
+    if (req.file) {
+      const file = dataUri(req).content;
+      const imageData = await uploadToCloudinary(file, 'images');
+      deployedData.images = imageData.url;
+    }
     const product = await Product.findByIdAndUpdate(id, deployedData, {
       new: true,
     });
@@ -103,9 +99,7 @@ exports.updateProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
-  const {
-    id,
-  } = req.params;
+  const { id } = req.params;
   try {
     await Product.findByIdAndDelete(id);
     res.status(200).json({
@@ -121,9 +115,7 @@ exports.deleteProduct = async (req, res) => {
 };
 
 exports.getSingleProduct = async (req, res) => {
-  const {
-    id,
-  } = req.params;
+  const { id } = req.params;
   try {
     const product = await Product.findById(id);
     res.status(200).json({
