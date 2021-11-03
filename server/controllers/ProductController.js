@@ -45,6 +45,7 @@ exports.createProduct = async (req, res) => {
   const file = dataUri(req).content;
   try {
     const imageData = await uploadToCloudinary(file, 'images');
+    console.log(imageData);
     const productExists = await Product.exists({
       title: formInputData.title,
     });
