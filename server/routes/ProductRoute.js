@@ -19,7 +19,7 @@ router
   .route('/')
   .get(getProducts)
   // TODO re-enable multerUploads
-  .post(isAdmin, /* multerUploads,  */ createProduct);
+  .post(/* isAdmin, */ multerUploads, createProduct);
 
 router
   .route('/cloudinarytest')
@@ -31,7 +31,7 @@ router
       console.log('req.body.title', req.body.title);
       const imageData = await uploadToCloudinary(file, 'images');
       console.log(imageData);
-      const formInputData = req.body;
+      const formInputData = req.body; // NOTE might have to use JSON.parse()
       const productExists = await Product.exists({
         title: formInputData.title,
       });
