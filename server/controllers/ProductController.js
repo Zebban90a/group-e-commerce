@@ -42,6 +42,7 @@ exports.getProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   const formInputData = JSON.parse(req.body.input);
+  console.log(formInputData);
   const file = dataUri(req).content;
   try {
     const imageData = await uploadToCloudinary(file, 'images');
