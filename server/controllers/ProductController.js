@@ -41,10 +41,10 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
+  const formInputData = JSON.parse(req.body.input);
+  const file = dataUri(req).content;
   try {
-    const file = dataUri(req).content;
     const imageData = await uploadToCloudinary(file, 'images');
-    const formInputData = JSON.parse(req.body.input);
     const productExists = await Product.exists({
       title: formInputData.title,
     });
