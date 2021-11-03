@@ -16,7 +16,7 @@ const uploadToCloudinary = (path, folder) => cloudinary.uploader.upload(path, {
     public_id: data.public_id,
   }))
   .catch((error) => {
-    console.error(error);
+    console.error('Cloudinary error: ', error);
   });
 
 module.exports = uploadToCloudinary;
