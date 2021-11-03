@@ -22,6 +22,7 @@ export default function AdminProductsPage() {
     const deployForm = new FormData();
     deployForm.append('input', JSON.stringify(formData));
     deployForm.append('image', formImage.file);
+    
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',

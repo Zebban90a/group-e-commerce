@@ -3,9 +3,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/UserModel');
 
-passport.serializeUser((user, cb) => {
-  return cb(null, user);
-});
+passport.serializeUser((user, cb) => cb(null, user));
 
 passport.deserializeUser(async (user, cb) => {
   const existingUser = await User.findOne({

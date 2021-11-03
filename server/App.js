@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 
@@ -18,7 +17,7 @@ const session = require('./config/session');
 
 // App Use
 app.use(cors({
-  origin: process.env.CLIENT,
+  origin: [process.env.CLIENT, process.env.CLOUDINARY_URL, 'https://res.cloudinary.com'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
 }));
@@ -27,7 +26,6 @@ app.use(session);
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Routes
 app.use('/api/users', UserRoute);

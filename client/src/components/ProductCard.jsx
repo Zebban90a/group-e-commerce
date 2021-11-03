@@ -75,7 +75,7 @@ export default function ProductCard({ product }) {
         <div>
           <img
             className="display-img"
-            src={`https://group-e-commerce.herokuapp.com/${images[0]}` || noImage}
+            src={images[0] || noImage}
             onError={(e) => { e.target.src = noImage; }}
             alt={images[0] ? 'product image' : 'no available product image'}
           />
