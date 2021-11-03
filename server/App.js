@@ -18,7 +18,7 @@ const session = require('./config/session');
 
 // App Use
 app.use(cors({
-  origin: process.env.CLIENT,
+  origin: [process.env.CLIENT, process.env.CLOUDINARY_URL, 'https://res.cloudinary.com'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   credentials: true,
 }));
